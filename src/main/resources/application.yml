@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+langchain4j:
+  open-ai:
+    api-key: ${OPENAI_API_KEY:your-openai-api-key}
+    base-url: ${OPENAI_BASE_URL:https://api.openai.com/v1}
+    chat-model:
+      model-name: ${OPENAI_MODEL_NAME:gpt-4o-mini}
+      log-requests: true
+      log-responses: true
+
+# 便于观察 LangChain4j 的 DEBUG 日志（含请求/响应体）
+logging:
+  level:
+    dev.langchain4j: DEBUG
