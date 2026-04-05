@@ -1,2 +1,1 @@
-com\jobagent\JobAgentApplication$PingController.class
-com\jobagent\JobAgentApplication.class
+com/jobagent/service/MatchEvaluatorService.class
