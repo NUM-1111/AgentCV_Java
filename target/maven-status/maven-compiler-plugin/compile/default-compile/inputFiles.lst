@@ -1,6 +1,9 @@
 /root/java/AgentCV_Java/src/main/java/com/jobagent/service/JdAnalyzeService.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/model/MatchReport.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/service/MatchEvaluatorService.java
+/root/java/AgentCV_Java/src/main/java/com/jobagent/service/ResumeRewriteService.java
+/root/java/AgentCV_Java/src/main/java/com/jobagent/model/RewriteReport.java
+/root/java/AgentCV_Java/src/main/java/com/jobagent/controller/ResumeController.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/controller/MatchController.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/controller/JdController.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/JobAgentApplication.java
