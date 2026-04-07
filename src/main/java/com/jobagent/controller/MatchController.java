@@ -1,7 +1,7 @@
 package com.jobagent.controller;
 
 import com.jobagent.model.MatchReport;
-import com.jobagent.service.MatchEvaluatorService;
+import com.jobagent.service.MatchEvaluationFacadeService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +13,10 @@ public class MatchController {
 
     public record MatchRequest(String jdText, String resumeText) {}
 
-    private final MatchEvaluatorService matchEvaluatorService;
+    private final MatchEvaluationFacadeService matchEvaluationFacadeService;
 
-    public MatchController(MatchEvaluatorService matchEvaluatorService) {
-        this.matchEvaluatorService = matchEvaluatorService;
+    public MatchController(MatchEvaluationFacadeService matchEvaluationFacadeService) {
+        this.matchEvaluationFacadeService = matchEvaluationFacadeService;
     }
 
     @PostMapping("/evaluate")
@@ -27,6 +27,6 @@ public class MatchController {
         if (request.resumeText() == null || request.resumeText().isBlank()) {
             throw new IllegalArgumentException("resumeText 不能为空");
         }
-        return matchEvaluatorService.evaluate(request.jdText(), request.resumeText());
+        return matchEvaluationFacadeService.evaluate(request.jdText(), request.resumeText());
     }
 }
