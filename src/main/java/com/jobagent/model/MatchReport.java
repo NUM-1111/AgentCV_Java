@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 public record MatchReport(
+                //@JsonAlias 注解用于指定 JSON 字段名称的别名，当 JSON 字段名称与 Java 对象属性名称不一致时，可以使用该注解进行映射，是兜底措施
                 @JsonAlias({
                                 "match_score",
                                 "score" }) @Min(0) @Max(100) @Description("0-100分的整数。评分极其严格，80分以上说明非常匹配，低于60分说明完全不匹配。重点考察硬性技能是否包含。") int matchScore,
