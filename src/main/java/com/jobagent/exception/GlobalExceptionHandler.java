@@ -7,12 +7,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice//全局异常处理器，用于处理所有控制器中的异常
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     public record ApiError(int code, String message) {}
+
+    @ExceptionHandler(ContextWindowExceededException.class)
+    public ResponseEntity<ApiError> handleContextWindowExceeded(ContextWindowExceededException ex) {
+        log.warn("Input too long: estimatedTokens={}, maxTokens={}", ex.getEstimatedTokens(), ex.getMaxTokens());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ApiError(400, ex.getMessage()));
+    }
 
     @ExceptionHandler(AiOutputValidationException.class)
     public ResponseEntity<ApiError> handleAiOutputValidationException(AiOutputValidationException ex) {

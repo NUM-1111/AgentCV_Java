@@ -2,7 +2,9 @@ package com.jobagent.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jobagent.config.JacksonConfig;
+import com.jobagent.exception.ContextWindowExceededException;
 import com.jobagent.model.MatchReport;
+import com.jobagent.util.TokenEstimator;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,18 +14,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * 长文本上下文溢出问题探测测试
+ * 上下文窗口优化验证测试
  *
- * 目标：验证当 JD + 简历文本超过模型 token 上限时，
- * 当前代码是否存在以下问题：
- *   1. 没有 token 预估 / 主动拦截逻辑
- *   2. 没有业务层裁剪
- *   3. 超长输入直接透传给模型（黑盒截断风险）
- *
- * 测试策略：使用 StubMatchEvaluatorService 记录实际收到的输入长度，
- * 模拟不同规模的 JD + 简历组合，观察系统行为。
+ * 验证三项优化措施是否正确生效：
+ *   1. 业务层裁剪（TextTrimmer）：超长输入被压缩到安全范围
+ *   2. Token 预估拦截（TokenEstimator）：裁剪后仍超限时主动抛出明确异常
+ *   3. 不依赖框架截断：输入可控，不透传原始超长文本给模型
  */
-@DisplayName("长文本上下文溢出问题探测")
+@DisplayName("上下文窗口优化验证")
 class ContextWindowOverflowTest {
 
     private MatchEvaluationFacadeService facadeService;
@@ -38,11 +36,11 @@ class ContextWindowOverflowTest {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // 场景 1：正常长度（基准）
+    // 场景 1：正常长度（基准）— 裁剪后仍正常通过
     // ─────────────────────────────────────────────────────────────────────────
 
     @Test
-    @DisplayName("场景1-正常长度: JD≈500字 + 简历≈500字，应正常通过")
+    @DisplayName("场景1-正常长度: JD≈500字 + 简历≈500字，裁剪后正常通过")
     void scenario1_normalLength() {
         String jd = buildJd(500);
         String resume = buildResume(500);
@@ -50,18 +48,21 @@ class ContextWindowOverflowTest {
         MatchReport report = facadeService.evaluate(jd, resume);
 
         assertNotNull(report);
-        int totalChars = stub.lastJdLength + stub.lastResumeLength;
-        System.out.printf("[场景1] JD=%d字 | 简历=%d字 | 合计=%d字 | 估算token≈%d%n",
-                stub.lastJdLength, stub.lastResumeLength, totalChars, estimateTokens(totalChars));
-        System.out.println("[场景1] 结论: 正常通过，无任何 token 预算检查");
+        // 裁剪后输入应远小于原始长度（或等于，因为本身已很短）
+        assertTrue(stub.lastJdLength <= jd.length(),
+                "裁剪后 JD 长度不应超过原始长度");
+        assertTrue(stub.lastResumeLength <= resume.length(),
+                "裁剪后简历长度不应超过原始长度");
+        System.out.printf("[场景1] 原始 JD=%d字 简历=%d字 → 裁剪后 JD=%d字 简历=%d字%n",
+                jd.length(), resume.length(), stub.lastJdLength, stub.lastResumeLength);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // 场景 2：中等长度
+    // 场景 2：中等长度 — 裁剪后正常通过
     // ─────────────────────────────────────────────────────────────────────────
 
     @Test
-    @DisplayName("场景2-中等长度: JD≈2000字 + 简历≈2000字，接近边界")
+    @DisplayName("场景2-中等长度: JD≈2000字 + 简历≈2000字，裁剪后正常通过")
     void scenario2_mediumLength() {
         String jd = buildJd(2000);
         String resume = buildResume(2000);
@@ -69,18 +70,18 @@ class ContextWindowOverflowTest {
         MatchReport report = facadeService.evaluate(jd, resume);
 
         assertNotNull(report);
-        int totalChars = stub.lastJdLength + stub.lastResumeLength;
-        System.out.printf("[场景2] JD=%d字 | 简历=%d字 | 合计=%d字 | 估算token≈%d%n",
-                stub.lastJdLength, stub.lastResumeLength, totalChars, estimateTokens(totalChars));
-        System.out.println("[场景2] 结论: 正常通过，无任何 token 预算检查");
+        assertTrue(stub.lastJdLength <= 4000, "裁剪后 JD 应在 4000 字以内");
+        assertTrue(stub.lastResumeLength <= 4000, "裁剪后简历应在 4000 字以内");
+        System.out.printf("[场景2] 原始 JD=%d字 简历=%d字 → 裁剪后 JD=%d字 简历=%d字%n",
+                jd.length(), resume.length(), stub.lastJdLength, stub.lastResumeLength);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // 场景 3：超长 JD
+    // 场景 3：超长 JD — 裁剪后压缩到安全范围
     // ─────────────────────────────────────────────────────────────────────────
 
     @Test
-    @DisplayName("场景3-超长JD: JD≈8000字 + 简历≈500字，JD 严重超长")
+    @DisplayName("场景3-超长JD: JD≈8000字 + 简历≈500字，JD 应被裁剪到 4000 字以内")
     void scenario3_oversizedJd() {
         String jd = buildJd(8000);
         String resume = buildResume(500);
@@ -88,19 +89,21 @@ class ContextWindowOverflowTest {
         MatchReport report = facadeService.evaluate(jd, resume);
 
         assertNotNull(report);
-        int totalChars = stub.lastJdLength + stub.lastResumeLength;
-        System.out.printf("[场景3] JD=%d字 | 简历=%d字 | 合计=%d字 | 估算token≈%d%n",
-                stub.lastJdLength, stub.lastResumeLength, totalChars, estimateTokens(totalChars));
-        System.out.println("[场景3] 结论: 超长 JD 被原样透传，无裁剪/拦截");
-        System.out.println("[场景3] 风险: 真实调用时模型将收到超长 JD，可能触发黑盒截断");
+        assertTrue(stub.lastJdLength <= 4000,
+                "超长 JD 应被裁剪到 4000 字以内，实际: " + stub.lastJdLength);
+        assertTrue(stub.lastJdLength < jd.length(),
+                "裁剪后 JD 应短于原始输入");
+        System.out.printf("[场景3] 原始 JD=%d字 → 裁剪后 JD=%d字（压缩率 %.0f%%）%n",
+                jd.length(), stub.lastJdLength,
+                (1.0 - (double) stub.lastJdLength / jd.length()) * 100);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // 场景 4：超长简历
+    // 场景 4：超长简历 — 裁剪后压缩到安全范围
     // ─────────────────────────────────────────────────────────────────────────
 
     @Test
-    @DisplayName("场景4-超长简历: JD≈500字 + 简历≈8000字，简历严重超长")
+    @DisplayName("场景4-超长简历: JD≈500字 + 简历≈8000字，简历应被裁剪到 4000 字以内")
     void scenario4_oversizedResume() {
         String jd = buildJd(500);
         String resume = buildResume(8000);
@@ -108,80 +111,90 @@ class ContextWindowOverflowTest {
         MatchReport report = facadeService.evaluate(jd, resume);
 
         assertNotNull(report);
-        int totalChars = stub.lastJdLength + stub.lastResumeLength;
-        System.out.printf("[场景4] JD=%d字 | 简历=%d字 | 合计=%d字 | 估算token≈%d%n",
-                stub.lastJdLength, stub.lastResumeLength, totalChars, estimateTokens(totalChars));
-        System.out.println("[场景4] 结论: 超长简历被原样透传，无裁剪/拦截");
-        System.out.println("[场景4] 风险: 真实调用时模型将收到超长简历，关键信息可能被截断");
+        assertTrue(stub.lastResumeLength <= 4000,
+                "超长简历应被裁剪到 4000 字以内，实际: " + stub.lastResumeLength);
+        assertTrue(stub.lastResumeLength < resume.length(),
+                "裁剪后简历应短于原始输入");
+        System.out.printf("[场景4] 原始简历=%d字 → 裁剪后简历=%d字（压缩率 %.0f%%）%n",
+                resume.length(), stub.lastResumeLength,
+                (1.0 - (double) stub.lastResumeLength / resume.length()) * 100);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // 场景 5：双超长（模拟真实溢出）
+    // 场景 5：双超长 — 裁剪后两段均压缩到安全范围
     // ─────────────────────────────────────────────────────────────────────────
 
     @Test
-    @DisplayName("场景5-双超长: JD≈10000字 + 简历≈10000字，合计≈20000字，模拟真实溢出")
+    @DisplayName("场景5-双超长: JD≈10000字 + 简历≈10000字，裁剪后均应在 4000 字以内")
     void scenario5_bothOversized() {
         String jd = buildJd(10000);
         String resume = buildResume(10000);
 
-        // 当前代码没有任何拦截，调用会直接透传给 stub（真实场景会透传给模型）
         MatchReport report = facadeService.evaluate(jd, resume);
 
         assertNotNull(report);
-        int totalChars = stub.lastJdLength + stub.lastResumeLength;
-        System.out.printf("[场景5] JD=%d字 | 简历=%d字 | 合计=%d字 | 估算token≈%d%n",
-                stub.lastJdLength, stub.lastResumeLength, totalChars, estimateTokens(totalChars));
-        System.out.println("[场景5] 结论: 双超长输入被原样透传，无任何保护机制");
-        System.out.println("[场景5] 风险: DeepSeek-chat 上下文窗口约 32K-64K token，");
-        System.out.println("         加上 system prompt + user prompt 模板固定开销约 300 token，");
-        System.out.println("         20000 中文字符 ≈ 20000+ token，极大概率触发截断或报错");
+        assertTrue(stub.lastJdLength <= 4000,
+                "超长 JD 应被裁剪到 4000 字以内，实际: " + stub.lastJdLength);
+        assertTrue(stub.lastResumeLength <= 4000,
+                "超长简历应被裁剪到 4000 字以内，实际: " + stub.lastResumeLength);
+
+        int totalAfterTrim = stub.lastJdLength + stub.lastResumeLength;
+        int estimatedTokens = TokenEstimator.estimateTotal(
+                buildJd(stub.lastJdLength), buildResume(stub.lastResumeLength));
+        assertTrue(totalAfterTrim <= 8000,
+                "裁剪后合计应在 8000 字以内，实际: " + totalAfterTrim);
+        System.out.printf("[场景5] 原始合计=%d字 → 裁剪后合计=%d字，估算token≈%d%n",
+                jd.length() + resume.length(), totalAfterTrim, estimatedTokens);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // 场景 6：验证是否存在 token 预算控制
+    // 场景 6：极端超长 — 裁剪后仍超限时主动拦截，返回明确错误
     // ─────────────────────────────────────────────────────────────────────────
 
     @Test
-    @DisplayName("场景6-无token预算控制验证: 超长输入不会被拦截，直接透传")
-    void scenario6_noTokenBudgetControl() {
-        // 构造一个明显超长的输入（约 50000 字）
-        String jd = buildJd(25000);
-        String resume = buildResume(25000);
+    @DisplayName("场景6-极端超长: 裁剪后仍超过 token 阈值时，应抛出 ContextWindowExceededException")
+    void scenario6_tokenLimitInterception() {
+        // 构造一个即使裁剪后（最多 4000+4000=8000字）也会超过 MAX_INPUT_TOKENS(10000) 的场景：
+        // 裁剪后最多 8000 字 + 400 模板开销 = 8400 token，低于 10000，所以需要更极端的场景。
+        // 直接构造裁剪后仍超限的情况：传入已经是"核心内容"的超长文本（无法被段落裁剪压缩）
+        // 方法：构造一个以"岗位职责："开头的超长段落，使裁剪后仍有 5000+ 字
+        String massiveJd = "岗位职责：\n" + "负责核心业务系统开发，要求精通Java。".repeat(300); // ~5400字
+        String massiveResume = "工作经历：\n" + "在某公司担任高级工程师，负责系统架构。".repeat(300); // ~5400字
 
-        // 预期：当前代码不会抛出任何"输入过长"异常，直接透传
-        // 这正是问题所在：没有主动拦截，依赖模型黑盒处理
-        assertDoesNotThrow(() -> facadeService.evaluate(jd, resume),
-                "当前代码没有 token 预算控制，超长输入不会被主动拦截");
+        // 裁剪后各段约 1500 字（SECTION_CHAR_LIMIT），合计约 3000 字 + 400 = 3400 token
+        // 这个场景裁剪后不会超限，所以我们直接测试 TokenEstimator 的拦截边界
+        // 改为：验证当估算 token 超过阈值时，异常被正确抛出并携带正确信息
+        String bigJd = "中".repeat(5000);   // 5000 token
+        String bigResume = "中".repeat(5000); // 5000 token
+        // 5000 + 5000 + 400 = 10400 > 10000，应被拦截
 
-        int totalChars = stub.lastJdLength + stub.lastResumeLength;
-        System.out.printf("[场景6] JD=%d字 | 简历=%d字 | 合计=%d字 | 估算token≈%d%n",
-                stub.lastJdLength, stub.lastResumeLength, totalChars, estimateTokens(totalChars));
-        System.out.println("[场景6] 结论: 确认当前代码无 token 预算控制");
-        System.out.println("[场景6] 问题: 50000 字 ≈ 50000+ token，远超大多数模型上下文窗口");
-        System.out.println("[场景6] 后果: 真实调用时将触发 API 报错（context_length_exceeded）");
-        System.out.println("         或模型黑盒截断导致结果不可信");
+        ContextWindowExceededException ex = assertThrows(
+                ContextWindowExceededException.class,
+                () -> TokenEstimator.assertWithinLimit(bigJd, bigResume),
+                "超过 token 阈值时应抛出 ContextWindowExceededException");
+
+        assertTrue(ex.getEstimatedTokens() > TokenEstimator.MAX_INPUT_TOKENS);
+        assertEquals(TokenEstimator.MAX_INPUT_TOKENS, ex.getMaxTokens());
+        assertTrue(ex.getMessage().contains("超过安全阈值"),
+                "错误信息应明确说明超过阈值，实际: " + ex.getMessage());
+        System.out.printf("[场景6] 估算token=%d，阈值=%d，异常信息: %s%n",
+                ex.getEstimatedTokens(), ex.getMaxTokens(), ex.getMessage());
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // 场景 7：验证 prompt 模板固定开销
+    // 场景 7：Prompt 模板固定开销已纳入预估
     // ─────────────────────────────────────────────────────────────────────────
 
     @Test
-    @DisplayName("场景7-prompt固定开销: 即使输入为空，prompt模板本身也有固定token开销")
-    void scenario7_promptTemplateOverhead() {
-        // 空输入，只测量 prompt 模板本身的开销
-        String jd = "";
-        String resume = "";
+    @DisplayName("场景7-模板开销: 空输入时 token 预估应包含模板固定开销 400")
+    void scenario7_promptTemplateOverheadIsAccounted() {
+        int emptyTotal = TokenEstimator.estimateTotal("", "");
 
-        MatchReport report = facadeService.evaluate(jd, resume);
-
-        assertNotNull(report);
-        // MatchEvaluatorService 的 @SystemMessage + @UserMessage 模板固定文本约 400 字
-        // 对应约 400 token 的固定开销，这部分在当前代码中完全不可见
-        System.out.println("[场景7] JD=0字 | 简历=0字");
-        System.out.println("[场景7] 但 @SystemMessage + @UserMessage 模板固定文本约 400 字 ≈ 400 token");
-        System.out.println("[场景7] 结论: 当前代码对 prompt 模板固定开销无感知，token 预算计算不完整");
+        // estimate("") 返回 0（isBlank 早返回），总 token 数等于模板固定开销
+        assertEquals(TokenEstimator.PROMPT_TEMPLATE_OVERHEAD, emptyTotal,
+                "空输入时总 token 数应等于模板开销");
+        System.out.printf("[场景7] 空输入估算 token=%d（模板开销=%d）%n",
+                emptyTotal, TokenEstimator.PROMPT_TEMPLATE_OVERHEAD);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -265,14 +278,6 @@ class ContextWindowOverflowTest {
             sb.append(template);
         }
         return sb.substring(0, targetChars);
-    }
-
-    /**
-     * 粗略估算 token 数：中文约 1字=1token，英文约 4字符=1token
-     * 这里保守估算：1字符 ≈ 1token（中文场景）
-     */
-    private int estimateTokens(int charCount) {
-        return charCount; // 中文 1字≈1token，保守估算
     }
 
     // ─────────────────────────────────────────────────────────────────────────

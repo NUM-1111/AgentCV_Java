@@ -11,5 +11,8 @@
 /root/java/AgentCV_Java/src/main/java/com/jobagent/service/ResumeRewriteService.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/model/RewriteReport.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/config/JacksonConfig.java
+/root/java/AgentCV_Java/src/main/java/com/jobagent/util/TextTrimmer.java
+/root/java/AgentCV_Java/src/main/java/com/jobagent/util/TokenEstimator.java
+/root/java/AgentCV_Java/src/main/java/com/jobagent/exception/ContextWindowExceededException.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/controller/JdController.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/JobAgentApplication.java

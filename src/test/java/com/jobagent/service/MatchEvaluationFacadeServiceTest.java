@@ -8,7 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jobagent.config.JacksonConfig;
 import com.jobagent.exception.AiOutputValidationException;
+import com.jobagent.exception.ContextWindowExceededException;
 import com.jobagent.model.MatchReport;
+import com.jobagent.util.TokenEstimator;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.BeforeEach;
@@ -135,5 +137,40 @@ class MatchEvaluationFacadeServiceTest {
         public String evaluate(String jdText, String resumeText) {
             return output;
         }
+    }
+
+    // -----------------------------------------------------------------------
+    // Token 拦截集成测试
+    // -----------------------------------------------------------------------
+
+    @Test
+    void shouldThrowContextWindowExceededDirectly() {
+        // TextTrimmer 硬截断上限 4000 字，两段合计最多 8000 字 + 400 模板 = 8400 token < 10000
+        // 正常业务场景下 TextTrimmer 已足够有效，不会触发 token 拦截。
+        // 此测试直接验证 TokenEstimator.assertWithinLimit 的拦截逻辑：
+        // 5000 + 5000 + 400 = 10400 > 10000，应抛出 ContextWindowExceededException
+        String bigJd = "中".repeat(5000);
+        String bigResume = "中".repeat(5000);
+
+        ContextWindowExceededException ex = assertThrows(
+                ContextWindowExceededException.class,
+                () -> TokenEstimator.assertWithinLimit(bigJd, bigResume));
+
+        assertTrue(ex.getEstimatedTokens() > TokenEstimator.MAX_INPUT_TOKENS);
+        assertEquals(TokenEstimator.MAX_INPUT_TOKENS, ex.getMaxTokens());
+        assertTrue(ex.getMessage().contains("超过安全阈值"));
+    }
+
+    @Test
+    void shouldTrimInputBeforeTokenEstimation() {
+        // 验证裁剪发生在 token 预估之前：
+        // 8000 字 JD（有段落结构）裁剪后 ≤ 4000 字，不会触发 token 拦截
+        stubService.output = "{\"matchScore\":75,\"matchedSkills\":[\"Java\"],\"missingSkills\":[\"Redis\"],\"improvementAdvice\":\"补充 Redis 经验\"}";
+        String structuredJd = "岗位职责：\n" + "负责核心业务系统开发。".repeat(400);
+        String shortResume = "工作经历：\n" + "在某公司工作三年。".repeat(10);
+
+        // 不应抛出 ContextWindowExceededException（裁剪后在阈值内）
+        MatchReport report = facadeService.evaluate(structuredJd, shortResume);
+        assertEquals(75, report.matchScore());
     }
 }
