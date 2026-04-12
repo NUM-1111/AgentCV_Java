@@ -1,5 +1,6 @@
 /root/java/AgentCV_Java/src/main/java/com/jobagent/service/JdAnalyzeService.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/service/MatchEvaluatorService.java
+/root/java/AgentCV_Java/src/main/java/com/jobagent/util/FieldNameNormalizer.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/exception/AiOutputValidationException.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/exception/GlobalExceptionHandler.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/controller/ResumeController.java

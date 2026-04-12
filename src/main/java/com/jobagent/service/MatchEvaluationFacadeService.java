@@ -3,6 +3,7 @@ package com.jobagent.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jobagent.exception.AiOutputValidationException;
 import com.jobagent.model.MatchReport;
+import com.jobagent.util.FieldNameNormalizer;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import java.util.Set;
@@ -38,8 +39,10 @@ public class MatchEvaluationFacadeService {
         String raw = matchEvaluatorService.evaluate(jdText, resumeText);
         // 尽量截取最外层 JSON 对象，降低反序列化失败率。
         String json = extractJsonObject(raw);
+        // 归一化字段名：覆盖 @JsonAlias 无法预设的漂移变体（大小写、语义相近词等）。
+        String normalized = FieldNameNormalizer.normalize(json);
         try {
-            MatchReport report = objectMapper.readValue(json, MatchReport.class);
+            MatchReport report = objectMapper.readValue(normalized, MatchReport.class);
             // 将“可解析”进一步提升为“满足业务约束”。
             validateReport(report);
             return report;

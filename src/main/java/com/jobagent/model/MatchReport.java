@@ -5,6 +5,7 @@ import dev.langchain4j.model.output.structured.Description;
 import java.util.List;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record MatchReport(
@@ -15,8 +16,8 @@ public record MatchReport(
 
                 @JsonAlias({ "matched_skills" }) @NotNull(message = "matchedSkills 不能为空") @Description("提取为简短的词组，如'Java', 'Spring Boot', '微服务架构'，不要长句。") List<String> matchedSkills,
 
-                @JsonAlias({ "missing_skills" }) @Description("提取为简短的词组。") List<String> missingSkills,
+                @JsonAlias({ "missing_skills" }) @NotNull(message = "missingSkills 不能为空") @Description("提取为简短的词组。") List<String> missingSkills,
 
                 @JsonAlias({ "improvement_advice",
-                                "advice" }) @Description("给候选人的一段 100 字以内的犀利修改建议，直接指出简历的致命弱点或缺失项，语气要专业且一针见血。") String improvementAdvice) {
+                                "advice" }) @NotBlank(message = "improvementAdvice 不能为空白") @Description("给候选人的一段 100 字以内的犀利修改建议，直接指出简历的致命弱点或缺失项，语气要专业且一针见血。") String improvementAdvice) {
 }

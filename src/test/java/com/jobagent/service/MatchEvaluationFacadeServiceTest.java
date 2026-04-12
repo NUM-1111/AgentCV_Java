@@ -87,6 +87,47 @@ class MatchEvaluationFacadeServiceTest {
         assertInstanceOf(com.fasterxml.jackson.core.JsonProcessingException.class, ex.getCause());
     }
 
+    // --- 以下三个测试覆盖 @JsonAlias 无法处理的漂移场景 ---
+
+    @Test
+    void shouldNormalizeUnknownCamelVariants() {
+        // matchscore（无下划线）、matchedskills（无下划线）等变体，@JsonAlias 不覆盖
+        stubService.output = "{\"matchscore\":65,\"matchedskills\":[\"Java\"],\"missingskills\":[\"Docker\"],\"improvementadvice\":\"补充容器化经验\"}";
+
+        MatchReport report = facadeService.evaluate("jd", "resume");
+
+        assertEquals(65, report.matchScore());
+        assertEquals("Java", report.matchedSkills().get(0));
+        assertEquals("Docker", report.missingSkills().get(0));
+        assertEquals("补充容器化经验", report.improvementAdvice());
+    }
+
+    @Test
+    void shouldNormalizeSemanticVariants() {
+        // gaps（语义相近词）、skills_matched（顺序颠倒）、suggestion（同义词）
+        stubService.output = "{\"matchScore\":70,\"skills_matched\":[\"Spring Boot\"],\"gaps\":[\"Kubernetes\"],\"suggestion\":\"深入学习 K8s 编排\"}";
+
+        MatchReport report = facadeService.evaluate("jd", "resume");
+
+        assertEquals(70, report.matchScore());
+        assertEquals("Spring Boot", report.matchedSkills().get(0));
+        assertEquals("Kubernetes", report.missingSkills().get(0));
+        assertEquals("深入学习 K8s 编排", report.improvementAdvice());
+    }
+
+    @Test
+    void shouldNormalizeUpperCaseVariants() {
+        // MatchScore、MissingSkills 等首字母大写变体，@JsonAlias 精确匹配无法覆盖
+        stubService.output = "{\"MatchScore\":88,\"MatchedSkills\":[\"MySQL\"],\"MissingSkills\":[\"Redis\"],\"ImprovementAdvice\":\"补充缓存层经验\"}";
+
+        MatchReport report = facadeService.evaluate("jd", "resume");
+
+        assertEquals(88, report.matchScore());
+        assertEquals("MySQL", report.matchedSkills().get(0));
+        assertEquals("Redis", report.missingSkills().get(0));
+        assertEquals("补充缓存层经验", report.improvementAdvice());
+    }
+
     private static final class StubMatchEvaluatorService implements MatchEvaluatorService {
         private String output;
 
