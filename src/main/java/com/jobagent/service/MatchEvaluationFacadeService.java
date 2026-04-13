@@ -34,8 +34,8 @@ public class MatchEvaluationFacadeService {
     private final Validator validator;
 
     public MatchEvaluationFacadeService(MatchEvaluatorService matchEvaluatorService,
-                                        ObjectMapper objectMapper,
-                                        Validator validator) {
+            ObjectMapper objectMapper,
+            Validator validator) {
         this.matchEvaluatorService = matchEvaluatorService;
         this.objectMapper = objectMapper;
         this.validator = validator;
