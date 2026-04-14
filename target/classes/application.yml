@@ -10,7 +10,13 @@ langchain4j:
       log-requests: true
       log-responses: true
 
-# 便于观察 LangChain4j 的 DEBUG 日志（含请求/响应体）
 logging:
   level:
+    # LangChain4j 框架层：DEBUG 可看到完整 Prompt 和原始响应体
     dev.langchain4j: DEBUG
+    # AOP 切面：INFO 确保每次 AI 调用和 HTTP 请求都有日志
+    com.jobagent.aspect: INFO
+    # TraceIdFilter：INFO 级别
+    com.jobagent.filter: INFO
+    # 业务层：DEBUG 可看到 MatchEvaluationFacadeService 的裁剪日志
+    com.jobagent: DEBUG

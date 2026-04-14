@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  logback-spring.xml
+  ==================
+  Spring Boot 会优先加载此文件（而非 logback.xml），支持 <springProfile> 标签。
+
+  日志格式说明：
+    %d{HH:mm:ss.SSS}  — 时间（精确到毫秒）
+    %5p               — 日志级别，右对齐，宽度5
+    [%X{traceId}]     — MDC 中的 traceId，由 TraceIdFilter 注入；无请求时为空
+    %-40.40logger{39} — 类名，最长40字符，超出截断
+    %m%n              — 消息 + 换行
+-->
+<configuration>
+
+    <!-- ===== Console Appender（开发环境，彩色输出）===== -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--
+              %clr(...){color} 是 Spring Boot 扩展的彩色输出语法：
+                - FATAL/ERROR → 红色
+                - WARN        → 黄色
+                - INFO        → 绿色
+                - DEBUG/TRACE → 默认色
+            -->
+            <pattern>%clr(%d{HH:mm:ss.SSS}){faint} %clr(%5p) %clr([%X{traceId:-no-trace}]){cyan} %clr(%-40.40logger{39}){magenta} : %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- ===== 包级别日志控制 ===== -->
+
+    <!-- AI 调用切面：INFO 级别，确保每次 AI 调用都有记录 -->
+    <logger name="com.jobagent.aspect" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- 请求追踪过滤器：INFO 级别 -->
+    <logger name="com.jobagent.filter" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- LangChain4j 框架层：DEBUG 级别，可看到完整 Prompt 和原始响应 -->
+    <logger name="dev.langchain4j" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- 业务层：DEBUG 级别（MatchEvaluationFacadeService 里的 log.debug 会输出） -->
+    <logger name="com.jobagent" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- Root：INFO 级别，兜底其他框架日志 -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
