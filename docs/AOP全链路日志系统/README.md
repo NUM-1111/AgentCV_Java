@@ -22,3 +22,13 @@
 - 格式化的日志输出（时间、级别、traceId 混在一起难以阅读）
 
 本次通过 Spring AOP + SLF4J MDC 构建了一套「零侵入、可追溯、与 AI 链路精密贴合」的全链路日志系统。
+
+## 学习建议
+
+|顺序|核心文件|学习目标|
+|------|------|------|
+|1|pom.xml|确保 spring-boot-starter-aop 已引入|
+|2|TraceIdFilter.java|理解 traceId 如何产生并存入 MDC|
+|3|logback-spring.xml|观察日志格式中 %X{traceId} 的位置|
+|4|WebLogAspect.java|学习如何用 @Around 统一拦截 HTTP 请求并算耗时|
+|5|AiCallLogAspect.java|学习如何针对 AI 核心业务做精细化、结构化的日志记录|
