@@ -1,1 +1,6 @@
+com/jobagent/service/FactCriticAgent.class
 com/jobagent/service/MatchEvaluatorService.class
+com/jobagent/service/ResumeWriterAgent.class
+com/jobagent/service/RewriteCoordinatorService$RewriteResult.class
+com/jobagent/service/RewriteCoordinatorService.class
+com/jobagent/model/CriticReport.class

@@ -7,6 +7,7 @@ langchain4j:
       api-key: ${OPENAI_API_KEY}
       base-url: ${OPENAI_BASE_URL}
       model-name: ${OPENAI_MODEL_NAME}
+      timeout: 60s
       log-requests: true
       log-responses: true
 

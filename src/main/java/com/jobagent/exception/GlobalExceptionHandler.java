@@ -14,6 +14,13 @@ public class GlobalExceptionHandler {
 
     public record ApiError(int code, String message) {}
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiError> handleIllegalArgument(IllegalArgumentException ex) {
+        log.warn("Bad request: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ApiError(400, ex.getMessage()));
+    }
+
     @ExceptionHandler(ContextWindowExceededException.class)
     public ResponseEntity<ApiError> handleContextWindowExceeded(ContextWindowExceededException ex) {
         log.warn("Input too long: estimatedTokens={}, maxTokens={}", ex.getEstimatedTokens(), ex.getMaxTokens());
