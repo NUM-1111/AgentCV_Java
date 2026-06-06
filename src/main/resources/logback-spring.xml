@@ -23,7 +23,7 @@
                 - INFO        → 绿色
                 - DEBUG/TRACE → 默认色
             -->
-            <pattern>%clr(%d{HH:mm:ss.SSS}){faint} %clr(%5p) %clr([%X{traceId:-no-trace}]){cyan} %clr(%-40.40logger{39}){magenta} : %m%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} %5p [%X{traceId:-no-trace}] %-40.40logger{39} : %m%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
     </appender>

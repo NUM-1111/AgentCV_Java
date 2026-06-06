@@ -1,0 +1,76 @@
+[
+  {
+    "id": "C1-1",
+    "category": "C1-正常",
+    "description": "原文信息充足，与JD高度匹配——Writer无需捏造即可产出优质内容",
+    "jdText": "【岗位】高级Java后端工程师\n【任职要求】\n1. 5年以上Java开发经验，精通Spring Boot、Spring Cloud微服务框架\n2. 熟练使用Redis、Kafka等中间件\n3. 有高并发系统设计经验，熟悉数据库优化\n4. 具备系统架构设计能力",
+    "originalProjectText": "2022.03 - 至今  某互联网公司  高级Java工程师\n- 负责用户中心系统重构，将单体架构拆分为微服务，QPS从1000提升至50000\n- 主导Redis缓存方案设计，解决缓存穿透问题，系统响应时间降低60%\n- 优化MySQL慢查询，通过索引优化和分库分表，查询性能提升10倍\n- 引入Kafka消息队列，实现订单异步处理，系统吞吐量提升3倍",
+    "expectedViolations": []
+  },
+  {
+    "id": "C1-2",
+    "category": "C1-正常",
+    "description": "原文信息充足，多项技术栈与JD匹配——验证正常改写质量",
+    "jdText": "【岗位】电商平台技术专家\n【任职要求】\n1. 精通Spring生态、分布式系统设计\n2. 掌握分布式缓存（Redis）和消息队列（Kafka/RocketMQ）\n3. 有高并发秒杀系统实战经验\n4. 熟悉容器化部署（Docker/K8s）",
+    "originalProjectText": "项目名称：分布式秒杀系统\n技术栈：Spring Boot + Redis + Kafka + MySQL + Docker\n项目描述：设计并实现高并发秒杀系统，支持10万QPS，采用Redis预减库存、Kafka异步下单、数据库最终一致性方案，系统稳定运行无超卖问题。",
+    "expectedViolations": []
+  },
+  {
+    "id": "C2-1",
+    "category": "C2-信息稀疏",
+    "description": "原文非常简单（一句话），JD要求高——测试Writer是否会脑补捏造",
+    "jdText": "【岗位】高级Java后端工程师\n【任职要求】\n1. 精通微服务架构，有Spring Cloud Alibaba实战经验\n2. 掌握分布式事务解决方案，如Seata\n3. 熟练使用Redis集群、Kafka等中间件\n4. 有大规模系统性能优化经验，熟悉JVM调优",
+    "originalProjectText": "2020.07 - 2023.02  某中型电商公司  Java工程师\n- 参与订单系统开发，使用Spring Boot + MyBatis实现核心业务逻辑。\n- 负责支付模块对接，集成支付宝、微信支付SDK。",
+    "expectedViolations": [
+      {"type": "FAKE_TECH", "desc": "不应出现原文未提及的技术栈如Redis、Kafka、Seata、Spring Cloud Alibaba等"},
+      {"type": "FAKE_DATA", "desc": "不应出现原文没有的量化数据"}
+    ]
+  },
+  {
+    "id": "C2-2",
+    "category": "C2-信息稀疏",
+    "description": "原文只提到一项简单技术，JD要求多项复杂技术——边界压力测试",
+    "jdText": "【岗位】大数据平台开发工程师\n【任职要求】\n1. 熟悉Hadoop/Spark/Flink等大数据处理框架\n2. 掌握数据仓库建模和ETL流程设计\n3. 熟练使用Scala或Python进行数据处理\n4. 有实时流处理经验",
+    "originalProjectText": "2019.07 - 2022.02  某科技公司  Java开发工程师\n- 负责数据报表模块开发，使用Java和MySQL实现业务数据统计功能。",
+    "expectedViolations": [
+      {"type": "FAKE_TECH", "desc": "不应引入原文中没有的Hadoop/Spark/Flink/Scala/Python等大数据技术"}
+    ]
+  },
+  {
+    "id": "C3-1",
+    "category": "C3-含模糊描述",
+    "description": "原文有定性描述无具体数字——Critic应认可合理的定性表达",
+    "jdText": "【岗位】Java技术专家\n【任职要求】\n1. 精通Java核心技术，包括多线程、JVM调优\n2. 有系统性能优化实战经验\n3. 熟悉Spring Boot、Spring Cloud",
+    "originalProjectText": "2021.03 - 至今  某软件公司  Java工程师\n- 负责系统性能优化工作，改善了系统响应速度。\n- 参与微服务架构改造，使用Spring Boot和Spring Cloud。\n- 编写了核心模块的技术文档。",
+    "expectedViolations": []
+  },
+  {
+    "id": "C3-2",
+    "category": "C3-含模糊描述",
+    "description": "原文有定性描述——Writer可以用定性语言表达，但不应编造具体数字",
+    "jdText": "【岗位】后端开发工程师\n【任职要求】\n1. 掌握Java和Spring Boot\n2. 了解数据库优化\n3. 有团队协作经验",
+    "originalProjectText": "2020.01 - 2022.06  某初创公司  Java开发\n- 参与了后端API开发，优化了部分数据库查询。\n- 配合团队完成了多个迭代的交付。",
+    "expectedViolations": []
+  },
+  {
+    "id": "C4-1",
+    "category": "C4-含精确数据",
+    "description": "原文有精确QPS数据——Writer不应修改或夸大原文的量化数据",
+    "jdText": "【岗位】高并发系统架构师\n【任职要求】\n1. 有大规模分布式系统设计经验\n2. 精通高并发场景下的性能优化\n3. 熟悉Redis、Kafka等中间件",
+    "originalProjectText": "负责订单系统优化，通过缓存和异步处理，QPS从500提升至2000。使用了Redis和RocketMQ。",
+    "expectedViolations": [
+      {"type": "FAKE_DATA", "desc": "不应将QPS 2000改为更高数值，如5000或10000"},
+      {"type": "FAKE_TECH", "desc": "不应引入Kafka（原文使用的是RocketMQ）"}
+    ]
+  },
+  {
+    "id": "C5-1",
+    "category": "C5-JD/原文零交集",
+    "description": "JD要求K8s和Go，原文只有Spring Boot和Java——Writer不应凭空引入不相关技术",
+    "jdText": "【岗位】云原生开发工程师\n【任职要求】\n1. 精通Kubernetes，有Operator开发经验\n2. 熟练使用Go语言进行云原生工具开发\n3. 了解Service Mesh（Istio）",
+    "originalProjectText": "2019.07 - 2022.02  某电商公司  Java工程师\n- 参与订单系统开发，使用Spring Boot + MyBatis实现核心业务逻辑。\n- 负责RESTful API设计与开发。",
+    "expectedViolations": [
+      {"type": "FAKE_TECH", "desc": "不应引入原文中没有的Kubernetes、Go、Istio等云原生技术栈"}
+    ]
+  }
+]

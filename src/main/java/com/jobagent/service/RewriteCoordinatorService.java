@@ -4,6 +4,7 @@ import com.jobagent.model.CriticReport;
 import com.jobagent.model.RewriteReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -23,14 +24,21 @@ import java.util.stream.IntStream;
 public class RewriteCoordinatorService {
 
     private static final Logger log = LoggerFactory.getLogger(RewriteCoordinatorService.class);
-    private static final int MAX_ROUNDS = 3;
+    public static final int DEFAULT_MAX_ROUNDS = 2;
 
     private final ResumeWriterAgent writerAgent;
     private final FactCriticAgent criticAgent;
+    private final int maxRounds;
 
+    @Autowired
     public RewriteCoordinatorService(ResumeWriterAgent writerAgent, FactCriticAgent criticAgent) {
+        this(writerAgent, criticAgent, DEFAULT_MAX_ROUNDS);
+    }
+
+    public RewriteCoordinatorService(ResumeWriterAgent writerAgent, FactCriticAgent criticAgent, int maxRounds) {
         this.writerAgent = writerAgent;
         this.criticAgent = criticAgent;
+        this.maxRounds = maxRounds;
     }
 
     public record RewriteResult(RewriteReport report, int rounds) {}
@@ -42,9 +50,9 @@ public class RewriteCoordinatorService {
         String criticFeedback = "";
         RewriteReport lastDraft = null;
 
-        for (int round = 0; round < MAX_ROUNDS; round++) {
+        for (int round = 0; round < maxRounds; round++) {
             String feedbackPrompt = buildFeedbackPrompt(round, criticFeedback);
-            log.info("Actor-Critic round={}/{}, hasFeedback={}", round + 1, MAX_ROUNDS, round > 0);
+            log.info("Actor-Critic round={}/{}, hasFeedback={}", round + 1, maxRounds, round > 0);
 
             RewriteReport draft = writerAgent.rewrite(jdText, originalProjectText, feedbackPrompt);
             lastDraft = draft;
@@ -52,7 +60,7 @@ public class RewriteCoordinatorService {
             String bulletPoints = formatBulletPoints(draft);
             CriticReport criticism = criticAgent.check(originalProjectText, bulletPoints);
 
-            log.info("Critic result: approved={}, round={}/{}", criticism.approved(), round + 1, MAX_ROUNDS);
+            log.info("Critic result: approved={}, round={}/{}", criticism.approved(), round + 1, maxRounds);
 
             if (criticism.approved()) {
                 return new RewriteResult(draft, round + 1);
@@ -61,8 +69,8 @@ public class RewriteCoordinatorService {
             criticFeedback = criticism.feedback();
         }
 
-        log.warn("Actor-Critic reached MAX_ROUNDS={}, returning last draft", MAX_ROUNDS);
-        return new RewriteResult(lastDraft, MAX_ROUNDS);
+        log.warn("Actor-Critic reached maxRounds={}, returning last draft", maxRounds);
+        return new RewriteResult(lastDraft, maxRounds);
     }
 
     private String buildFeedbackPrompt(int round, String criticFeedback) {

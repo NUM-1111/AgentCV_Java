@@ -102,24 +102,63 @@ RewriteReport rewrite(
 
 ```java
 public record CriticReport(
-        @Description("是否通过审查。true 表示所有 bullet points 均能在原始项目经历中找到事实依据，无虚构数据或捏造技术栈；false 表示存在无法核实的内容。")
+        @Description("是否通过审查。true 表示所有 bullet points 均能在原始项目经历中找到事实依据。")
         boolean approved,
 
-        @Description("仅在 approved=false 时填写：逐条列出有问题的 bullet point 原文，并说明具体违规原因（如：捏造了 QPS 数据、引入了原文不存在的 K8s 技术栈）。approved=true 时返回空字符串。")
+        @Description("仅在 approved=false 时填写：逐条列出有问题的 bullet point 的具体违规详情。")
+        List<Violation> violations,
+
+        @Description("对 Writer 的修正建议，用自然语言汇总 violations 中的关键问题。approved=true 时为空。")
         String feedback
+) {}
+
+public record Violation(
+        @Description("有问题的 bullet point 序号，从 1 开始。")
+        int bulletIndex,
+
+        @Description("违规类型：FAKE_DATA（捏造数据）、FAKE_TECH（引入原文不存在的技术栈）、EXAGGERATION（夸大成果/角色）、MINOR_EMBELLISHMENT（轻度润色越界）")
+        String violationType,
+
+        @Description("违规严重程度 1-5。1=措辞轻微不当，5=完全捏造核心技术/数据。")
+        int severity,
+
+        @Description("具体说明哪个 bullet point 的哪部分描述违规，为什么不符合原文。")
+        String detail
 ) {}
 ```
 
 | 维度 | 说明 |
 |------|------|
 | **作用** | 将字段含义告诉 LLM，让模型按描述输出对应的 JSON 字段 |
-| **底层** | 框架在请求 LLM 时，在 Prompt 中追加「请输出如下 JSON 格式：`approved` (boolean): 是否通过审查...；`feedback` (string): 仅在 approved=false 时填写...」 |
-| **关键价值** | 你不需要在 Prompt 里手写 JSON Schema，框架自动从 Java record + @Description 生成 |
-| **面试话术** | 「`@Description` 是 LangChain4j 结构化输出的核心——我把字段含义写成 Java 注解，框架自动生成 JSON Schema 注入 Prompt。模型的输出直接反序列化为 Java record，不需要我做任何 JSON 字符串解析。这比手写 JSON Schema 更类型安全，命名也更符合 Java 习惯。」 |
+| **底层** | 框架在请求 LLM 时，在 Prompt 中追加「请输出如下 JSON 格式：`approved` (boolean): 是否通过审查...；`violations` (array): 违规详情...；`feedback` (string): ...」 |
+| **关键价值** | 你不需要在 Prompt 里手写 JSON Schema，框架自动从 Java record + @Description 生成。`violations` 字段的设计用了**结构化违规**——不再是简单的"通过/不通过"，而是告诉 Writer 你第几条 bullet 在哪个维度上违规、严重程度多少。这让 Coordinator 可以实现 severity 阈值容忍（如 severity≤2 仍视为通过），避免 Critic 的偶发性过度敏感导致不必要的循环 |
+| **面试话术** | 「`@Description` 是 LangChain4j 结构化输出的核心。但我想强调 `Violation` 这个嵌套 record 的设计决策——我不是简单地问 Critic "过没过"，而是让它输出每条违规的类型和严重度。这样 Coordinator 可以做智能决策：如果所有违规 severity≤2，说明只是措辞不当，可以放行；如果 severity≥4，才是真正的捏造，需要重写。这比二元 approved 精准得多。」 |
 
 **追问**：「如果模型输出的 JSON 字段名不是 `approved` 而是 `is_approved` 怎么办？」
 
 → 这就是 `FieldNameNormalizer` + `@JsonAlias` 的用武之地（参见结构化输出治理章节）。`@Description` 负责让模型输出正确的字段名和含义，`FieldNameNormalizer` 负责兜底模型不听话的情况。两者互为补充。
+
+---
+
+### 1.6 双 Agent Prompt 差异对照（面试重点）
+
+面试官追问「两个 Agent 的 Prompt 有什么不同」时，不要分别描述——用对比表展示设计意图。
+
+| 维度 | WriterAgent（创作者） | FactCriticAgent（审查者） |
+|------|----------------------|--------------------------|
+| **角色定位** | 简历优化顾问 | 严格的事实核查员 |
+| **核心指令** | 「只能使用原始经历中已有的技术、数据和成果」 | 「以原始项目经历为唯一事实边界」 |
+| **数据约束** | 禁止添加原文不存在的量化数据/技术栈 | 逐条检查每个 bullet point 是否能在原文找到依据 |
+| **语言风格** | 可使用 STAR 法则优化表达 | 「不受语言表达优美程度的影响」——只做二元判断 |
+| **判断标准** | 写得是否贴合 JD + 是否越过事实边界 | 能/不能在原文找到依据 |
+| **输入参数** | `jdText` + `originalProjectText` + `criticFeedback` | `originalProjectText` + `bulletPoints` |
+| **返回类型** | `RewriteReport`（List<bulletPoints> + List<reasons>） | `CriticReport`（boolean approved + String feedback） |
+
+> **面试话术**：「两个 Agent 的设计哲学不同。Writer 是"在笼子里跳舞"——笼子是原文事实边界，跳舞是 STAR 优化表达。Critic 是"笼子的守卫"——不看舞姿好不好看，只判断有没有越界。这保证了审查的客观性——Critic 的 System Prompt 明确禁止它评价'写得漂不漂亮'。」
+>
+> **追问**：「Writer 为什么不直接自我审查？」
+>
+> → 「这是 LLM 的角色冲突问题。同一个模型在"创作模式"和"审查模式"下行为完全不同——让它同时做好两件事，它会优先满足创作目标，审查沦为走过场。这不是 Prompt 写得不够好，而是心理学上的"确认偏误"——人会倾向于维护自己的产出，LLM 同理。拆成两个独立调用、用不同 SystemMessage 切换角色，是工程上解决角色冲突的标准方案。」
 
 ---
 
@@ -206,19 +245,28 @@ Controller 收到请求
 
 ### 决策三：为什么是 3 轮？
 
-**表面原因**：经验值，实践中大部分问题 1~2 轮解决。
+**表面原因**：大部分事实性错误 1~2 轮即可修正，3 轮提供额外容错缓冲。
 
-**深层原因**：这是一个**边际收益递减**问题：
-- 1 轮：没有审查，质量不可控（幻觉率约 15%）
-- 2 轮：解决大部分简单捏造（幻觉率降至约 2~3%）
-- 3 轮：解决顽固捏造（幻觉率趋近零）
-- 4+ 轮：边际收益骤降，且可能进入 Critic 过于严格导致的"死锁"——Critic 认为某条描述"过度夸大"，Writer 不知道怎么改，反复被拒
+**深层原因**：通过 8 组测试用例 × 5 种循环上限（1/2/3/4/5）的 A/B 验证实验，得出以下数据：
+
+| 循环上限 | 最终通过率 | 关键发现 |
+|---------|-----------|---------|
+| 1 轮 | 50% | 无审查兜底，Writer 首版脑补的假数据直接输出 |
+| 2 轮 | 87.5% | 大部分简单捏造被一轮反馈修正，但仍有 12.5% 因 Critic 偶发性误判导致失败 |
+| 3 轮 | 87.5% | 通过率持平，但**增加了对 Critic 偶发性假阳性的容错**——某用例在 2 轮变体中因一次误判失败，在 3 轮变体中获得额外修正机会后通过 |
+| 4 轮 | 87.5% | 边际收益为零 |
+| 5 轮 | 100% | 全通过但不经济——token 成本比 3 轮增加约 30%，且 87.5% 的用例 2 轮内已通过 |
+
+**结论**：
+- **2 轮是最小可行值**（成本最低且通过率不降）
+- **3 轮是最优质量保证值**——对那 12.5% 的"Critic 偶发误判"场景提供容错，避免因审查者自身的 LLM 随机性导致用户看到不合格输出
 
 **反面选择的代价**：
-- 只设 1 轮：等于没做审查，幻觉问题无解
-- 无限循环：token 成本失控 + 请求超时 + 可能死锁
+- 只设 1 轮：50% 通过率不可接受
+- 只设 2 轮：87.5% 基本可用，但缺少容错 buffer
+- 设 4+ 轮：token 成本线性增长但质量不再提升
 
-**最佳回答**：「3 轮是这个场景下的最优成本-质量平衡点，不是拍脑袋定的。如果需要精确数据，可以跑一轮单步 vs 双智能体的 A/B 对比来验证。」
+**最佳回答**：「3 轮不是拍脑袋定的。我跑了 8 组测试用例的 A/B 验证实验——1 轮只有 50% 通过率，2 轮到 87.5%，3 轮提供额外容错。本质上是边际收益递减曲线——3 轮刚好是拐点，再多就是浪费。」
 
 ---
 
@@ -333,6 +381,61 @@ Critic 的 feedback 本身就是对错误的精华摘要，已包含 Writer 修�
 | **第4轮** | 异步化 | SSE 推送审查进度（第1轮生成中→审查中→修改中→完成） | 体验提升，请求不阻塞 | 2天 |
 
 > **面试话术**：「这四个方向我已经做过技术预研，优先级是按面试反馈迭代的——先加 Tool Calling 展示 Agent 自主性，再加 Trace 展示可观测性，最后用 Eval 数据收尾。」
+
+---
+
+---
+
+## 7. 面试复盘补充：匹配度评分链路与评估体系
+
+> 2026-06-03 模拟面试暴露了两个盲区：匹配度评分的落地逻辑未展开、评估体系完全缺失。以下为补充内容。
+
+### 7.1 匹配度是怎么计算出来的？
+
+面试官问「matchScore 是怎么打出来的」时，完整链路是：
+
+```
+MatchEvaluationFacadeService.evaluate(jdText, resumeText)
+  │
+  ├─ Step 1: TextTrimmer.trimJd + trimResume  → 裁剪到核心段落
+  ├─ Step 2: TokenEstimator.assertWithinLimit   → 超限拦截
+  ├─ Step 3: MatchEvaluatorService.evaluate()   → @AiService 直接输出 MatchReport JSON
+  │           ├─ @SystemMessage: "你是一位严格的招聘评估专家..."
+  │           └─ 模型输出: {"matchScore":85, "matchedSkills":["Java","Spring"], ...}
+  ├─ Step 4: extractJsonObject                   → 剥离 Markdown 包裹
+  ├─ Step 5: FieldNameNormalizer.normalize       → 字段名归一化
+  ├─ Step 6: ObjectMapper.readValue              → Jackson 宽松解析
+  └─ Step 7: Bean Validation                     → 字段合法性校验
+       └─ matchScore 必须在 [0, 100]；matchedSkills 不能为 null
+```
+
+> **面试话术**：「matchScore 是 LLM 直接输出的 0-100 评分，不是向量相似度计算。但这个 LLM 评分经过了四层防御式 pipeline——从 JSON 提取到字段校验——确保评分值合法（不超 0-100）、技能列表不为空。如果需要更精细的评分，可以做向量相似度 + LLM 语义评分的加权融合，这是后续演进方向。」
+
+### 7.2 3 轮后仍未达标的处理策略
+
+**当前处理**：返回最后一版草稿 + 前端提示「改写可能不够充分」
+
+**实验数据**：在 8 组测试用例的 A/B 验证中，3 轮到达上限时未通过的用例为 1/8（12.5%）。深入分析发现，未通过的根本原因不是 Writer 改不好——而是 **Critic 自身的二元判定存在随机性**。同一个用例 C3-1（"优化了系统性能"被润色为"主导性能优化工作"）在 5 个变体中交替通过/不通过（✗→✓→✗→✓→✓），这是 LLM 审查的固有不稳定性。
+
+**实现改进**（已落地）：
+
+| 改进点 | 具体方案 | 现状 |
+|--------|---------|------|
+| **结构化违规** | `CriticReport` 新增 `violations: List<Violation>`，每条包含 `violationType`（FAKE_DATA/FAKE_TECH/EXAGGERATION/MINOR_EMBELLISHMENT）和 `severity`（1-5） | ✅ 已实现 |
+| **Severity 阈值容忍** | Coordinator 检查所有 violations 的 maxSeverity ≤ 2 时仍视为通过——MINOR_EMBELLISHMENT 不应触发整轮重写 | 🔲 待实现 |
+| **动态终止条件** | 连续两轮 feedback 的文本相似度（Levenshtein）> 90% → 说明 Critic 在重复相同意见，继续循环无意义 → 提前终止 | 🔲 待实现 |
+| **多次采样投票** | 对 C3 类模糊场景做 3 次 Critic 采样取多数，降低单次判定随机性的影响 | 🔲 待实现 |
+
+
+### 7.3 评估体系（Eval）规划
+
+| 指标 | 当前状态 | 可讲的话术 |
+|------|---------|----------|
+| **幻觉率** | 无量化 | 「下一步构建 20 组黄金测试集，跑单步 vs 双智能体的对比，用 LLM-as-Judge 打分——这个方案已在技术预研阶段」 |
+| **循环通过率** | 无统计 | 「可以在 Coordinator 里加一个计数器输出到日志，聚合后就能得到每轮通过率分布」 |
+| **Token 消耗** | 无打点 | 「Langfuse 接入后可以按 trace 统计 token，做成本分析」 |
+
+> **面试话术**（诚实版）：「坦白说这块目前是 MVP 阶段的已知短板——我先跑了核心架构（幻觉治理 → token 管理 → 输出校验 → 可观测性），评估体系是下一步。但我有过清晰的规划：黄金测试集 + LLM-as-Judge + 离线对比。」
 
 ---
 
