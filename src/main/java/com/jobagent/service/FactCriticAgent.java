@@ -6,6 +6,33 @@ import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.V;
 import dev.langchain4j.service.spring.AiService;
 
+/**
+ * FactCritic Agent — 严格的事实核查员。
+ *
+ * 在 Actor-Critic 架构中扮演"笼子的守卫"角色：
+ * 以原始项目经历为唯一事实边界，逐条核查 Writer 生成的 bullet points
+ * 是否存在捏造或夸大。不看舞姿好不好看（语言表达优不优美），只判断有没有越界。
+ *
+ * 与 {@link ResumeWriterAgent} 的关键差异：Writer 处于"创作模式"，Critic 处于"审查模式"。
+ * 同一 LLM 拆分角色，用不同的 {@code @SystemMessage} 切换，是工程上解决角色冲突的标准方案。
+ *
+ * 审查规则要点：
+ * - 数字逐字比对：原文 QPS 2000 → bullet QPS 5000 = 不通过（数值不一致）
+ * - 技术栈逐项差集：原文 {RocketMQ, Redis} → bullet {Kafka, Redis} = 不通过（Kafka 不在原文）
+ * - 定性描述容忍：原文"优化了性能" → bullet"提升了响应速度" = 通过（同义表达，无假数字）
+ * - 角色措辞审查：原文"参与" → bullet"主导" = 判 EXAGGERATION
+ *
+ * 结构化输出设计（CriticReport）：
+ * 不是简单返回"通过/不通过"，而是输出每条违规的类型
+ * （FAKE_DATA / FAKE_TECH / EXAGGERATION / MINOR_EMBELLISHMENT）
+ * 和严重程度（1-5）。这让 {@link RewriteCoordinatorService} 可以基于 severity 阈值做智能决策——
+ * 例如 severity≤2 仍视为通过，避免 Critic 偶发性过度敏感导致不必要循环。
+ *
+ * @see ResumeWriterAgent
+ * @see RewriteCoordinatorService
+ * @see CriticReport
+ * @see com.jobagent.model.Violation
+ */
 @AiService
 public interface FactCriticAgent {
 
@@ -53,6 +80,13 @@ public interface FactCriticAgent {
             
             请逐条核查上述简历要点，判断是否全部通过事实核查。
             """)
+    /**
+     * 以原始经历为事实边界，逐条核查 bullet points 是否存在捏造或夸大。
+     *
+     * @param originalProjectText 原始项目经历（唯一事实边界，Critic 的所有判断均以此为准）
+     * @param bulletPoints        待审查的简历要点（已由 Coordinator 格式化为编号文本）
+     * @return 结构化审查结果，包含通过状态、违规详情列表和修正建议
+     */
     CriticReport check(
             @V("originalProjectText") String originalProjectText,
             @V("bulletPoints") String bulletPoints

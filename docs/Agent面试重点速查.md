@@ -103,41 +103,59 @@
 
 #### Q1：「你们项目里 AI 幻觉问题怎么解决的？」
 
-> 我用的是 **Actor-Critic 双智能体审查模式**——让两个 Agent 互相制约。
+> 我用的是 **Actor-Critic 双智能体审查模式**——让两个 Agent 互相制约，但我不是停留在简单的"一个写一个审"，而是做了结构化分级判定。
 >
-> **WriterAgent** 负责根据 JD 偏好扩写简历要点，但 System Prompt 里明确禁止捏造数据和技术——"所有扩展必须基于原始项目经历，不允许添加原文中不存在的量化数据或技术栈"。
+> **WriterAgent** 负责根据 JD 偏好扩写简历要点，受两层约束：SystemMessage 明确禁止捏造数据和引入原文没有的技术栈；@Description 写死"只能使用原文已有的数据，不得推测或编造量化指标"。
 >
-> **FactCriticAgent** 以原始简历为唯一事实边界，逐条核查 Writer 输出的每个 bullet point。它不是一个通用审查，而是有明确的检查清单：这个数据原文里有吗？这个技术栈原文里提过吗？这条描述是否过度扭曲了原意？
+> **FactCriticAgent** 以原始简历为唯一事实边界，输出不是简单的"过/不过"，而是结构化的 `CriticReport`：包含 `List<Violation>`，每条违规标注类型（FAKE_DATA/FAKE_TECH/EXAGGERATION/MINOR_EMBELLISHMENT）、严重程度（1-5）、以及引用原文证据的 detail。这让 Coordinator 可以做灰度决策——severity≤2 的 MINOR_EMBELLISHMENT 可以放行，只有 severity≥4 的捏造才必须重写。
 >
-> 两者通过 **RewriteCoordinatorService** 串联，最多 3 轮循环——Critic 反馈 → Writer 修改 → 再审查。3 轮后强制输出，不无限循环。
+> 两者通过 **RewriteCoordinatorService** 串联，最多 3 轮循环——Critic 反馈 → Writer 修改 → 再审查。我用 8 组测试用例跑过完整验证：1轮通过率50%，2轮到87.5%，3轮提供额外容错。3 轮后强制输出，不无限循环。
 
-🔗 代码：`FactCriticAgent.java`、`ResumeWriterAgent.java`、`RewriteCoordinatorService.java`
+🔗 代码：`FactCriticAgent.java`、`ResumeWriterAgent.java`、`RewriteCoordinatorService.java`、`model/Violation.java`
 
-#### Q2：「CriticAgent 怎么判断一条信息是不是幻觉？」（这个问题最好去优化验证一下模型的评判是否合理）
+#### Q2：「CriticAgent 怎么判断一条信息是不是幻觉？」
 
-> 它有一份明确的事实核查清单，在 System Prompt 里定义：
+> 它不是简单的"过/不过"二分类，而是**结构化分级判定**，输出 `CriticReport` 包含：
 >
 > ```
-> 核查规则（FactCriticAgent 的 System Prompt 核心）：
-> 1. 量化数据核查：claim 中的数字（QPS、百分比、用户数）
->    是否在原始项目经历中出现？没有 → flagged
-> 2. 技术栈核查：claim 中提到的技术名词
->    是否在原始文本中出现？没有 → flagged
-> 3. 语义扭曲核查：claim 的描述是否过度夸大？
->    原文「参与开发」→ claim「主导设计」→ flagged
+> CriticReport {
+>   approved: boolean;
+>   violations: [{                          // 逐条违规详情
+>     bulletIndex: 1;                       // 哪条 bullet 有问题
+>     violationType: "FAKE_DATA";          // 违规类型
+>     severity: 5;                          // 1-5 严重程度
+>     detail: "原文QPS为2000，bullet写了50000"; // 引用原文证据
+>   }];
+>   feedback: "第1条的QPS数据与原文不一致"; // 修正建议汇总
+> }
 > ```
 >
-> 输出结构是 `CriticReport`，包含 `approved`（通过的）和 `feedback`（需要修改的具体指令）。
+> 四种违规类型的判定依据在 System Prompt 里写成了精确规则：
+> - **FAKE_DATA**（捏造数据）：数字逐字比对——原文 QPS=2000，bullet QPS=50000 → 不通过
+> - **FAKE_TECH**（捏造技术栈）：技术栈逐项差集——原文只有 RocketMQ，bullet 写了 Kafka → 不通过
+> - **EXAGGERATION**（夸大角色）：原文"参与/负责"→ bullet"主导/从零搭建" → severity=3
+> - **MINOR_EMBELLISHMENT**（轻度润色）：severity≤2，不建议触发重写
+>
+> 我用 3 组刻意注入违规的 dirty draft（数字膨胀/技术替换/捏造百分比）做了验证：每组采样 3 次，共 9 次——**Critic 的命中率 100%**，且每条 detail 都引用了原文证据，可追溯。
 
-🔗 代码：`model/CriticReport.java`
+🔗 代码：`model/CriticReport.java`、`model/Violation.java`、`FactCriticAgent.java`（精确数值审查规则）
 
 #### Q3：「为什么是 3 轮循环？不是 2 轮或无限循环？」
 
-> 3 轮是经验值——实践中大部分问题 1~2 轮就解决了。3 轮是兜底，防止 Critic 过于严格导致死循环。
+> 这不是经验值，我跑了 **8 组测试用例 × 5 种循环上限的 A/B 验证实验**（约 240 次 API 调用）：
 >
-> 每轮只把 Critic 的 `feedback` 传给 WriterAgent，**不传历史草稿**——控制 token 消耗。这个设计决策很重要：如果传历史草稿，上下文窗口会指数级膨胀。
+> | 循环上限 | 通过率 | 结论 |
+> |---------|--------|------|
+> | 1 轮 | 50% | 无审查兜底，不可接受 |
+> | 2 轮 | 87.5% | 最小可行值 |
+> | 3 轮 | 87.5%（但多了容错 buffer） | **最优质量保证值** |
+> | 4-5 轮 | 持平或略高 | 边际收益为零，增成本不增量 |
+>
+> 3 轮的核心价值不是"通过率比 2 轮高"，而是**给 Critic 的偶发性误判留了容错空间**——实验中发现 C3-1 同一个用例在 2 轮变体中因一次误判失败，在 3 轮变体中获得了额外的修正机会后通过。
+>
+> 每轮只把 Critic 的 `feedback` 传给 WriterAgent，**不传历史草稿**——控制 token 消耗。如果传历史草稿，上下文窗口会指数级膨胀。
 
-🔗 代码：`RewriteCoordinatorService.java` 的循环逻辑
+🔗 代码：`RewriteCoordinatorService.java` 的循环逻辑；`RoundOptimizationValidatorTest.java`（验证代码）；`docs/Actor-Critic双智能体审查流/04-循环次数验证报告.md`
 
 ---
 
@@ -236,8 +254,10 @@
 
 | 关键词 | 展开线索 |
 |--------|---------|
-| **Actor-Critic** | WriterAgent（扩写）+ FactCriticAgent（核查幻觉）+ 3 轮循环 + CriticReport |
-| **幻觉检测** | 量化数据核查、技术栈核查、语义扭曲核查 → 以原始文本为唯一事实边界 |
+| **Actor-Critic** | WriterAgent（扩写）+ FactCriticAgent（核查）+ 3 轮循环 + CriticReport{Violation} |
+| **幻觉检测** | 四种违规类型（FAKE_DATA/FAKE_TECH/EXAGGERATION/MINOR_EMBELLISHMENT）+ severity 1-5 + detail 引用原文证据 |
+| **3 轮验证** | 8用例×5变体=240次API：1轮50%→2轮87.5%→3轮87.5%+容错buffer |
+| **Critic 精准度** | 3 类 dirty draft × 3 采样 = 100% 召回率（数字膨胀/技术替换/捏造百分比） |
 | **TextTrimmer** | 正则提取核心段落 → 句子边界智能截断 → 单段 1500 字 / 总 4000 字 |
 | **TokenEstimator** | 保守规则估算 → 叠加 Prompt 开销 → 超 10000 抛异常 → 400 错误 |
 | **结构化输出** | extractJson → Jackson 宽松 + @JsonAlias → FieldNameNormalizer → Bean Validation |
@@ -341,7 +361,23 @@
 | ⑧ | 成本优化三维框架 | 减量/提效/扩容各举 2 个点，不要求完整 |
 | ⑨ | Agent vs RAG 差异化 | 能说出「RAG 是让 LLM 看更多资料，Agent 是让 LLM 做更复杂决策」 |
 | ⑩ | MVP 缺什么 & 为什么 | 能列出 3~4 个缺口 + 每个的"为什么没做"理由 |
+| ⑪ | Critic 判定不是二分类 | 能说出 Violation 四种类型 + severity 1-5 + "引用原文证据的 detail 可追溯" |
+| ⑫ | 3 轮不是经验值 | 能说出实验数据：1轮50%→2轮87.5%→3轮（实验数据来自 8用例×5变体=240次API调用） |
+| ⑬ | 保证Critic不误判 | 能说出 dirty draft 验证（3类×3次=100%召回）+ E2E 全链路（4/4 通过） |
 
 ---
 
 > **📌 使用建议**：练完 STAR 脱稿 → 看双向映射表确认追问方向 → 逐个场景卡自述 → 扩展话题过一遍 → 扫一眼评价框架 → 用自检清单逐条过关 → 约下一轮模拟面试。
+
+---
+
+## 📚 新增参考资料索引（2026-06-04验证实验后）
+
+| 文档 | 用途 | 什么时候看 |
+|------|------|----------|
+| `docs/Actor-Critic双智能体审查流/04-循环次数验证报告.md` | 循环次数 A/B 实验的完整数据、Critic 一致性分析、面试话术 | Q3 被追问"你怎么验证的"时 |
+| `docs/Actor-Critic双智能体审查流/05-面试难点合集-Critic审查质量保障.md` | 4 大难点逐层拆解 + 追问快速索引 | 面试前通读，应对 Critic 方向的所有追问 |
+| `src/test/java/com/jobagent/service/CriticPrecisionTest.java` | Critic 精确数据审查专项测试（dirty draft 9次调用100%命中） | 被问"你有测试数据吗"时 |
+| `src/test/java/com/jobagent/service/EndToEndValidationTest.java` | Actor-Critic 全链路 4 场景 E2E 测试 | 被问"你端到端验证过吗"时 |
+| `src/test/java/com/jobagent/service/RoundOptimizationValidatorTest.java` | 循环次数 A/B 对比实验代码 | 被问"你怎么跑的实验"时 |
+| `src/test/resources/golden-test-set.json` | 8 组黄金测试用例（C1-C5 五类场景） | 被问"你的测试集怎么设计的"时 |

@@ -47,17 +47,55 @@ CriticReport {
 }
 ```
 
+去每个Violations的severity的最大值 -- maxSeverity
 这样做的好处是 Coordinator 可以做智能决策：
 - `maxSeverity ≤ 2`：仅 MINOR_EMBELLISHMENT → 直接通过，不需要重写
 - `maxSeverity ≥ 4`：FAKE_DATA/FAKE_TECH → 必须重写
 - `severity = 3`：EXAGGERATION → 根据场景判断
+
+**（已落地，2026-06-07）**
+
+Coordinator 中具体实现（`RewriteCoordinatorService.evaluate()` 第 110-140 行）：
+- `maxSeverity ≤ 2` → `log.warn("MINOR_EMBELLISHMENT only, treating as passed")` + 直接 return，避免不必要循环
+- `maxSeverity ≥ 3` → `log.info("entering rewrite loop")` + `criticFeedback = criticism.feedback()` + 进入下一轮
+- `maxSeverity == 0` + `approved=true` → 快速通过（无违规）
+
+循环次数验证实验中已观测到运行时效果：
+- MAX_ROUNDS=3 变体 C2-1：round=2 时 `maxSeverity=2` → WARN 日志 → 视为通过，避免不必要循环
+- 多组用例中 `maxSeverity=3/4/5` → INFO 日志 → 正确触发重写
+
+```java
+// 落地代码（RewriteCoordinatorService.evaluate()）：
+int maxSeverity = criticism.violations() != null && !criticism.violations().isEmpty()
+        ? criticism.violations().stream()
+            .mapToInt(Violation::severity)
+            .max()
+            .orElse(0)
+        : 0;
+
+if (criticism.approved()) {
+    return new RewriteResult(draft, round + 1);
+}
+
+if (maxSeverity <= 2) {
+    log.warn("Critic not approved but maxSeverity={} (MINOR_EMBELLISHMENT only), "
+            + "treating as passed. round={}/{}", maxSeverity, round + 1, maxRounds);
+    return new RewriteResult(draft, round + 1);
+}
+
+// maxSeverity >= 3：需要修正，进入下一轮
+log.info("Critic not approved, maxSeverity={}, entering rewrite loop. round={}/{}",
+        maxSeverity, round + 1, maxRounds);
+
+criticFeedback = criticism.feedback();
+```
 
 **第三层：暴力测试验证**
 
 我用 3 组刻意注入违规的 dirty draft（数字膨胀、技术栈替换、捏造百分比），每组采样 3 次，Critic 的命中率是 9/9 = 100%。同时跑了 4 场景端到端测试（精确数据/信息稀疏/零交集/模糊描述），全部通过。
 
 ### 防御话术速记
-> 「审查比生成简单——Critic 做的是封闭域事实匹配，天然比 Writer 的开放域创意生成准确。但我没有停留在二元判断——我用结构化违规（类型+严重度+原文证据），让 Coordinator 能根据 severity 做灰度决策。最后用 dirty draft 暴力测试验证——数字膨胀、技术栈替换、百分比捏造各测 3 次，100% 命中。」
+> 「审查比生成简单——Critic 做的是封闭域事实匹配，天然比 Writer 的开放域创意生成准确。但我没有停留在二元判断——我用结构化违规（类型+严重度+原文证据），让 Coordinator 能根据 severity 做灰度决策，severity≤2 直接放行、≥3 触发重写。这段逻辑已经落地在 Coordinator 代码里，测试日志可完整还原决策链。最后用 dirty draft 暴力测试验证——数字膨胀、技术栈替换、百分比捏造各测 3 次，100% 命中。」
 
 ---
 

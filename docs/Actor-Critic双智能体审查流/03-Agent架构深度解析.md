@@ -422,11 +422,11 @@ MatchEvaluationFacadeService.evaluate(jdText, resumeText)
 | 改进点 | 具体方案 | 现状 |
 |--------|---------|------|
 | **结构化违规** | `CriticReport` 新增 `violations: List<Violation>`，每条包含 `violationType`（FAKE_DATA/FAKE_TECH/EXAGGERATION/MINOR_EMBELLISHMENT）和 `severity`（1-5） | ✅ 已实现 |
-| **Severity 阈值容忍** | Coordinator 检查所有 violations 的 maxSeverity ≤ 2 时仍视为通过——MINOR_EMBELLISHMENT 不应触发整轮重写 | 🔲 待实现 |
+| **Severity 阈值容忍** | Coordinator 检查所有 violations 的 maxSeverity ≤ 2 时仍视为通过——MINOR_EMBELLISHMENT 不应触发整轮重写 | ✅ 已实现 |
 | **动态终止条件** | 连续两轮 feedback 的文本相似度（Levenshtein）> 90% → 说明 Critic 在重复相同意见，继续循环无意义 → 提前终止 | 🔲 待实现 |
 | **多次采样投票** | 对 C3 类模糊场景做 3 次 Critic 采样取多数，降低单次判定随机性的影响 | 🔲 待实现 |
 
-
+> **Severity 阈值容忍落地细节（2026-06-07）**：在 `evaluate()` 第 120-132 行插入 maxSeverity 流式计算 + 三层阈值分支。循环验证实验已捕获运行时证据：MAX_ROUNDS=3 的 C2-1 用例在 round=2 触发 `maxSeverity=2 → WARN → treating as passed`。
 ### 7.3 评估体系（Eval）规划
 
 | 指标 | 当前状态 | 可讲的话术 |

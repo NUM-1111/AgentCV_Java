@@ -1,0 +1,27 @@
+2026-06-07 23:24:03.546  INFO [no-trace] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 8.0.1.Final
+2026-06-07 23:24:03.564  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   : Starting CriticPrecisionTest using Java 17.0.15 with PID 282742 (started by root in /root/java/AgentCV_Java)
+2026-06-07 23:24:03.564 DEBUG [no-trace] c.jobagent.service.CriticPrecisionTest   : Running with Spring Boot v3.2.12, Spring v6.1.15
+2026-06-07 23:24:03.565  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   : No active profile set, falling back to 1 default profile: "default"
+2026-06-07 23:24:04.026 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/FactCriticAgent.class]
+2026-06-07 23:24:04.026 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/JdAnalyzeService.class]
+2026-06-07 23:24:04.027 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/MatchEvaluatorService.class]
+2026-06-07 23:24:04.027 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeWriterAgent.class]
+2026-06-07 23:24:05.118  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   : Started CriticPrecisionTest in 1.84 seconds (process running for 2.511)
+2026-06-07 23:24:05.676  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   : === CT-1: 数字膨胀 (QPS 50000 ≠ 2000) ===
+2026-06-07 23:24:09.562  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   [sample 1] ✓ approved=false, violations=[BP1 FAKE_DATA(sev=5): bullet point 1 中写“QPS从500提升至50000”，但原文明确写的是“QPS从500提升至2000”，...], [BP1 EXAGGERATION(sev=3): bullet point 1 中写“主导设计高并发订单系统”，但原文写的是“负责订单系统优化”，且原文并未出现“主导设计...], [BP3 MINOR_EMBELLISHMENT(sev=1): bullet point 3 中写“优化数据库查询，使用RocketMQ实现异步处理”，原文中“参与了数据库查询优化的相...]
+2026-06-07 23:24:12.204  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   [sample 2] ✓ approved=false, violations=[BP1 FAKE_DATA(sev=5): 原文中QPS提升至2000，但bullet point中写为'QPS从500提升至50000'，数值50000与原文20...], [BP1 EXAGGERATION(sev=3): 原文中角色为'负责'，而bullet point中写为'主导设计'，夸大了个人角色定位。]
+2026-06-07 23:24:16.534  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   [sample 3] ✓ approved=false, violations=[BP1 FAKE_DATA(sev=5): 原文中QPS从500提升至2000，但bullet point 1写的是'QPS从500提升至50000'，数值5000...], [BP1 EXAGGERATION(sev=3): 原文只提到'负责订单系统优化'和'参与了数据库查询优化'，并未说'主导设计'，bullet point 1将其改为'主导...], [BP2 MINOR_EMBELLISHMENT(sev=1): 原文提到'通过缓存'，bullet point 2写'使用Redis缓存方案'，Redis在原文中出现过，属于合理补充，...], [BP3 MINOR_EMBELLISHMENT(sev=1): 原文提到'通过...异步处理'和'使用了...RocketMQ'，bullet point 3写'优化数据库查询，使用R...]
+2026-06-07 23:24:16.535  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   CT-1 结果: 命中率=3/3, 假阳性=0, 假阴性=0
+2026-06-07 23:24:16.535  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   ✓ CT-1 通过：3/3 次正确命中
+2026-06-07 23:24:16.553  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   : === CT-3: 捏造百分比 (原文无 60%) ===
+2026-06-07 23:24:18.556  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   [sample 1] ✓ approved=false, violations=[BP2 FAKE_DATA(sev=4): 原始项目经历中未提及任何关于响应时间降低百分比的量化数据，仅提到QPS从500提升至2000。简历要点第2条称'系统响应...]
+2026-06-07 23:24:20.438  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   [sample 2] ✓ approved=false, violations=[BP2 FAKE_DATA(sev=4): 原文中仅提到QPS从500提升至2000，并未提及系统响应时间降低60%或其他具体百分比。Bullet point 2中...]
+2026-06-07 23:24:22.750  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   [sample 3] ✓ approved=false, violations=[BP2 FAKE_DATA(sev=4): 原文中未提及任何关于'响应时间降低60%'的具体数据，仅提到'QPS从500提升至2000'。bullet point ...]
+2026-06-07 23:24:22.751  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   CT-3 结果: 命中率=3/3, 假阳性=0, 假阴性=0
+2026-06-07 23:24:22.751  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   ✓ CT-3 通过：3/3 次正确命中
+2026-06-07 23:24:22.754  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   : === CT-2: 技术栈替换 (Kafka ∉ {Redis, RocketMQ}) ===
+2026-06-07 23:24:24.583  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   [sample 1] ✓ approved=false, violations=[BP2 FAKE_TECH(sev=4): 原文使用的是RocketMQ，但bullet point 2中写成了Kafka。Kafka并非原文中使用的消息队列技术，...]
+2026-06-07 23:24:26.320  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   [sample 2] ✓ approved=false, violations=[BP2 FAKE_TECH(sev=4): bullet point 2 中使用了 'Kafka'，但原始项目经历中明确写道 '使用了Redis和RocketMQ'...]
+2026-06-07 23:24:28.028  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   [sample 3] ✓ approved=false, violations=[BP2 FAKE_TECH(sev=4): 原始项目经历中明确提到使用了RocketMQ，但简历要点第2条写成了Kafka。原文为'使用了Redis和RocketM...]
+2026-06-07 23:24:28.028  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   CT-2 结果: 命中率=3/3, 假阳性=0, 假阴性=0
+2026-06-07 23:24:28.029  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   ✓ CT-2 通过：3/3 次正确命中

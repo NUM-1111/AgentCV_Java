@@ -28,31 +28,51 @@
         </encoder>
     </appender>
 
+    <!-- ===== File Appender（持久化到文件，用于排查和审计）===== -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/app.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- 文件日志不需要颜色码，与 CONSOLE 格式一致但去掉了 %clr -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [%X{traceId:-no-trace}] %-40.40logger{39} : %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按天滚动，保留 7 天历史 -->
+            <fileNamePattern>logs/app.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
     <!-- ===== 包级别日志控制 ===== -->
 
     <!-- AI 调用切面：INFO 级别，确保每次 AI 调用都有记录 -->
     <logger name="com.jobagent.aspect" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
     </logger>
 
     <!-- 请求追踪过滤器：INFO 级别 -->
     <logger name="com.jobagent.filter" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
     </logger>
 
     <!-- LangChain4j 框架层：DEBUG 级别，可看到完整 Prompt 和原始响应 -->
     <logger name="dev.langchain4j" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
     </logger>
 
     <!-- 业务层：DEBUG 级别（MatchEvaluationFacadeService 里的 log.debug 会输出） -->
     <logger name="com.jobagent" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
     </logger>
 
     <!-- Root：INFO 级别，兜底其他框架日志 -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
     </root>
 
 </configuration>
