@@ -1,0 +1,45 @@
+package com.jobagent.util;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * 调试 TextTrimmer 的新技能段落匹配
+ */
+public class TextTrimmerSkillTest {
+
+    @Test
+    @DisplayName("核心技能段落应被 extractSections 提取")
+    void testSkillSectionExtraction() {
+        String text = "项目经历\nAgentCV 服务开发。\n\n核心技能\nAI应用开发，RAG全流程。";
+
+        List<String> sections = TextTrimmer.extractSections(TextTrimmer.cleanText(text),
+                "工作经历|工作经验|职业经历|实习经历|employment|work.?experience|internship",
+                "项目经历|项目经验|project.?experience|项目介绍",
+                "核心技能|专业技能|技术栈|个人技能|技能特长|skill|技术能力");
+
+        System.out.println("\n=== testSkillSectionExtraction ===");
+        System.out.println("sections count: " + sections.size());
+        for (int i = 0; i < sections.size(); i++) {
+            System.out.println("  [" + i + "]: " + sections.get(i).substring(0, Math.min(80, sections.get(i).length())));
+        }
+
+        assertEquals(2, sections.size(), "应该有2个段落：项目经历 + 核心技能");
+        boolean hasSkill = sections.stream().anyMatch(s -> s.contains("核心技能"));
+        assertTrue(hasSkill, "核心技能段落应该被提取");
+    }
+
+    @Test
+    @DisplayName("trimResume 应保留核心技能段落")
+    void testTrimResumeWithSkills() {
+        String text = "项目经历\nAgentCV 服务开发。\n\n核心技能\nAI应用开发，RAG全流程。";
+        String result = TextTrimmer.trimResume(text);
+
+        System.out.println("\n=== testTrimResumeWithSkills ===");
+        System.out.println("result: " + result);
+
+        assertTrue(result.contains("核心技能"), "trimResume 输出应包含核心技能");
+    }
+}

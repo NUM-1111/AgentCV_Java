@@ -276,8 +276,8 @@ class TextTrimmerTest {
     void trimJd_fallsBackWhenNoSectionsFound() {
         String jd = "这是一段没有任何标题结构的 JD 文本，直接描述岗位内容。".repeat(200);
         String result = TextTrimmer.trimJd(jd);
-        assertTrue(result.length() <= 4000 + "\n…[已截断]".length() + 10,
-                "无结构时应截断到 4000 字以内");
+        assertTrue(result.length() <= 8000 + "\n…[已截断]".length() + 10,
+                "无结构时应截断到 8000 字以内");
     }
 
     // -----------------------------------------------------------------------

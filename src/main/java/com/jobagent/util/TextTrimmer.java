@@ -19,7 +19,7 @@ public final class TextTrimmer {
     private static final int SECTION_CHAR_LIMIT = 1500;
 
     /** 整体输出上限（字符数）。 */
-    private static final int TOTAL_CHAR_LIMIT = 4000;
+    private static final int TOTAL_CHAR_LIMIT = 8000;
 
     /**
      * 标题行判定：
@@ -80,7 +80,8 @@ public final class TextTrimmer {
         String cleaned = cleanText(resumeText);
         List<String> sections = extractSections(cleaned,
                 "工作经历|工作经验|职业经历|employment|work.?experience",
-                "项目经历|项目经验|project.?experience|项目介绍");
+                "项目经历|项目经验|project.?experience|项目介绍",
+                "核心技能|专业技能|技术栈|个人技能|技能特长|skill|技术能力");
         if (sections.isEmpty()) {
             return fallbackTrim(cleaned, TOTAL_CHAR_LIMIT);
         }
@@ -221,7 +222,7 @@ public final class TextTrimmer {
         for (String s : sections) {
             if (sb.length() + s.length() + 1 > limit) {
                 int remaining = limit - sb.length() - 1;
-                if (remaining > 0) {
+                if (remaining > 100) {
                     sb.append(smartTruncate(s, remaining));
                 }
                 break;

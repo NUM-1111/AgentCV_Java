@@ -1,0 +1,23 @@
+Build output — compiled classes, fat jar, generated sources
+# target/
+
+# Git internals
+.git/
+
+# IDE metadata
+.idea/
+*.iml
+.vscode/
+*.swp
+
+# Secrets — never index these
+.env
+.env.local
+.env.*.local
+
+# Logs — large files, irrelevant to code context
+logs/
+*.log
+
+# Maven wrapper cache
+.mvn/wrapper/maven-wrapper.jar

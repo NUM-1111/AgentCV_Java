@@ -70,8 +70,8 @@ class ContextWindowOverflowTest {
         MatchReport report = facadeService.evaluate(jd, resume);
 
         assertNotNull(report);
-        assertTrue(stub.lastJdLength <= 4000, "裁剪后 JD 应在 4000 字以内");
-        assertTrue(stub.lastResumeLength <= 4000, "裁剪后简历应在 4000 字以内");
+        assertTrue(stub.lastJdLength <= 8000, "裁剪后 JD 应在 8000 字以内");
+        assertTrue(stub.lastResumeLength <= 8000, "裁剪后简历应在 8000 字以内");
         System.out.printf("[场景2] 原始 JD=%d字 简历=%d字 → 裁剪后 JD=%d字 简历=%d字%n",
                 jd.length(), resume.length(), stub.lastJdLength, stub.lastResumeLength);
     }
@@ -81,7 +81,7 @@ class ContextWindowOverflowTest {
     // ─────────────────────────────────────────────────────────────────────────
 
     @Test
-    @DisplayName("场景3-超长JD: JD≈8000字 + 简历≈500字，JD 应被裁剪到 4000 字以内")
+    @DisplayName("场景3-超长JD: JD≈8000字 + 简历≈500字，JD 应被裁剪到 8000 字以内")
     void scenario3_oversizedJd() {
         String jd = buildJd(8000);
         String resume = buildResume(500);
@@ -89,8 +89,8 @@ class ContextWindowOverflowTest {
         MatchReport report = facadeService.evaluate(jd, resume);
 
         assertNotNull(report);
-        assertTrue(stub.lastJdLength <= 4000,
-                "超长 JD 应被裁剪到 4000 字以内，实际: " + stub.lastJdLength);
+        assertTrue(stub.lastJdLength <= 8000,
+                "超长 JD 应被裁剪到 8000 字以内，实际: " + stub.lastJdLength);
         assertTrue(stub.lastJdLength < jd.length(),
                 "裁剪后 JD 应短于原始输入");
         System.out.printf("[场景3] 原始 JD=%d字 → 裁剪后 JD=%d字（压缩率 %.0f%%）%n",
@@ -103,7 +103,7 @@ class ContextWindowOverflowTest {
     // ─────────────────────────────────────────────────────────────────────────
 
     @Test
-    @DisplayName("场景4-超长简历: JD≈500字 + 简历≈8000字，简历应被裁剪到 4000 字以内")
+    @DisplayName("场景4-超长简历: JD≈500字 + 简历≈8000字，简历应被裁剪到 8000 字以内")
     void scenario4_oversizedResume() {
         String jd = buildJd(500);
         String resume = buildResume(8000);
@@ -111,8 +111,8 @@ class ContextWindowOverflowTest {
         MatchReport report = facadeService.evaluate(jd, resume);
 
         assertNotNull(report);
-        assertTrue(stub.lastResumeLength <= 4000,
-                "超长简历应被裁剪到 4000 字以内，实际: " + stub.lastResumeLength);
+        assertTrue(stub.lastResumeLength <= 8000,
+                "超长简历应被裁剪到 8000 字以内，实际: " + stub.lastResumeLength);
         assertTrue(stub.lastResumeLength < resume.length(),
                 "裁剪后简历应短于原始输入");
         System.out.printf("[场景4] 原始简历=%d字 → 裁剪后简历=%d字（压缩率 %.0f%%）%n",
@@ -125,7 +125,7 @@ class ContextWindowOverflowTest {
     // ─────────────────────────────────────────────────────────────────────────
 
     @Test
-    @DisplayName("场景5-双超长: JD≈10000字 + 简历≈10000字，裁剪后均应在 4000 字以内")
+    @DisplayName("场景5-双超长: JD≈10000字 + 简历≈10000字，裁剪后均应在 8000 字以内")
     void scenario5_bothOversized() {
         String jd = buildJd(10000);
         String resume = buildResume(10000);
@@ -133,16 +133,16 @@ class ContextWindowOverflowTest {
         MatchReport report = facadeService.evaluate(jd, resume);
 
         assertNotNull(report);
-        assertTrue(stub.lastJdLength <= 4000,
-                "超长 JD 应被裁剪到 4000 字以内，实际: " + stub.lastJdLength);
-        assertTrue(stub.lastResumeLength <= 4000,
-                "超长简历应被裁剪到 4000 字以内，实际: " + stub.lastResumeLength);
+        assertTrue(stub.lastJdLength <= 8000,
+                "超长 JD 应被裁剪到 8000 字以内，实际: " + stub.lastJdLength);
+        assertTrue(stub.lastResumeLength <= 8000,
+                "超长简历应被裁剪到 8000 字以内，实际: " + stub.lastResumeLength);
 
         int totalAfterTrim = stub.lastJdLength + stub.lastResumeLength;
         int estimatedTokens = TokenEstimator.estimateTotal(
                 buildJd(stub.lastJdLength), buildResume(stub.lastResumeLength));
-        assertTrue(totalAfterTrim <= 8000,
-                "裁剪后合计应在 8000 字以内，实际: " + totalAfterTrim);
+        assertTrue(totalAfterTrim <= 16000,
+                "裁剪后合计应在 16000 字以内（各8000），实际: " + totalAfterTrim);
         System.out.printf("[场景5] 原始合计=%d字 → 裁剪后合计=%d字，估算token≈%d%n",
                 jd.length() + resume.length(), totalAfterTrim, estimatedTokens);
     }
