@@ -72,5 +72,13 @@
     "expectedViolations": [
       {"type": "FAKE_TECH", "desc": "不应引入原文中没有的Kubernetes、Go、Istio等云原生技术栈"}
     ]
+  },
+  {
+    "id": "C6-1",
+    "category": "C6-英文简历",
+    "description": "英文JD+英文简历——验证TextTrimmer英文段落识别和TokenEstimator英文估算的端到端链路",
+    "jdText": "Job Description: Senior Backend Engineer\n\nResponsibilities:\n1. Design and implement scalable microservices using Java\n2. Optimize system performance and database queries\n3. Collaborate with cross-functional teams\n\nRequirements:\n1. 5+ years of experience in Java and Spring Boot\n2. Proficient in microservices architecture and distributed systems\n3. Experience with Redis, Kafka, PostgreSQL\n4. Strong understanding of system design and performance optimization\n5. Familiar with Docker and Kubernetes for container orchestration",
+    "originalProjectText": "Work Experience:\nSenior Java Developer at TechCorp (2020-2024)\n- Designed and implemented microservices using Spring Boot and Spring Cloud\n- Optimized database queries reducing response time by 60%\n- Built real-time data pipeline with Kafka processing 1M events/day\n\nProjects:\nE-commerce Platform\n- Tech Stack: Java, Spring Boot, Redis, Kafka, MySQL, Docker\n- Led migration from monolith to microservices, improving deploy frequency by 4x\n- Implemented distributed caching layer handling 50K QPS\n\nSkills:\nJava (Expert), Python (Intermediate), Spring Boot, Spring Cloud,\nMySQL, Redis, Kafka, Docker, Kubernetes, Git, CI/CD",
+    "expectedViolations": []
   }
 ]

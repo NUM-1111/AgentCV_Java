@@ -1,0 +1,814 @@
+2026-06-17 10:15:05.564  INFO [no-trace] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 8.0.1.Final
+2026-06-17 10:15:05.582  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : Starting MemoryModeComparisonTest using Java 17.0.15 with PID 12192 (started by root in /root/java/AgentCV_Java)
+2026-06-17 10:15:05.583 DEBUG [no-trace] c.j.service.MemoryModeComparisonTest     : Running with Spring Boot v3.2.12, Spring v6.1.15
+2026-06-17 10:15:05.583  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : No active profile set, falling back to 1 default profile: "default"
+2026-06-17 10:15:06.003 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/FactCriticAgent.class]
+2026-06-17 10:15:06.003 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/JdAnalyzeService.class]
+2026-06-17 10:15:06.003 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/MatchEvaluatorService.class]
+2026-06-17 10:15:06.004 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeWriterAgent.class]
+2026-06-17 10:15:07.098  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : Started MemoryModeComparisonTest in 1.801 seconds (process running for 2.427)
+2026-06-17 10:15:07.655  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 
+========== 实验1 汇总 ==========
+2026-06-17 10:15:07.655  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 对比模式: A=显式传参(仅feedback) B=会话记忆(累积历史)
+2026-06-17 10:15:07.656  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 对比指标: 查看上方日志中的 approved/maxSeverity/violations
+2026-06-17 10:15:07.656  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 如果A的maxSeverity更低或通过更早 → 显式传参更好（当前方案有数据支撑）
+2026-06-17 10:15:07.656  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 如果B的maxSeverity更低或通过更早 → 应切换到会话记忆
+2026-06-17 10:15:07.657  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 如果两者接近 → 选显式传参（更简单、token更省）
+2026-06-17 10:15:07.665  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : ========== 模式A: 显式传参 ==========
+2026-06-17 10:15:16.971  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : A轮1: approved=true, maxSeverity=0, violations=0
+2026-06-17 10:15:16.972  INFO [no-trace] c.j.service.MemoryModeComparisonTest     :   -> 通过 (round=1)
+2026-06-17 10:15:16.973  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 模式A 最终: maxSeverity=0, totalViolations=0
+2026-06-17 10:15:16.976  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : ========== 模式B: 会话记忆 ==========
+2026-06-17 10:15:30.188  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : B轮1: approved=false, maxSeverity=1, violations=1
+2026-06-17 10:15:30.188  INFO [no-trace] c.j.service.MemoryModeComparisonTest     :   -> 通过 (round=1)
+2026-06-17 10:15:30.188  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 模式B 最终: maxSeverity=1, totalViolations=1
+2026-06-17 14:01:53.639  INFO [no-trace] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 8.0.1.Final
+2026-06-17 14:01:53.656  INFO [no-trace] c.j.service.EndToEndValidationTest       : Starting EndToEndValidationTest using Java 17.0.15 with PID 132053 (started by root in /root/java/AgentCV_Java)
+2026-06-17 14:01:53.656 DEBUG [no-trace] c.j.service.EndToEndValidationTest       : Running with Spring Boot v3.2.12, Spring v6.1.15
+2026-06-17 14:01:53.657  INFO [no-trace] c.j.service.EndToEndValidationTest       : No active profile set, falling back to 1 default profile: "default"
+2026-06-17 14:01:54.099 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/FactCriticAgent.class]
+2026-06-17 14:01:54.100 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/JdAnalyzeService.class]
+2026-06-17 14:01:54.100 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/MatchEvaluatorService.class]
+2026-06-17 14:01:54.100 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeWriterAgent.class]
+2026-06-17 14:01:55.269  INFO [no-trace] c.j.service.EndToEndValidationTest       : Started EndToEndValidationTest in 1.896 seconds (process running for 2.548)
+2026-06-17 14:01:55.822  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:02:03.757  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-17 14:02:03.762  INFO [no-trace] c.j.service.EndToEndValidationTest       : [E2E-1 ✓] rounds=1 output=优化订单系统核心链路，引入Redis分布式缓存和RocketMQ异步消息队列，通过缓存热点数据与异步削峰处理，将系统QPS从500提升至2000。
+2026-06-17 14:02:03.771  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:02:23.486  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=1, violations=1, round=1/2
+2026-06-17 14:02:23.487  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved but maxSeverity=1 (MINOR_EMBELLISHMENT only), treating as passed. round=1/2
+2026-06-17 14:02:23.487  INFO [no-trace] c.j.service.EndToEndValidationTest       : [E2E-3 ✓] rounds=1 output=使用 Spring Boot + MyBatis 框架参与订单系统开发，独立负责 RESTful API 的设计与实现，支持订单数据的增删改查等核心操作。 | 遵循 RESTful 规范设计接口路由与响应格式，确保 API 的易用性和可维护性。
+2026-06-17 14:02:23.491  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:02:35.751  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=1, round=1/2
+2026-06-17 14:02:35.751  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/2
+2026-06-17 14:02:35.752  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/2, hasFeedback=true
+2026-06-17 14:02:47.710  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/2
+2026-06-17 14:02:49.431  INFO [no-trace] c.j.service.EndToEndValidationTest       : [E2E-2 ✓] rounds=2 approved=true violations=0
+2026-06-17 14:02:49.435  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:02:58.716  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-17 14:03:01.402  INFO [no-trace] c.j.service.EndToEndValidationTest       : [E2E-4 ✓] rounds=1 approved=true violations=0
+2026-06-17 14:03:01.417 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:03:01.459 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:03:01.468 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=4406字 简历=96字，裁剪后 JD=1498字 简历=96字
+2026-06-17 14:03:01.475 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:03:01.480 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:03:01.487 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:03:01.492 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:03:01.504 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:03:01.510 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:03:01.516 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:03:01.548  INFO [no-trace] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.jobagent.service.MemoryModeComparisonTest]: MemoryModeComparisonTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-17 14:03:01.549  INFO [no-trace] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.jobagent.JobAgentApplication for test class com.jobagent.service.MemoryModeComparisonTest
+2026-06-17 14:03:01.554  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 
+========== 实验1 汇总 ==========
+2026-06-17 14:03:01.554  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 对比模式: A=显式传参(仅feedback) B=会话记忆(累积历史)
+2026-06-17 14:03:01.554  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 对比指标: 查看上方日志中的 approved/maxSeverity/violations
+2026-06-17 14:03:01.554  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 如果A的maxSeverity更低或通过更早 → 显式传参更好（当前方案有数据支撑）
+2026-06-17 14:03:01.554  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 如果B的maxSeverity更低或通过更早 → 应切换到会话记忆
+2026-06-17 14:03:01.554  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 如果两者接近 → 选显式传参（更简单、token更省）
+2026-06-17 14:03:01.556  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : ========== 模式A: 显式传参 ==========
+2026-06-17 14:03:10.751  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : A轮1: approved=true, maxSeverity=0, violations=0
+2026-06-17 14:03:10.752  INFO [no-trace] c.j.service.MemoryModeComparisonTest     :   -> 通过 (round=1)
+2026-06-17 14:03:10.752  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 模式A 最终: maxSeverity=0, totalViolations=0
+2026-06-17 14:03:10.755  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : ========== 模式B: 会话记忆 ==========
+2026-06-17 14:03:21.925  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : B轮1: approved=true, maxSeverity=0, violations=0
+2026-06-17 14:03:21.925  INFO [no-trace] c.j.service.MemoryModeComparisonTest     :   -> 通过 (round=1)
+2026-06-17 14:03:21.925  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 模式B 最终: maxSeverity=0, totalViolations=0
+2026-06-17 14:03:21.931  INFO [no-trace] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.jobagent.service.CriticPrecisionTest]: CriticPrecisionTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-17 14:03:21.932  INFO [no-trace] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.jobagent.JobAgentApplication for test class com.jobagent.service.CriticPrecisionTest
+2026-06-17 14:03:21.935  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   : === CT-1: 数字膨胀 (QPS 50000 ≠ 2000) ===
+2026-06-17 14:03:28.478  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   [sample 1] ✓ approved=false, violations=[BP1 FAKE_DATA(sev=5): 原文中QPS为'从500提升至2000'，而bullet中写'从500提升至50000'，数值严重不符；同时原文角色为'...]
+2026-06-17 14:03:36.127  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   [sample 2] ✓ approved=false, violations=[BP1 FAKE_DATA(sev=5): 原文明确写明'QPS从500提升至2000'，但 bullet 1 写为'QPS从500提升至50000'，数值严重不符...], [BP1 EXAGGERATION(sev=3): 原文仅说'负责订单系统优化'，未提及'主导设计'，bullet 1 使用了'主导设计'，夸大了个人角色。]
+2026-06-17 14:03:43.489  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   [sample 3] ✓ approved=false, violations=[BP1 FAKE_DATA(sev=4): 原始项目经历中QPS从500提升至2000，而bullet点写为提升至50000，数值严重不符；且原文角色为'负责'，b...]
+2026-06-17 14:03:43.489  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   CT-1 结果: 命中率=3/3, 假阳性=0, 假阴性=0
+2026-06-17 14:03:43.489  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   ✓ CT-1 通过：3/3 次正确命中
+2026-06-17 14:03:43.495  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   : === CT-3: 捏造百分比 (原文无 60%) ===
+2026-06-17 14:03:48.176  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   : === CT-2: 技术栈替换 (Kafka ∉ {Redis, RocketMQ}) ===
+2026-06-17 14:03:52.054  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   [sample 1] ✓ approved=false, violations=[BP2 FAKE_TECH(sev=4): 原始项目经历中明确提到使用了Redis和RocketMQ，但bullet point 2将RocketMQ替换为Kafk...]
+2026-06-17 14:03:55.628  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   [sample 2] ✓ approved=false, violations=[BP2 FAKE_TECH(sev=4): 原文明确使用RocketMQ（'使用了Redis和RocketMQ'），但bullet point中写为Kafka，属于...]
+2026-06-17 14:04:00.893  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   [sample 3] ✓ approved=false, violations=[BP2 FAKE_TECH(sev=3): 原始项目经历明确提到使用了'Redis和RocketMQ'，而简历要点写的是'Redis和Kafka'。Kafka未在原...]
+2026-06-17 14:04:00.894  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   CT-2 结果: 命中率=3/3, 假阳性=0, 假阴性=0
+2026-06-17 14:04:00.894  INFO [no-trace] c.jobagent.service.CriticPrecisionTest   :   ✓ CT-2 通过：3/3 次正确命中
+2026-06-17 14:04:00.901  INFO [no-trace] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.jobagent.service.RoundOptimizationValidatorTest]: RoundOptimizationValidatorTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-17 14:04:00.902  INFO [no-trace] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.jobagent.JobAgentApplication for test class com.jobagent.service.RoundOptimizationValidatorTest
+2026-06-17 14:04:00.906  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 已加载 8 组测试用例
+2026-06-17 14:04:00.907  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : ================================================================
+2026-06-17 14:04:00.907  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   循环次数验证实验开始
+2026-06-17 14:04:00.907  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   测试用例数: 8  |  变体数: 5  |  预计总 API 调用: ~240次
+2026-06-17 14:04:00.907  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : ================================================================
+2026-06-17 14:04:00.907  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : --- 开始 MAX_ROUNDS=1 变体 ---
+2026-06-17 14:04:00.907  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:04:14.036  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=1, round=1/1
+2026-06-17 14:04:14.037  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/1
+2026-06-17 14:04:14.037  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic reached maxRounds=1, returning last draft
+2026-06-17 14:04:21.227  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-1] rounds=1 approved=false violations=1
+2026-06-17 14:04:21.227  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:04:42.934  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/1
+2026-06-17 14:04:49.409  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-2] rounds=1 approved=true violations=0
+2026-06-17 14:04:49.410  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:04:58.142  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/1
+2026-06-17 14:05:00.571  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-1] rounds=1 approved=true violations=0
+2026-06-17 14:05:00.571  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:05:12.131  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=4, violations=1, round=1/1
+2026-06-17 14:05:12.132  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=4, entering rewrite loop. round=1/1
+2026-06-17 14:05:12.132  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic reached maxRounds=1, returning last draft
+2026-06-17 14:05:19.383  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-2] rounds=1 approved=false violations=1
+2026-06-17 14:05:19.383  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:05:34.058  WARN [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-1] 执行异常: com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 17 path $.violations[0].detail
+2026-06-17 14:05:34.058  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-1] rounds=0 approved=false violations=0
+2026-06-17 14:05:34.058  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:05:45.148  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=2, violations=1, round=1/1
+2026-06-17 14:05:45.148  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved but maxSeverity=2 (MINOR_EMBELLISHMENT only), treating as passed. round=1/1
+2026-06-17 14:05:51.410  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-2] rounds=1 approved=false violations=1
+2026-06-17 14:05:51.411  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:06:04.682  WARN [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C4-1] 执行异常: com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 23 path $.violations[0].detail
+2026-06-17 14:06:04.683  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C4-1] rounds=0 approved=false violations=0
+2026-06-17 14:06:04.683  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:06:18.005  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/1
+2026-06-17 14:06:21.612  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C5-1] rounds=1 approved=true violations=0
+2026-06-17 14:06:21.619  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   MAX_ROUNDS=1 汇总: 通过率=3/8 (37.5%) 平均轮次={:.1f} 估算token=0.75
+2026-06-17 14:06:21.619  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : --- 开始 MAX_ROUNDS=2 变体 ---
+2026-06-17 14:06:21.619  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:06:39.024  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=2, round=1/2
+2026-06-17 14:06:39.025  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/2
+2026-06-17 14:06:39.025  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/2, hasFeedback=true
+2026-06-17 14:06:54.210  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/2
+2026-06-17 14:06:57.058  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-1] rounds=2 approved=true violations=0
+2026-06-17 14:06:57.059  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:07:09.506  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-17 14:07:26.151  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-2] rounds=1 approved=false violations=1
+2026-06-17 14:07:26.154  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:07:39.145  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-17 14:07:41.782  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-1] rounds=1 approved=true violations=0
+2026-06-17 14:07:41.782  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:07:59.309  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-17 14:08:04.385  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-2] rounds=1 approved=false violations=1
+2026-06-17 14:08:04.386  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:08:20.588  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=2, violations=1, round=1/2
+2026-06-17 14:08:20.588  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved but maxSeverity=2 (MINOR_EMBELLISHMENT only), treating as passed. round=1/2
+2026-06-17 14:08:27.440  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-1] rounds=1 approved=false violations=1
+2026-06-17 14:08:27.440  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:08:43.153  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=2, violations=1, round=1/2
+2026-06-17 14:08:43.153  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved but maxSeverity=2 (MINOR_EMBELLISHMENT only), treating as passed. round=1/2
+2026-06-17 14:08:53.704  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-2] rounds=1 approved=false violations=1
+2026-06-17 14:08:53.707  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:09:11.111  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=2, round=1/2
+2026-06-17 14:09:11.111  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/2
+2026-06-17 14:09:11.111  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/2, hasFeedback=true
+2026-06-17 14:09:23.605  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/2
+2026-06-17 14:09:26.868  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C4-1] rounds=2 approved=true violations=0
+2026-06-17 14:09:26.869  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:09:45.504  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-17 14:09:48.252  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C5-1] rounds=1 approved=true violations=0
+2026-06-17 14:09:48.252  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   MAX_ROUNDS=2 汇总: 通过率=4/8 (50.0%) 平均轮次={:.1f} 估算token=1.25
+2026-06-17 14:09:48.252  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : --- 开始 MAX_ROUNDS=3 变体 ---
+2026-06-17 14:09:48.252  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:09:58.684  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/3
+2026-06-17 14:10:02.048  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-1] rounds=1 approved=true violations=0
+2026-06-17 14:10:02.048  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:10:21.944  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/3
+2026-06-17 14:10:32.907  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-2] rounds=1 approved=false violations=1
+2026-06-17 14:10:32.907  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:10:45.023  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/3
+2026-06-17 14:10:47.391  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-1] rounds=1 approved=true violations=0
+2026-06-17 14:10:47.391  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:10:55.060  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/3
+2026-06-17 14:10:57.731  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-2] rounds=1 approved=true violations=0
+2026-06-17 14:10:57.731  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:11:06.958  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/3
+2026-06-17 14:11:10.566  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-1] rounds=1 approved=true violations=0
+2026-06-17 14:11:10.566  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:11:18.971  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/3
+2026-06-17 14:11:22.627  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-2] rounds=1 approved=true violations=0
+2026-06-17 14:11:22.627  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:11:41.725  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=2, round=1/3
+2026-06-17 14:11:41.725  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/3
+2026-06-17 14:11:41.726  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/3, hasFeedback=true
+2026-06-17 14:11:54.620  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/3
+2026-06-17 14:11:57.761  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C4-1] rounds=2 approved=true violations=0
+2026-06-17 14:11:57.762  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:12:13.637  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/3
+2026-06-17 14:12:17.321  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C5-1] rounds=1 approved=true violations=0
+2026-06-17 14:12:17.322  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   MAX_ROUNDS=3 汇总: 通过率=7/8 (87.5%) 平均轮次={:.1f} 估算token=1.125
+2026-06-17 14:12:17.323  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : --- 开始 MAX_ROUNDS=4 变体 ---
+2026-06-17 14:12:17.323  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:12:33.129  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=2, round=1/4
+2026-06-17 14:12:33.130  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/4
+2026-06-17 14:12:33.130  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/4, hasFeedback=true
+2026-06-17 14:12:42.961  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/4
+2026-06-17 14:12:46.935  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-1] rounds=2 approved=true violations=0
+2026-06-17 14:12:46.935  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:13:02.986  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/4
+2026-06-17 14:13:14.851  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-2] rounds=1 approved=true violations=0
+2026-06-17 14:13:14.851  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:13:24.844  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/4
+2026-06-17 14:13:28.150  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-1] rounds=1 approved=true violations=0
+2026-06-17 14:13:28.151  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:13:43.432  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=4, violations=1, round=1/4
+2026-06-17 14:13:43.432  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=4, entering rewrite loop. round=1/4
+2026-06-17 14:13:43.432  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/4, hasFeedback=true
+2026-06-17 14:13:51.345  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/4
+2026-06-17 14:13:52.999  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-2] rounds=2 approved=true violations=0
+2026-06-17 14:13:53.000  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:14:06.708  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=1, round=1/4
+2026-06-17 14:14:06.708  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/4
+2026-06-17 14:14:06.708  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/4, hasFeedback=true
+2026-06-17 14:14:14.619  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/4
+2026-06-17 14:14:18.342  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-1] rounds=2 approved=true violations=0
+2026-06-17 14:14:18.342  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:14:27.576  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/4
+2026-06-17 14:14:31.037  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-2] rounds=1 approved=true violations=0
+2026-06-17 14:14:31.037  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:14:41.842  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=2, violations=1, round=1/4
+2026-06-17 14:14:41.850  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved but maxSeverity=2 (MINOR_EMBELLISHMENT only), treating as passed. round=1/4
+2026-06-17 14:14:49.859  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C4-1] rounds=1 approved=false violations=1
+2026-06-17 14:14:49.859  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:15:04.421  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=2, violations=1, round=1/4
+2026-06-17 14:15:04.421  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved but maxSeverity=2 (MINOR_EMBELLISHMENT only), treating as passed. round=1/4
+2026-06-17 14:15:13.410  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C5-1] rounds=1 approved=false violations=1
+2026-06-17 14:15:13.410  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   MAX_ROUNDS=4 汇总: 通过率=6/8 (75.0%) 平均轮次={:.1f} 估算token=1.375
+2026-06-17 14:15:13.410  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : --- 开始 MAX_ROUNDS=5 变体 ---
+2026-06-17 14:15:13.410  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:15:27.729  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=1, round=1/5
+2026-06-17 14:15:27.729  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/5
+2026-06-17 14:15:27.729  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/5, hasFeedback=true
+2026-06-17 14:15:33.807  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/5
+2026-06-17 14:15:36.873  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-1] rounds=2 approved=true violations=0
+2026-06-17 14:15:36.874  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:15:52.837  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/5
+2026-06-17 14:15:59.292  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-2] rounds=1 approved=true violations=0
+2026-06-17 14:15:59.293  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:16:08.512  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/5
+2026-06-17 14:16:11.728  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-1] rounds=1 approved=true violations=0
+2026-06-17 14:16:11.728  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:16:20.965  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/5
+2026-06-17 14:16:23.428  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-2] rounds=1 approved=true violations=0
+2026-06-17 14:16:23.428  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:16:38.558  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=1, round=1/5
+2026-06-17 14:16:38.558  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/5
+2026-06-17 14:16:38.558  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/5, hasFeedback=true
+2026-06-17 14:16:45.212  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/5
+2026-06-17 14:16:48.307  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-1] rounds=2 approved=true violations=0
+2026-06-17 14:16:48.307  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:16:59.862  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/5
+2026-06-17 14:17:04.324  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-2] rounds=1 approved=true violations=0
+2026-06-17 14:17:04.324  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:17:17.863  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=1, round=1/5
+2026-06-17 14:17:17.864  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/5
+2026-06-17 14:17:17.864  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/5, hasFeedback=true
+2026-06-17 14:17:25.834  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/5
+2026-06-17 14:17:28.431  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C4-1] rounds=2 approved=true violations=0
+2026-06-17 14:17:28.431  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:17:43.369  WARN [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C5-1] 执行异常: com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 25 path $.violations[0].detail
+2026-06-17 14:17:43.370  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C5-1] rounds=0 approved=false violations=0
+2026-06-17 14:17:43.370  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   MAX_ROUNDS=5 汇总: 通过率=7/8 (87.5%) 平均轮次={:.1f} 估算token=1.25
+2026-06-17 14:17:43.371  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+
+================================================================
+2026-06-17 14:17:43.371  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   验证实验报告
+2026-06-17 14:17:43.371  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : ================================================================
+
+2026-06-17 14:17:43.376  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : MAX_ROUNDS |   通过数 |   通过率 |   平均轮次 |    平均违规 |    死锁 |  估算token |    成本¥
+2026-06-17 14:17:43.376  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : -------------------------------------------------------------------------
+2026-06-17 14:17:43.444  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1          |     3 |   38% |   0.8 |   0.4 |    3 |    80400 | 0.113
+2026-06-17 14:17:43.446  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2          |     4 |   50% |   1.3 |   0.5 |    0 |    94400 | 0.132
+2026-06-17 14:17:43.447  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3          |     7 |   88% |   1.1 |   0.1 |    0 |    87400 | 0.122
+2026-06-17 14:17:43.447  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4          |     6 |   75% |   1.4 |   0.3 |    0 |   101400 | 0.142
+2026-06-17 14:17:43.447  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5          |     7 |   88% |   1.3 |   0.0 |    0 |   101400 | 0.142
+2026-06-17 14:17:43.448  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+--- 详细用例结果 ---
+2026-06-17 14:17:43.448  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+[MAX_ROUNDS=1]
+2026-06-17 14:17:43.462  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C1-1 rounds=1 violations=[BP1 EXAGGERATION(sev=3)] 
+2026-06-17 14:17:43.462  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C1-2 rounds=1 violations=无 
+2026-06-17 14:17:43.463  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-1 rounds=1 violations=无 
+2026-06-17 14:17:43.463  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C2-2 rounds=1 violations=[BP2 FAKE_DATA(sev=3)] 
+2026-06-17 14:17:43.471  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C3-1 rounds=0 violations=无 ERR:com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 17 path $.violations[0].detail
+2026-06-17 14:17:43.471  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C3-2 rounds=1 violations=[BP1 MINOR_EMBELLISHMENT(sev=1)] 
+2026-06-17 14:17:43.471  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C4-1 rounds=0 violations=无 ERR:com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 23 path $.violations[0].detail
+2026-06-17 14:17:43.471  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C5-1 rounds=1 violations=无 
+2026-06-17 14:17:43.471  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+[MAX_ROUNDS=2]
+2026-06-17 14:17:43.471  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C1-1 rounds=2 violations=无 
+2026-06-17 14:17:43.471  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C1-2 rounds=1 violations=[BP4 MINOR_EMBELLISHMENT(sev=1)] 
+2026-06-17 14:17:43.471  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-1 rounds=1 violations=无 
+2026-06-17 14:17:43.472  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C2-2 rounds=1 violations=[BP2 EXAGGERATION(sev=3)] 
+2026-06-17 14:17:43.472  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C3-1 rounds=1 violations=[BP1 EXAGGERATION(sev=3)] 
+2026-06-17 14:17:43.472  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C3-2 rounds=1 violations=[BP1 MINOR_EMBELLISHMENT(sev=2)] 
+2026-06-17 14:17:43.472  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C4-1 rounds=2 violations=无 
+2026-06-17 14:17:43.472  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C5-1 rounds=1 violations=无 
+2026-06-17 14:17:43.472  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+[MAX_ROUNDS=3]
+2026-06-17 14:17:43.472  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C1-1 rounds=1 violations=无 
+2026-06-17 14:17:43.472  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C1-2 rounds=1 violations=[BP3 MINOR_EMBELLISHMENT(sev=2)] 
+2026-06-17 14:17:43.472  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-1 rounds=1 violations=无 
+2026-06-17 14:17:43.472  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-2 rounds=1 violations=无 
+2026-06-17 14:17:43.472  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C3-1 rounds=1 violations=无 
+2026-06-17 14:17:43.472  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C3-2 rounds=1 violations=无 
+2026-06-17 14:17:43.472  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C4-1 rounds=2 violations=无 
+2026-06-17 14:17:43.472  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C5-1 rounds=1 violations=无 
+2026-06-17 14:17:43.472  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+[MAX_ROUNDS=4]
+2026-06-17 14:17:43.473  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C1-1 rounds=2 violations=无 
+2026-06-17 14:17:43.473  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C1-2 rounds=1 violations=无 
+2026-06-17 14:17:43.473  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-1 rounds=1 violations=无 
+2026-06-17 14:17:43.473  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-2 rounds=2 violations=无 
+2026-06-17 14:17:43.473  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C3-1 rounds=2 violations=无 
+2026-06-17 14:17:43.473  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C3-2 rounds=1 violations=无 
+2026-06-17 14:17:43.473  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C4-1 rounds=1 violations=[BP1 EXAGGERATION(sev=3)] 
+2026-06-17 14:17:43.473  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C5-1 rounds=1 violations=[BP1 EXAGGERATION(sev=3)] 
+2026-06-17 14:17:43.473  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+[MAX_ROUNDS=5]
+2026-06-17 14:17:43.473  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C1-1 rounds=2 violations=无 
+2026-06-17 14:17:43.473  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C1-2 rounds=1 violations=无 
+2026-06-17 14:17:43.473  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-1 rounds=1 violations=无 
+2026-06-17 14:17:43.473  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-2 rounds=1 violations=无 
+2026-06-17 14:17:43.473  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C3-1 rounds=2 violations=无 
+2026-06-17 14:17:43.473  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C3-2 rounds=1 violations=无 
+2026-06-17 14:17:43.474  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C4-1 rounds=2 violations=无 
+2026-06-17 14:17:43.474  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C5-1 rounds=0 violations=无 ERR:com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 25 path $.violations[0].detail
+2026-06-17 14:17:43.474  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+--- CSV 导出 ---
+2026-06-17 14:17:43.474  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : maxRounds,caseId,category,actualRounds,approved,violationCount,violationTypes,error
+2026-06-17 14:17:43.478  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C1-1,C1-正常,1,false,1,EXAGGERATION,
+2026-06-17 14:17:43.478  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C1-2,C1-正常,1,true,0,NONE,
+2026-06-17 14:17:43.478  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C2-1,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:17:43.478  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C2-2,C2-信息稀疏,1,false,1,FAKE_DATA,
+2026-06-17 14:17:43.478  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C3-1,C3-含模糊描述,0,false,0,NONE,com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 17 path $.violations[0].detail
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C3-2,C3-含模糊描述,1,false,1,MINOR_EMBELLISHMENT,
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C4-1,C4-含精确数据,0,false,0,NONE,com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 23 path $.violations[0].detail
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C5-1,C5-JD/原文零交集,1,true,0,NONE,
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C1-1,C1-正常,2,true,0,NONE,
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C1-2,C1-正常,1,false,1,MINOR_EMBELLISHMENT,
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C2-1,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C2-2,C2-信息稀疏,1,false,1,EXAGGERATION,
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C3-1,C3-含模糊描述,1,false,1,EXAGGERATION,
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C3-2,C3-含模糊描述,1,false,1,MINOR_EMBELLISHMENT,
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C4-1,C4-含精确数据,2,true,0,NONE,
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C5-1,C5-JD/原文零交集,1,true,0,NONE,
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C1-1,C1-正常,1,true,0,NONE,
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C1-2,C1-正常,1,false,1,MINOR_EMBELLISHMENT,
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C2-1,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C2-2,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:17:43.479  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C3-1,C3-含模糊描述,1,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C3-2,C3-含模糊描述,1,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C4-1,C4-含精确数据,2,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C5-1,C5-JD/原文零交集,1,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C1-1,C1-正常,2,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C1-2,C1-正常,1,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C2-1,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C2-2,C2-信息稀疏,2,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C3-1,C3-含模糊描述,2,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C3-2,C3-含模糊描述,1,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C4-1,C4-含精确数据,1,false,1,EXAGGERATION,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C5-1,C5-JD/原文零交集,1,false,1,EXAGGERATION,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C1-1,C1-正常,2,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C1-2,C1-正常,1,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C2-1,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C2-2,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C3-1,C3-含模糊描述,2,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C3-2,C3-含模糊描述,1,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C4-1,C4-含精确数据,2,true,0,NONE,
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C5-1,C5-JD/原文零交集,0,false,0,NONE,com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 25 path $.violations[0].detail
+2026-06-17 14:17:43.480  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+================================================================
+
+2026-06-17 14:17:43.920 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=500字 简历=500字，裁剪后 JD=498字 简历=69字
+2026-06-17 14:17:44.129 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=500字 简历=8000字，裁剪后 JD=498字 简历=1499字
+2026-06-17 14:17:44.167 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=10000字 简历=10000字，裁剪后 JD=7994字 简历=1499字
+2026-06-17 14:17:44.244 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2000字 简历=2000字，裁剪后 JD=1992字 简历=1499字
+2026-06-17 14:17:44.257 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=8000字 简历=500字，裁剪后 JD=7967字 简历=69字
+2026-06-17 14:37:00.882  INFO [no-trace] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 8.0.1.Final
+2026-06-17 14:37:00.900  INFO [no-trace] c.j.service.EndToEndValidationTest       : Starting EndToEndValidationTest using Java 17.0.15 with PID 161933 (started by root in /root/java/AgentCV_Java)
+2026-06-17 14:37:00.900 DEBUG [no-trace] c.j.service.EndToEndValidationTest       : Running with Spring Boot v3.2.12, Spring v6.1.15
+2026-06-17 14:37:00.901  INFO [no-trace] c.j.service.EndToEndValidationTest       : No active profile set, falling back to 1 default profile: "default"
+2026-06-17 14:37:01.365 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/FactCriticAgent.class]
+2026-06-17 14:37:01.365 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/JdAnalyzeService.class]
+2026-06-17 14:37:01.366 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/MatchEvaluatorService.class]
+2026-06-17 14:37:01.366 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeWriterAgent.class]
+2026-06-17 14:37:02.563  INFO [no-trace] c.j.service.EndToEndValidationTest       : Started EndToEndValidationTest in 1.98 seconds (process running for 2.754)
+2026-06-17 14:37:03.134  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:37:18.039  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=1, round=1/2
+2026-06-17 14:37:18.039  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/2
+2026-06-17 14:37:18.040  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/2, hasFeedback=true
+2026-06-17 14:37:23.841  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/2
+2026-06-17 14:37:23.844  INFO [no-trace] c.j.service.EndToEndValidationTest       : [E2E-1 ✓] rounds=2 output=负责订单系统优化，通过引入Redis分布式缓存和RocketMQ异步处理，将系统QPS从500提升至2000。
+2026-06-17 14:37:23.853  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:37:30.934  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-17 14:37:30.934  INFO [no-trace] c.j.service.EndToEndValidationTest       : [E2E-3 ✓] rounds=1 output=使用Spring Boot与MyBatis参与了订单系统的后端开发，负责设计并实现RESTful API接口。
+2026-06-17 14:37:30.937  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:37:51.504  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=2, violations=2, round=1/2
+2026-06-17 14:37:51.505  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved but maxSeverity=2 (MINOR_EMBELLISHMENT only), treating as passed. round=1/2
+2026-06-17 14:38:04.041  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:38:12.516  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-17 14:38:18.822 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:38:18.872 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:38:18.883 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=4406字 简历=96字，裁剪后 JD=1498字 简历=96字
+2026-06-17 14:38:18.893 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:38:18.902 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:38:18.912 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:38:18.920 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:38:18.942 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:38:18.953 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:38:18.965 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:38:19.012  INFO [no-trace] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.jobagent.service.MemoryModeComparisonTest]: MemoryModeComparisonTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-17 14:38:19.015  INFO [no-trace] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.jobagent.JobAgentApplication for test class com.jobagent.service.MemoryModeComparisonTest
+2026-06-17 14:38:19.021  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 
+========== 实验1 汇总 ==========
+2026-06-17 14:38:19.021  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 对比模式: A=显式传参(仅feedback) B=会话记忆(累积历史)
+2026-06-17 14:38:19.021  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 对比指标: 查看上方日志中的 approved/maxSeverity/violations
+2026-06-17 14:38:19.021  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 如果A的maxSeverity更低或通过更早 → 显式传参更好（当前方案有数据支撑）
+2026-06-17 14:38:19.021  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 如果B的maxSeverity更低或通过更早 → 应切换到会话记忆
+2026-06-17 14:38:19.021  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 如果两者接近 → 选显式传参（更简单、token更省）
+2026-06-17 14:38:19.024  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : ========== 模式A: 显式传参 ==========
+2026-06-17 14:38:30.525  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : A轮1: approved=true, maxSeverity=0, violations=0
+2026-06-17 14:38:30.525  INFO [no-trace] c.j.service.MemoryModeComparisonTest     :   -> 通过 (round=1)
+2026-06-17 14:38:30.525  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 模式A 最终: maxSeverity=0, totalViolations=0
+2026-06-17 14:38:30.527  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : ========== 模式B: 会话记忆 ==========
+2026-06-17 14:38:40.853  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : B轮1: approved=false, maxSeverity=3, violations=1
+2026-06-17 14:38:40.853  INFO [no-trace] c.j.service.MemoryModeComparisonTest     :   -> 未通过, 累积历史长度=174
+2026-06-17 14:38:47.565  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : B轮2: approved=true, maxSeverity=0, violations=0
+2026-06-17 14:38:47.565  INFO [no-trace] c.j.service.MemoryModeComparisonTest     :   -> 通过 (round=2)
+2026-06-17 14:38:47.565  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 模式B 最终: maxSeverity=0, totalViolations=0
+2026-06-17 14:38:47.569  INFO [no-trace] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.jobagent.service.RoundOptimizationValidatorTest]: RoundOptimizationValidatorTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-17 14:38:47.570  INFO [no-trace] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.jobagent.JobAgentApplication for test class com.jobagent.service.RoundOptimizationValidatorTest
+2026-06-17 14:38:47.574  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 已加载 8 组测试用例
+2026-06-17 14:38:47.575  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : ================================================================
+2026-06-17 14:38:47.575  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   循环次数验证实验开始
+2026-06-17 14:38:47.575  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   测试用例数: 8  |  变体数: 5  |  预计总 API 调用: ~240次
+2026-06-17 14:38:47.575  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : ================================================================
+2026-06-17 14:38:47.575  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : --- 开始 MAX_ROUNDS=1 变体 ---
+2026-06-17 14:38:47.576  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:39:00.068  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=1, round=1/1
+2026-06-17 14:39:00.069  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/1
+2026-06-17 14:39:00.069  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic reached maxRounds=1, returning last draft
+2026-06-17 14:39:09.727  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-1] rounds=1 approved=false violations=1
+2026-06-17 14:39:09.727  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:39:18.278  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/1
+2026-06-17 14:39:24.100  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-2] rounds=1 approved=true violations=0
+2026-06-17 14:39:24.100  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:39:31.789  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/1
+2026-06-17 14:39:34.741  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-1] rounds=1 approved=true violations=0
+2026-06-17 14:39:34.741  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:39:51.721  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=2, violations=1, round=1/1
+2026-06-17 14:39:51.722  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved but maxSeverity=2 (MINOR_EMBELLISHMENT only), treating as passed. round=1/1
+2026-06-17 14:39:56.811  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-2] rounds=1 approved=true violations=0
+2026-06-17 14:39:56.812  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:40:10.611  WARN [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-1] 执行异常: com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 26 path $.violations[0].detail
+2026-06-17 14:40:10.612  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-1] rounds=0 approved=false violations=0
+2026-06-17 14:40:10.612  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:40:25.689  WARN [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-2] 执行异常: com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 27 path $.violations[0].detail
+2026-06-17 14:40:25.689  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-2] rounds=0 approved=false violations=0
+2026-06-17 14:40:25.689  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:40:34.871  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/1
+2026-06-17 14:40:45.742  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C4-1] rounds=1 approved=false violations=2
+2026-06-17 14:40:45.742  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:40:56.529  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/1
+2026-06-17 14:40:59.046  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C5-1] rounds=1 approved=true violations=0
+2026-06-17 14:40:59.058  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   MAX_ROUNDS=1 汇总: 通过率=4/8 (50.0%) 平均轮次={:.1f} 估算token=0.75
+2026-06-17 14:40:59.058  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : --- 开始 MAX_ROUNDS=2 变体 ---
+2026-06-17 14:40:59.058  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:41:56.144  INFO [no-trace] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 8.0.1.Final
+2026-06-17 14:41:56.155  INFO [no-trace] c.j.service.EndToEndValidationTest       : Starting EndToEndValidationTest using Java 17.0.15 with PID 166091 (started by root in /root/java/AgentCV_Java)
+2026-06-17 14:41:56.156 DEBUG [no-trace] c.j.service.EndToEndValidationTest       : Running with Spring Boot v3.2.12, Spring v6.1.15
+2026-06-17 14:41:56.156  INFO [no-trace] c.j.service.EndToEndValidationTest       : No active profile set, falling back to 1 default profile: "default"
+2026-06-17 14:41:56.636 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/FactCriticAgent.class]
+2026-06-17 14:41:56.636 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/JdAnalyzeService.class]
+2026-06-17 14:41:56.636 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/MatchEvaluatorService.class]
+2026-06-17 14:41:56.637 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeWriterAgent.class]
+2026-06-17 14:41:57.800  INFO [no-trace] c.j.service.EndToEndValidationTest       : Started EndToEndValidationTest in 1.904 seconds (process running for 2.627)
+2026-06-17 14:41:58.402  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:42:08.234  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-17 14:42:08.239  INFO [no-trace] c.j.service.EndToEndValidationTest       : [E2E-1 ✓] rounds=1 output=优化订单系统，引入Redis分布式缓存和RocketMQ异步处理，将系统QPS从500提升至2000。 | 设计基于Redis的缓存方案与RocketMQ消息队列解耦架构，提升高并发场景下的系统吞吐能力。
+2026-06-17 14:42:08.247  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:42:22.735  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-17 14:42:22.736  INFO [no-trace] c.j.service.EndToEndValidationTest       : [E2E-3 ✓] rounds=1 output=参与订单系统微服务开发，基于Spring Boot和MyBatis框架设计并实现标准RESTful API，支撑订单生命周期管理 | 负责API接口的规范化设计与文档维护，确保接口的可复用性与团队协作效率
+2026-06-17 14:42:22.738  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:42:33.953  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=1, round=1/2
+2026-06-17 14:42:33.953  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/2
+2026-06-17 14:42:33.953  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/2, hasFeedback=true
+2026-06-17 14:42:40.976  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/2
+2026-06-17 14:42:44.204  INFO [no-trace] c.j.service.EndToEndValidationTest       : [E2E-2 ✓] rounds=2 approved=true violations=0
+2026-06-17 14:42:44.206  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:43:01.982  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=2, round=1/2
+2026-06-17 14:43:01.982  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/2
+2026-06-17 14:43:01.982  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/2, hasFeedback=true
+2026-06-17 14:43:08.899  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/2
+2026-06-17 14:43:10.868  INFO [no-trace] c.j.service.EndToEndValidationTest       : [E2E-4 ✓] rounds=2 approved=true violations=0
+2026-06-17 14:43:10.887 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:43:10.938 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:43:10.949 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=4406字 简历=96字，裁剪后 JD=1498字 简历=96字
+2026-06-17 14:43:10.959 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:43:10.968 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:43:10.976 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:43:10.983 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:43:10.997 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:43:11.007 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:43:11.015 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2字 简历=6字，裁剪后 JD=2字 简历=6字
+2026-06-17 14:43:11.070  INFO [no-trace] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.jobagent.service.MemoryModeComparisonTest]: MemoryModeComparisonTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-17 14:43:11.073  INFO [no-trace] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.jobagent.JobAgentApplication for test class com.jobagent.service.MemoryModeComparisonTest
+2026-06-17 14:43:11.078  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 
+========== 实验1 汇总 ==========
+2026-06-17 14:43:11.078  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 对比模式: A=显式传参(仅feedback) B=会话记忆(累积历史)
+2026-06-17 14:43:11.078  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 对比指标: 查看上方日志中的 approved/maxSeverity/violations
+2026-06-17 14:43:11.078  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 如果A的maxSeverity更低或通过更早 → 显式传参更好（当前方案有数据支撑）
+2026-06-17 14:43:11.079  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 如果B的maxSeverity更低或通过更早 → 应切换到会话记忆
+2026-06-17 14:43:11.079  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 如果两者接近 → 选显式传参（更简单、token更省）
+2026-06-17 14:43:11.081  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : ========== 模式A: 显式传参 ==========
+2026-06-17 14:43:27.174  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : A轮1: approved=false, maxSeverity=3, violations=2
+2026-06-17 14:43:27.175  INFO [no-trace] c.j.service.MemoryModeComparisonTest     :   -> 未通过, feedback长度=68
+2026-06-17 14:43:36.226  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : A轮2: approved=true, maxSeverity=0, violations=0
+2026-06-17 14:43:36.226  INFO [no-trace] c.j.service.MemoryModeComparisonTest     :   -> 通过 (round=2)
+2026-06-17 14:43:36.226  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 模式A 最终: maxSeverity=0, totalViolations=0
+2026-06-17 14:43:36.229  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : ========== 模式B: 会话记忆 ==========
+2026-06-17 14:43:45.843  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : B轮1: approved=true, maxSeverity=0, violations=0
+2026-06-17 14:43:45.844  INFO [no-trace] c.j.service.MemoryModeComparisonTest     :   -> 通过 (round=1)
+2026-06-17 14:43:45.844  INFO [no-trace] c.j.service.MemoryModeComparisonTest     : 模式B 最终: maxSeverity=0, totalViolations=0
+2026-06-17 14:43:45.850  INFO [no-trace] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.jobagent.service.RoundOptimizationValidatorTest]: RoundOptimizationValidatorTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-17 14:43:45.851  INFO [no-trace] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.jobagent.JobAgentApplication for test class com.jobagent.service.RoundOptimizationValidatorTest
+2026-06-17 14:43:45.858  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 已加载 8 组测试用例
+2026-06-17 14:43:45.860  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : ================================================================
+2026-06-17 14:43:45.860  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   循环次数验证实验开始
+2026-06-17 14:43:45.860  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   测试用例数: 8  |  变体数: 5  |  预计总 API 调用: ~240次
+2026-06-17 14:43:45.860  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : ================================================================
+2026-06-17 14:43:45.860  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : --- 开始 MAX_ROUNDS=1 变体 ---
+2026-06-17 14:43:45.860  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:44:01.057  WARN [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-1] 执行异常: com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 30 path $.violations[0].detail
+2026-06-17 14:44:01.057  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-1] rounds=0 approved=false violations=0
+2026-06-17 14:44:01.057  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:44:18.567  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/1
+2026-06-17 14:44:27.256  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-2] rounds=1 approved=true violations=0
+2026-06-17 14:44:27.257  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:44:34.651  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/1
+2026-06-17 14:44:37.272  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-1] rounds=1 approved=true violations=0
+2026-06-17 14:44:37.272  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:44:43.204  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/1
+2026-06-17 14:44:45.776  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-2] rounds=1 approved=true violations=0
+2026-06-17 14:44:45.776  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:44:56.622  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=1, round=1/1
+2026-06-17 14:44:56.623  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/1
+2026-06-17 14:44:56.623  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic reached maxRounds=1, returning last draft
+2026-06-17 14:45:08.015  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-1] rounds=1 approved=false violations=2
+2026-06-17 14:45:08.016  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:45:17.170  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/1
+2026-06-17 14:45:21.116  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-2] rounds=1 approved=true violations=0
+2026-06-17 14:45:21.116  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:45:34.884  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=2, round=1/1
+2026-06-17 14:45:34.884  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/1
+2026-06-17 14:45:34.884  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic reached maxRounds=1, returning last draft
+2026-06-17 14:45:39.700  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C4-1] rounds=1 approved=true violations=0
+2026-06-17 14:45:39.700  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/1, hasFeedback=false
+2026-06-17 14:45:48.739  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/1
+2026-06-17 14:45:53.614  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C5-1] rounds=1 approved=true violations=0
+2026-06-17 14:45:53.616  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   MAX_ROUNDS=1 汇总: 通过率=6/8 (75.0%) 平均轮次={:.1f} 估算token=0.875
+2026-06-17 14:45:53.616  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : --- 开始 MAX_ROUNDS=2 变体 ---
+2026-06-17 14:45:53.616  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:46:12.045  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=3, round=1/2
+2026-06-17 14:46:12.045  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/2
+2026-06-17 14:46:12.045  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/2, hasFeedback=true
+2026-06-17 14:46:21.737  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/2
+2026-06-17 14:46:24.128  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-1] rounds=2 approved=true violations=0
+2026-06-17 14:46:24.129  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:46:34.333  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-17 14:46:37.848  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-2] rounds=1 approved=true violations=0
+2026-06-17 14:46:37.848  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:46:48.462  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-17 14:46:52.447  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-1] rounds=1 approved=true violations=0
+2026-06-17 14:46:52.447  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:47:07.925  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=2, violations=1, round=1/2
+2026-06-17 14:47:07.925  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved but maxSeverity=2 (MINOR_EMBELLISHMENT only), treating as passed. round=1/2
+2026-06-17 14:47:15.334  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-2] rounds=1 approved=false violations=1
+2026-06-17 14:47:15.334  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:47:25.314  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=1, round=1/2
+2026-06-17 14:47:25.314  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/2
+2026-06-17 14:47:25.314  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/2, hasFeedback=true
+2026-06-17 14:47:34.611  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/2
+2026-06-17 14:47:38.178  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-1] rounds=2 approved=true violations=0
+2026-06-17 14:47:38.178  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:47:48.741  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-17 14:47:52.542  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-2] rounds=1 approved=true violations=0
+2026-06-17 14:47:52.543  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:48:07.706  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=2, round=1/2
+2026-06-17 14:48:07.706  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/2
+2026-06-17 14:48:07.706  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/2, hasFeedback=true
+2026-06-17 14:48:16.268  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/2
+2026-06-17 14:48:19.403  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C4-1] rounds=2 approved=true violations=0
+2026-06-17 14:48:19.403  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-17 14:48:29.650  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-17 14:48:33.947  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C5-1] rounds=1 approved=true violations=0
+2026-06-17 14:48:33.947  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   MAX_ROUNDS=2 汇总: 通过率=7/8 (87.5%) 平均轮次={:.1f} 估算token=1.375
+2026-06-17 14:48:33.948  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : --- 开始 MAX_ROUNDS=3 变体 ---
+2026-06-17 14:48:33.948  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:48:48.809  WARN [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-1] 执行异常: com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 23 path $.violations[0].detail
+2026-06-17 14:48:48.809  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-1] rounds=0 approved=false violations=0
+2026-06-17 14:48:48.809  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:48:58.581  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/3
+2026-06-17 14:49:11.323  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-2] rounds=1 approved=false violations=1
+2026-06-17 14:49:11.324  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:49:27.070  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/3
+2026-06-17 14:49:30.949  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-1] rounds=1 approved=true violations=0
+2026-06-17 14:49:30.949  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:49:37.319  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/3
+2026-06-17 14:49:39.832  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-2] rounds=1 approved=true violations=0
+2026-06-17 14:49:39.832  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:49:48.721  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/3
+2026-06-17 14:49:51.409  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-1] rounds=1 approved=true violations=0
+2026-06-17 14:49:51.409  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:49:59.105  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/3
+2026-06-17 14:50:01.569  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-2] rounds=1 approved=true violations=0
+2026-06-17 14:50:01.569  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:50:14.664  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=2, round=1/3
+2026-06-17 14:50:14.665  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/3
+2026-06-17 14:50:14.665  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/3, hasFeedback=true
+2026-06-17 14:50:22.963  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/3
+2026-06-17 14:50:26.191  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C4-1] rounds=2 approved=true violations=0
+2026-06-17 14:50:26.191  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/3, hasFeedback=false
+2026-06-17 14:50:40.903  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=1, round=1/3
+2026-06-17 14:50:40.903  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/3
+2026-06-17 14:50:40.903  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/3, hasFeedback=true
+2026-06-17 14:50:49.142  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/3
+2026-06-17 14:50:50.543  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C5-1] rounds=2 approved=true violations=0
+2026-06-17 14:50:50.543  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   MAX_ROUNDS=3 汇总: 通过率=6/8 (75.0%) 平均轮次={:.1f} 估算token=1.125
+2026-06-17 14:50:50.544  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : --- 开始 MAX_ROUNDS=4 变体 ---
+2026-06-17 14:50:50.544  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:51:03.374  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=1, round=1/4
+2026-06-17 14:51:03.374  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/4
+2026-06-17 14:51:03.374  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/4, hasFeedback=true
+2026-06-17 14:51:10.701  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/4
+2026-06-17 14:51:13.329  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-1] rounds=2 approved=true violations=0
+2026-06-17 14:51:13.329  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:51:22.725  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/4
+2026-06-17 14:51:25.577  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-2] rounds=1 approved=true violations=0
+2026-06-17 14:51:25.577  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:51:34.041  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/4
+2026-06-17 14:51:36.186  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-1] rounds=1 approved=true violations=0
+2026-06-17 14:51:36.186  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:51:43.608  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/4
+2026-06-17 14:51:46.672  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-2] rounds=1 approved=true violations=0
+2026-06-17 14:51:46.673  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:51:54.788  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/4
+2026-06-17 14:51:57.724  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-1] rounds=1 approved=true violations=0
+2026-06-17 14:51:57.725  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:52:06.384  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=2, violations=1, round=1/4
+2026-06-17 14:52:06.384  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved but maxSeverity=2 (MINOR_EMBELLISHMENT only), treating as passed. round=1/4
+2026-06-17 14:52:13.427  WARN [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-2] 执行异常: com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 54 path $.violations[0].detail
+2026-06-17 14:52:13.427  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-2] rounds=1 approved=true violations=0
+2026-06-17 14:52:13.427  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:52:24.297  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=1, round=1/4
+2026-06-17 14:52:24.297  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/4
+2026-06-17 14:52:24.297  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/4, hasFeedback=true
+2026-06-17 14:52:34.227  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/4
+2026-06-17 14:52:37.487  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C4-1] rounds=2 approved=true violations=0
+2026-06-17 14:52:37.488  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/4, hasFeedback=false
+2026-06-17 14:52:54.120  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=1, round=1/4
+2026-06-17 14:52:54.121  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/4
+2026-06-17 14:52:54.121  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/4, hasFeedback=true
+2026-06-17 14:53:03.257  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/4
+2026-06-17 14:53:05.678  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C5-1] rounds=2 approved=true violations=0
+2026-06-17 14:53:05.678  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   MAX_ROUNDS=4 汇总: 通过率=8/8 (100.0%) 平均轮次={:.1f} 估算token=1.375
+2026-06-17 14:53:05.679  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : --- 开始 MAX_ROUNDS=5 变体 ---
+2026-06-17 14:53:05.679  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:53:14.825  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/5
+2026-06-17 14:53:23.085  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-1] rounds=1 approved=false violations=1
+2026-06-17 14:53:23.085  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:53:30.794  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/5
+2026-06-17 14:53:33.701  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C1-2] rounds=1 approved=true violations=0
+2026-06-17 14:53:33.702  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:53:47.339  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/5
+2026-06-17 14:53:53.630  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-1] rounds=1 approved=true violations=0
+2026-06-17 14:53:53.631  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:54:05.500  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/5
+2026-06-17 14:54:14.371  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C2-2] rounds=1 approved=true violations=0
+2026-06-17 14:54:14.371  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:54:24.394  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=2, violations=1, round=1/5
+2026-06-17 14:54:24.395  WARN [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved but maxSeverity=2 (MINOR_EMBELLISHMENT only), treating as passed. round=1/5
+2026-06-17 14:54:30.231  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-1] rounds=1 approved=false violations=1
+2026-06-17 14:54:30.231  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:54:41.351  WARN [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-2] 执行异常: com.google.gson.stream.MalformedJsonException: Unterminated object at line 11 column 26 path $.feedback
+2026-06-17 14:54:41.351  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C3-2] rounds=0 approved=false violations=0
+2026-06-17 14:54:41.351  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:54:58.900  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=false, maxSeverity=3, violations=2, round=1/5
+2026-06-17 14:54:58.901  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic not approved, maxSeverity=3, entering rewrite loop. round=1/5
+2026-06-17 14:54:58.901  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=2/5, hasFeedback=true
+2026-06-17 14:55:15.303  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=2/5
+2026-06-17 14:55:18.462  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C4-1] rounds=2 approved=true violations=0
+2026-06-17 14:55:18.462  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/5, hasFeedback=false
+2026-06-17 14:55:28.986  INFO [no-trace] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/5
+2026-06-17 14:55:34.062  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   [C5-1] rounds=1 approved=true violations=0
+2026-06-17 14:55:34.063  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   MAX_ROUNDS=5 汇总: 通过率=5/8 (62.5%) 平均轮次={:.1f} 估算token=1.0
+2026-06-17 14:55:34.063  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+
+================================================================
+2026-06-17 14:55:34.063  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   验证实验报告
+2026-06-17 14:55:34.063  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : ================================================================
+
+2026-06-17 14:55:34.063  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : MAX_ROUNDS |   通过数 |   通过率 |   平均轮次 |    平均违规 |    死锁 |  估算token |    成本¥
+2026-06-17 14:55:34.063  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : -------------------------------------------------------------------------
+2026-06-17 14:55:34.065  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1          |     6 |   75% |   0.9 |   0.3 |    1 |    80400 | 0.113
+2026-06-17 14:55:34.065  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2          |     7 |   88% |   1.4 |   0.1 |    0 |   101400 | 0.142
+2026-06-17 14:55:34.065  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3          |     6 |   75% |   1.1 |   0.1 |    0 |    94400 | 0.132
+2026-06-17 14:55:34.065  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4          |     8 |  100% |   1.4 |   0.0 |    0 |   101400 | 0.142
+2026-06-17 14:55:34.065  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5          |     5 |   63% |   1.0 |   0.3 |    0 |    87400 | 0.122
+2026-06-17 14:55:34.066  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+--- 详细用例结果 ---
+2026-06-17 14:55:34.066  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+[MAX_ROUNDS=1]
+2026-06-17 14:55:34.066  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C1-1 rounds=0 violations=无 ERR:com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 30 path $.violations[0].detail
+2026-06-17 14:55:34.066  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C1-2 rounds=1 violations=无 
+2026-06-17 14:55:34.066  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-1 rounds=1 violations=无 
+2026-06-17 14:55:34.066  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-2 rounds=1 violations=无 
+2026-06-17 14:55:34.067  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C3-1 rounds=1 violations=[BP1 EXAGGERATION(sev=2)], [BP2 MINOR_EMBELLISHMENT(sev=1)] 
+2026-06-17 14:55:34.067  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C3-2 rounds=1 violations=无 
+2026-06-17 14:55:34.067  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C4-1 rounds=1 violations=无 
+2026-06-17 14:55:34.067  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C5-1 rounds=1 violations=无 
+2026-06-17 14:55:34.067  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+[MAX_ROUNDS=2]
+2026-06-17 14:55:34.067  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C1-1 rounds=2 violations=无 
+2026-06-17 14:55:34.067  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C1-2 rounds=1 violations=无 
+2026-06-17 14:55:34.067  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-1 rounds=1 violations=无 
+2026-06-17 14:55:34.067  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C2-2 rounds=1 violations=[BP1 EXAGGERATION(sev=3)] 
+2026-06-17 14:55:34.067  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C3-1 rounds=2 violations=无 
+2026-06-17 14:55:34.067  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C3-2 rounds=1 violations=无 
+2026-06-17 14:55:34.067  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C4-1 rounds=2 violations=无 
+2026-06-17 14:55:34.067  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C5-1 rounds=1 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+[MAX_ROUNDS=3]
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C1-1 rounds=0 violations=无 ERR:com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 23 path $.violations[0].detail
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C1-2 rounds=1 violations=[BP1 MINOR_EMBELLISHMENT(sev=2)] 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-1 rounds=1 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-2 rounds=1 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C3-1 rounds=1 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C3-2 rounds=1 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C4-1 rounds=2 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C5-1 rounds=2 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+[MAX_ROUNDS=4]
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C1-1 rounds=2 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C1-2 rounds=1 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-1 rounds=1 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-2 rounds=1 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C3-1 rounds=1 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C3-2 rounds=1 violations=无 ERR:com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 54 path $.violations[0].detail
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C4-1 rounds=2 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C5-1 rounds=2 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+[MAX_ROUNDS=5]
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C1-1 rounds=1 violations=[BP1 EXAGGERATION(sev=3)] 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C1-2 rounds=1 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-1 rounds=1 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C2-2 rounds=1 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C3-1 rounds=1 violations=[BP1 EXAGGERATION(sev=3)] 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✗ C3-2 rounds=0 violations=无 ERR:com.google.gson.stream.MalformedJsonException: Unterminated object at line 11 column 26 path $.feedback
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C4-1 rounds=2 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     :   ✓ C5-1 rounds=1 violations=无 
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+--- CSV 导出 ---
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : maxRounds,caseId,category,actualRounds,approved,violationCount,violationTypes,error
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C1-1,C1-正常,0,false,0,NONE,com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 30 path $.violations[0].detail
+2026-06-17 14:55:34.068  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C1-2,C1-正常,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C2-1,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C2-2,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C3-1,C3-含模糊描述,1,false,2,EXAGGERATION;MINOR_EMBELLISHMENT,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C3-2,C3-含模糊描述,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C4-1,C4-含精确数据,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 1,C5-1,C5-JD/原文零交集,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C1-1,C1-正常,2,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C1-2,C1-正常,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C2-1,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C2-2,C2-信息稀疏,1,false,1,EXAGGERATION,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C3-1,C3-含模糊描述,2,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C3-2,C3-含模糊描述,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C4-1,C4-含精确数据,2,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 2,C5-1,C5-JD/原文零交集,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C1-1,C1-正常,0,false,0,NONE,com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 23 path $.violations[0].detail
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C1-2,C1-正常,1,false,1,MINOR_EMBELLISHMENT,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C2-1,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C2-2,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C3-1,C3-含模糊描述,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C3-2,C3-含模糊描述,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C4-1,C4-含精确数据,2,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 3,C5-1,C5-JD/原文零交集,2,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C1-1,C1-正常,2,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C1-2,C1-正常,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C2-1,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C2-2,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C3-1,C3-含模糊描述,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C3-2,C3-含模糊描述,1,true,0,NONE,com.google.gson.stream.MalformedJsonException: Unterminated object at line 8 column 54 path $.violations[0].detail
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C4-1,C4-含精确数据,2,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 4,C5-1,C5-JD/原文零交集,2,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C1-1,C1-正常,1,false,1,EXAGGERATION,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C1-2,C1-正常,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C2-1,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C2-2,C2-信息稀疏,1,true,0,NONE,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C3-1,C3-含模糊描述,1,false,1,EXAGGERATION,
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C3-2,C3-含模糊描述,0,false,0,NONE,com.google.gson.stream.MalformedJsonException: Unterminated object at line 11 column 26 path $.feedback
+2026-06-17 14:55:34.069  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C4-1,C4-含精确数据,2,true,0,NONE,
+2026-06-17 14:55:34.070  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 5,C5-1,C5-JD/原文零交集,1,true,0,NONE,
+2026-06-17 14:55:34.070  INFO [no-trace] c.j.s.RoundOptimizationValidatorTest     : 
+================================================================
+
+2026-06-17 14:55:34.078 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=500字 简历=500字，裁剪后 JD=498字 简历=69字
+2026-06-17 14:55:34.091 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=500字 简历=8000字，裁剪后 JD=498字 简历=1499字
+2026-06-17 14:55:34.101 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=10000字 简历=10000字，裁剪后 JD=7994字 简历=1499字
+2026-06-17 14:55:34.114 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=2000字 简历=2000字，裁剪后 JD=1992字 简历=1499字
+2026-06-17 14:55:34.123 DEBUG [no-trace] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=8000字 简历=500字，裁剪后 JD=7967字 简历=69字
