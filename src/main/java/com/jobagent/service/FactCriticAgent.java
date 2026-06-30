@@ -9,35 +9,50 @@ import dev.langchain4j.service.spring.AiService;
 /**
  * FactCritic Agent — 严格的事实核查员。
  *
- * 在 Actor-Critic 架构中扮演"笼子的守卫"角色：
+ * <p>在 Actor-Critic 架构中扮演"笼子的守卫"角色：
  * 以原始项目经历为唯一事实边界，逐条核查 Writer 生成的 bullet points
  * 是否存在捏造或夸大。不看舞姿好不好看（语言表达优不优美），只判断有没有越界。
  *
- * 与 {@link ResumeWriterAgent} 的关键差异：Writer 处于"创作模式"，Critic 处于"审查模式"。
- * 同一 LLM 拆分角色，用不同的 {@code @SystemMessage} 切换，是工程上解决角色冲突的标准方案。
+ * <h3>Agent vs Tool 分工</h3>
+ * <p>Critic 是 Agent（Judge，有决策权），负责最终判决"通过/不通过 + severity 分级"。
+ * 它注册了 {@link FactCheckTool} 中的核查工具（Checker，无决策权），当遇到需要精确比对
+ * 的数字、技术栈差集、角色措辞时，自动调用对应 Tool 获取精确比对结果，再基于结果做最终判断。
+ * 这就是"Agent vs Skills"的核心区别——Agent 有决策权，Skills/Tool 是被调用的能力模块。
  *
- * 审查规则要点：
- * - 数字逐字比对：原文 QPS 2000 → bullet QPS 5000 = 不通过（数值不一致）
- * - 技术栈逐项差集：原文 {RocketMQ, Redis} → bullet {Kafka, Redis} = 不通过（Kafka 不在原文）
+ * <h3>Tool 注册方式</h3>
+ * <p>通过 {@code @AiService(tools = {"factCheckTool"})} 引用 Spring Bean 名称。
+ * 框架在代理生成时自动扫描 {@code @Tool} 方法，为每个方法生成 JSON Schema
+ * 并注入到每次 LLM 请求的 {@code tools} 字段中。
+ *
+ * <p>审查规则要点：
+ * - 数字逐字比对：原文 QPS 2000 → bullet QPS 5000 = 不通过 → 调 checkClaim 获取精确比对
+ * - 技术栈逐项差集：原文 {RocketMQ, Redis} → bullet {Kafka, Redis} = 不通过 → 调 checkTechStack
  * - 定性描述容忍：原文"优化了性能" → bullet"提升了响应速度" = 通过（同义表达，无假数字）
- * - 角色措辞审查：原文"参与" → bullet"主导" = 判 EXAGGERATION
- *
- * 结构化输出设计（CriticReport）：
- * 不是简单返回"通过/不通过"，而是输出每条违规的类型
- * （FAKE_DATA / FAKE_TECH / EXAGGERATION / MINOR_EMBELLISHMENT）
- * 和严重程度（1-5）。这让 {@link RewriteCoordinatorService} 可以基于 severity 阈值做智能决策——
- * 例如 severity≤2 仍视为通过，避免 Critic 偶发性过度敏感导致不必要循环。
+ * - 角色措辞审查：原文"参与" → bullet"主导" = 判 EXAGGERATION → 调 checkRoleWording
  *
  * @see ResumeWriterAgent
  * @see RewriteCoordinatorService
+ * @see FactCheckTool
  * @see CriticReport
  * @see com.jobagent.model.Violation
  */
-@AiService
+@AiService(tools = {"factCheckTool"})
 public interface FactCriticAgent {
 
     @SystemMessage("""
             你是一位严格的事实核查员。你的唯一任务是交叉比对简历要点与原始项目经历，检查是否存在捏造或夸大。
+            
+            ★ 可用工具（按需调用，不要凭感觉判断）：
+            你可以使用以下核查工具来做精确比对。请务必在需要精确比对时调用，而不是凭"感觉"判断：
+            · checkClaim: 精确比对原文和改写声明中的数值是否一致。当你发现 bullet 中出现了原文没有的数字、或数字与原文不同时，必须调用此工具验证，不要自己凭记忆比对。
+            · checkTechStack: 核查技术栈差异。当 bullet 中列出了技术名词而你不确定原文是否包含时，调用此工具做精确差集运算。
+            · checkRoleWording: 核查角色措辞是否夸大。当原文使用"参与/协助"等弱措辞而 bullet 使用"主导/设计"等强措辞时，调用此工具获取客观比对结果。
+            
+            ★ 如何结合 Tool 结果做判断：
+            - 如果 checkClaim 返回"不一致"，则你必须在 violations 中记录 FAKE_DATA，severity 根据数值差异幅度判定。
+            - 如果 checkTechStack 返回"新增技术"，则记录 FAKE_TECH。
+            - 如果 checkRoleWording 返回"角色夸大"，则记录 EXAGGERATION。
+            - 如果 Tool 返回"一致"但你仍发现其他问题（如语义层面的夸大），你仍然可以基于自己的判断给出违规。
             
             核查规则：
             1. 以"原始项目经历"为唯一事实边界。

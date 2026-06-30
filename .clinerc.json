@@ -1,17 +1,17 @@
 {
   "api": {
-    "timeout": 120000,
+    "timeout": 180000,
     "maxRetries": 2,
     "retryDelay": 5000,
     "requestRateLimit": 10,
     "requestRateWindowMs": 60000
   },
   "terminal": {
-    "timeout": 120000,
-    "maxBufferSize": 1048576,
+    "timeout": 180000,
+    "maxBufferSize": 5242880,
     "killOnTimeout": true,
     "persistSession": false,
-    "commandDelay": 500,
+    "commandDelay": 1000,
     "shell": "/bin/bash",
     "shellArgs": ["--norc", "--noprofile"]
   },
@@ -19,7 +19,7 @@
     "maxConsecutiveToolCalls": 8,
     "maxThinkingTimeMs": 180000,
     "maxTotalTimeMs": 600000,
-    "pauseOnRepeatedPattern": true,
+    "pauseOnRepeatedPattern": false,
     "repeatedPatternThreshold": 5,
     "cooldownPeriodMs": 10000
   },
@@ -31,11 +31,11 @@
     "autoTruncateStrategy": "summary"
   },
   "system": {
-    "logLevel": "info",
-    "traceApiCalls": true,
-    "traceTerminalCommands": true,
-    "healthCheckIntervalMs": 30000,
+    "logLevel": "warn",
+    "traceApiCalls": false,
+    "traceTerminalCommands": false,
+    "healthCheckIntervalMs": 15000,
     "autoRecoverStuckSessions": true,
-    "stuckSessionThresholdMs": 300000
+    "stuckSessionThresholdMs": 120000
   }
 }

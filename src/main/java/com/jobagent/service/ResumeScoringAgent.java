@@ -1,14 +1,21 @@
 package com.jobagent.service;
 
+import com.jobagent.model.OptimizationReport.ScoreResult;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.V;
 import dev.langchain4j.service.spring.AiService;
 
+/**
+ * 评分 Agent — Phase 1 评分阶段的执行者。
+ *
+ * <p>职责：客观评估简历与 JD 的匹配度，输出结构化评分结果。
+ * 这是一个轻量 Agent——不做审查、不迭代、不调用 Tool，只做一次评分调用。
+ */
 @AiService
-public interface MatchEvaluatorService {
+public interface ResumeScoringAgent {
 
-    @SystemMessage("你是一个极其严苛的资深技术面试官和 HR 专家。你的任务是客观、冷酷地评估候选人简历与 JD 的匹配度，绝不奉承。你必须严格按照指定 JSON Schema 输出，禁止输出任何解释、前后缀、Markdown、注释或额外字段。")
+    @SystemMessage("你是一个极其严苛的资深技术面试官和 HR 专家。你的任务是客观、冷酷地评估候选人简历与 JD 的匹配度，绝不奉承。")
     @UserMessage("""
             请严格对照岗位 JD 与候选人简历纯文本，输出结构化的人岗匹配报告。
             你只能返回一个 JSON 对象，且字段必须严格如下：
@@ -33,10 +40,10 @@ public interface MatchEvaluatorService {
             {{resumeText}}
             """)
     /**
-     * 评估候选人简历与 JD 的匹配度
-     * @param jdText 岗位 JD
-     * @param resumeText 候选人简历纯文本
-     * @return 模型返回的原始文本
+     * 对简历与 JD 做匹配评分。
      */
-    String evaluate(@V("jdText") String jdText, @V("resumeText") String resumeText);
+    ScoreResult score(
+            @V("jdText") String jdText,
+            @V("resumeText") String resumeText
+    );
 }

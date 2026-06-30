@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgentCV — 简历智能优化系统</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f1117; --card: #1a1d27; --border: #2a2d3a; --text: #c9d1d9;
+    --accent: #58a6ff; --green: #3fb950; --red: #f85149; --yellow: #d2991d;
+    --muted: #8b949e; --radius: 8px;
+  }
+  body {
+    background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100vh; padding: 12px;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+  h1 span { color: var(--accent); }
+  .subtitle { color: var(--muted); font-size: 0.85rem; margin-bottom: 16px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 14px; margin-bottom: 12px;
+  }
+  .card h2 { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; color: var(--accent); }
+  textarea {
+    width: 100%; min-height: 140px; background: var(--bg); color: var(--text);
+    border: 1px solid var(--border); border-radius: var(--radius); padding: 10px;
+    font-family: monospace; font-size: 0.85rem; resize: vertical; outline: none;
+  }
+  textarea:focus { border-color: var(--accent); }
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  button {
+    background: #1f6feb; color: #fff; border: none; border-radius: var(--radius);
+    padding: 10px 20px; font-size: 0.9rem; font-weight: 600; cursor: pointer;
+  }
+  button:hover { opacity: 0.85; }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  button.secondary { background: var(--border); color: var(--text); }
+  .status-bar {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 10px 14px; margin-bottom: 12px; font-size: 0.85rem; color: var(--muted);
+    display: flex; align-items: center; gap: 8px; min-height: 40px;
+  }
+  .status-bar.loading { color: var(--accent); }
+  .status-bar.error   { color: var(--red); }
+  .status-bar.done    { color: var(--green); }
+  .spinner { width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.6s linear infinite; display: none; }
+  .loading .spinner { display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .elapsed { margin-left: auto; font-variant-numeric: tabular-nums; }
+  .result-section { display: none; }
+  .result-section.visible { display: block; }
+  .score-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 60px; height: 60px; border-radius: 50%; font-size: 1.5rem; font-weight: 700;
+    border: 3px solid; margin-right: 12px;
+  }
+  .score-badge.high { color: var(--green); border-color: var(--green); }
+  .score-badge.mid  { color: var(--yellow); border-color: var(--yellow); }
+  .score-badge.low  { color: var(--red); border-color: var(--red); }
+  .skill-tag {
+    display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.78rem;
+    margin: 2px 4px 2px 0;
+  }
+  .skill-tag.match  { background: rgba(63,185,80,0.15); color: var(--green); }
+  .skill-tag.miss   { background: rgba(248,81,73,0.15); color: var(--red); }
+  .advice-box {
+    background: var(--bg); border-left: 3px solid var(--accent); padding: 10px 14px;
+    border-radius: 0 var(--radius) var(--radius) 0; font-size: 0.85rem; margin-top: 8px;
+  }
+  .rewrite-item {
+    background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 12px; margin-bottom: 8px; font-size: 0.85rem;
+  }
+  .rewrite-item .bullet { font-weight: 600; margin-bottom: 4px; }
+  .rewrite-item .reason { color: var(--muted); font-size: 0.8rem; }
+  .rounds-badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.8rem; background: rgba(88,166,255,0.15); color: var(--accent);
+  }
+  .critic-status {
+    display: flex; align-items: center; gap: 6px; font-size: 0.82rem; margin-top: 8px;
+  }
+  .critic-status.pass { color: var(--green); }
+  .critic-status.fail { color: var(--red); }
+  .violation-item {
+    background: rgba(248,81,73,0.08); border: 1px solid rgba(248,81,73,0.2);
+    border-radius: var(--radius); padding: 8px 12px; margin-bottom: 6px; font-size: 0.8rem;
+  }
+  .phase-badge {
+    display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem;
+    margin-right: 4px; background: rgba(88,166,255,0.12); color: var(--accent);
+  }
+  hr { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+  .meta { font-size: 0.78rem; color: var(--muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Agent<span>CV</span></h1>
+<p class="subtitle">三阶段管线：评分 → 改写 → 审查 · Agent + Tool</p>
+
+<div class="grid2">
+  <div class="card">
+    <h2>📋 JD 职位描述</h2>
+    <textarea id="jdInput" placeholder="粘贴目标岗位的 JD 描述...">我们正在寻找一位 Java 后端开发工程师，要求：
+- 精通 Java，熟悉 Spring Boot / MyBatis 等主流框架
+- 有分布式系统经验，熟悉 Redis、RocketMQ
+- 有系统性能优化经验，了解高并发场景设计</textarea>
+  </div>
+  <div class="card">
+    <h2>📄 原始简历 / 项目经历</h2>
+    <textarea id="resumeInput" placeholder="粘贴候选人的原始简历或项目经历...">负责订单系统性能优化，通过缓存和异步处理，QPS从500提升至2000。
+使用了Redis和RocketMQ。参与了数据库查询优化的相关工作。</textarea>
+  </div>
+</div>
+
+<div class="btn-row">
+  <button onclick="runScore()">📊 快速评分</button>
+  <button onclick="runOptimize()">🚀 完整优化</button>
+  <button onclick="runStream()">⚡ 流式优化</button>
+  <button class="secondary" onclick="clearAll()">清空</button>
+</div>
+
+<div id="status" class="status-bar">
+  <span class="spinner"></span>
+  <span class="status-text">等待操作…</span>
+  <span class="elapsed"></span>
+</div>
+
+<div id="result" class="result-section card">
+  <h2>📋 优化报告</h2>
+  <div id="resultContent"></div>
+</div>
+
+</div>
+
+<script>
+  const API = '/api/v1/resume';
+  const jdEl = document.getElementById('jdInput');
+  const cvEl = document.getElementById('resumeInput');
+  const statusBar = document.getElementById('status');
+  const statusText = statusBar.querySelector('.status-text');
+  const elapsedEl = statusBar.querySelector('.elapsed');
+  const resultSection = document.getElementById('result');
+  const resultContent = document.getElementById('resultContent');
+
+  let timer;
+
+  function setStatus(state, msg) { statusBar.className = 'status-bar ' + state; statusText.textContent = msg; }
+  function startTimer() {
+    const s = Date.now();
+    timer = setInterval(() => { elapsedEl.textContent = ((Date.now()-s)/1000).toFixed(1)+'s'; }, 200);
+    elapsedEl.textContent = '0.0s';
+  }
+  function stopTimer() { clearInterval(timer); }
+  function getJd() { return jdEl.value.trim(); }
+  function getCv() { return cvEl.value.trim(); }
+
+  function validate() {
+    if (!getJd()) { setStatus('error', 'JD 不能为空'); return false; }
+    if (!getCv()) { setStatus('error', '简历不能为空'); return false; }
+    if (getJd().length > 3000) { setStatus('error', 'JD 超过 3000 字符限制'); return false; }
+    if (getCv().length > 3000) { setStatus('error', '简历超过 3000 字符限制'); return false; }
+    return true;
+  }
+
+  // ========== 快速评分 ==========
+  async function runScore() {
+    if (!validate()) return;
+    setStatus('loading', '正在评分…');
+    startTimer();
+    resultSection.classList.remove('visible');
+    try {
+      const res = await fetch(API + '/score', {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({jdText: getJd(), originalProjectText: getCv()})
+      });
+      if (!res.ok) throw new Error(await res.text());
+      const d = await res.json();
+      stopTimer();
+      setStatus('done', '评分完成');
+      renderReport(d);
+    } catch (e) { stopTimer(); setStatus('error', '失败：'+e.message); }
+  }
+
+  // ========== 完整优化 ==========
+  async function runOptimize() {
+    if (!validate()) return;
+    setStatus('loading', '完整优化：评分 → 改写 → 审查…');
+    startTimer();
+    resultSection.classList.remove('visible');
+    try {
+      const res = await fetch(API + '/optimize', {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({jdText: getJd(), originalProjectText: getCv()})
+      });
+      if (!res.ok) throw new Error(await res.text());
+      const d = await res.json();
+      const rounds = res.headers.get('X-Review-Rounds') || d.reviewRounds || '?';
+      stopTimer();
+      setStatus('done', '完整优化完成，经 '+rounds+' 轮审查');
+      renderReport(d);
+    } catch (e) { stopTimer(); setStatus('error', '失败：'+e.message); }
+  }
+
+  function renderReport(d) {
+    let html = '';
+
+    // Phase 1: 评分
+    if (d.scoreResult) {
+      const s = d.scoreResult;
+      const cls = s.matchScore >= 70 ? 'high' : s.matchScore >= 50 ? 'mid' : 'low';
+      html += '<span class="phase-badge">Phase 1</span> <strong>匹配评分</strong><br>';
+      html += '<div style="display:flex;align-items:center;gap:12px;margin:8px 0">';
+      html += '<div class="score-badge '+cls+'">'+s.matchScore+'</div>';
+      html += '<div><strong>'+s.matchScore+'/100</strong> — ';
+      html += (s.matchScore>=70?'较匹配':s.matchScore>=50?'一般':'不匹配')+'</div></div>';
+
+      html += '<strong>✅ 匹配：</strong>'+(s.matchedSkills||[]).map(t=>'<span class="skill-tag match">'+t+'</span>').join('')+'<br>';
+      html += '<strong>❌ 缺失：</strong>'+(s.missingSkills||[]).map(t=>'<span class="skill-tag miss">'+t+'</span>').join('')+'<br>';
+      if (s.improvementAdvice) html += '<div class="advice-box">💡 '+s.improvementAdvice+'</div>';
+      html += '<hr>';
+    }
+
+    // Phase 2: 改写
+    if (d.rewrittenBulletPoints && d.rewrittenBulletPoints.length > 0) {
+      html += '<span class="phase-badge">Phase 2</span> <strong>改写结果</strong><span class="rounds-badge" style="margin-left:8px">'+ (d.reviewRounds||'?') +' 轮</span><br>';
+      d.rewrittenBulletPoints.forEach((bp, i) => {
+        html += '<div class="rewrite-item"><div class="bullet">'+(i+1)+'. '+bp+'</div>';
+        html += '<div class="reason">'+(d.optimizationReasons&&d.optimizationReasons[i]||'')+'</div></div>';
+      });
+    }
+
+    // Phase 3: 审查
+    if (d.criticApproved !== null && d.criticApproved !== undefined) {
+      html += '<span class="phase-badge">Phase 3</span> <strong>审查结果</strong><br>';
+      if (d.criticApproved) {
+        html += '<div class="critic-status pass">✅ Critic Agent 审查通过 — 未发现事实性捏造</div>';
+      } else if (d.violations && d.violations.length > 0) {
+        html += '<div class="critic-status fail">⚠️ Critic 发现 '+d.violations.length+' 条违规：</div>';
+        d.violations.forEach(v => {
+          html += '<div class="violation-item">';
+          html += '<span class="type">'+v.violationType+'</span> ';
+          html += '<span class="sev">severity='+v.severity+'</span><br>';
+          html += v.detail;
+          html += '</div>';
+        });
+      }
+    }
+
+    // 耗时
+    if (d.totalElapsedMs) {
+      html += '<div class="meta">⏱ 总耗时 '+(d.totalElapsedMs/1000).toFixed(1)+'s</div>';
+    }
+
+    resultContent.innerHTML = html || '<p style="color:var(--muted)">无结果</p>';
+    resultSection.classList.add('visible');
+  }
+
+  // ========== SSE 流式优化 ==========
+  async function runStream() {
+    if (!validate()) return;
+    setStatus('loading', 'SSE 流式优化：评分 → 改写 → 审查…');
+    startTimer();
+    resultSection.classList.remove('visible');
+    let html = '';
+
+    try {
+      const res = await fetch(API + '/optimize/stream', {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({jdText: getJd(), originalProjectText: getCv()})
+      });
+      if (!res.ok) throw new Error(await res.text());
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buf = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buf += decoder.decode(value, { stream: true });
+        const lines = buf.split('\n');
+        buf = lines.pop() || '';
+        for (const line of lines) {
+          if (line.startsWith('data:')) {
+            const evt = JSON.parse(line.slice(5).trim());
+            html += renderStreamEvent(evt);
+            resultContent.innerHTML = html;
+            resultSection.classList.add('visible');
+            const name = line.match(/event:(.*)/)?.[1]?.trim();
+            if (name === 'SCORING_START') statusText.textContent = 'Phase 1: 评分中…';
+            else if (name === 'WRITER_START') statusText.textContent = 'Phase 2: 改写中…';
+            else if (name === 'CRITIC_START') statusText.textContent = 'Phase 3: 审查中…';
+            else if (name === 'COMPLETE') { stopTimer(); setStatus('done', '流式优化完成'); }
+            else if (name === 'ERROR') { stopTimer(); setStatus('error', '失败'); }
+          }
+        }
+      }
+    } catch (e) { stopTimer(); setStatus('error', 'SSE 失败：'+e.message); }
+  }
+
+  function renderStreamEvent(e) {
+    switch (e.type) {
+      case 'SCORING_START': return '<span class="phase-badge">Phase 1</span> ' + e.message + '<br>';
+      case 'SCORING_DONE':
+        if (e.data && e.data.scoreResult) {
+          const s = e.data.scoreResult;
+          const cls = s.matchScore >= 70 ? 'high' : s.matchScore >= 50 ? 'mid' : 'low';
+          return '<span class="phase-badge">Phase 1</span> ✅ 评分完成：<span class="score-badge '+cls+'" style="width:36px;height:36px;font-size:0.9rem">'+s.matchScore+'</span>/100<br>'
+            + '<strong>✅ 匹配：</strong>'+(s.matchedSkills||[]).map(t=>'<span class="skill-tag match">'+t+'</span>').join('')+'<br>'
+            + '<strong>❌ 缺失：</strong>'+(s.missingSkills||[]).map(t=>'<span class="skill-tag miss">'+t+'</span>').join('')+'<br>'
+            + (s.improvementAdvice ? '<div class="advice-box">💡 '+s.improvementAdvice+'</div>' : '') + '<hr>';
+        }
+        return '';
+      case 'WRITER_START': return '<span class="phase-badge">Phase 2</span> ' + e.message + '<br>';
+      case 'WRITER_DONE':
+        if (e.data && e.data.rewrittenBulletPoints) {
+          let h = '<span class="phase-badge">Phase 2</span> ✅ 草稿生成完成<br>';
+          e.data.rewrittenBulletPoints.forEach((bp, i) => {
+            h += '<div class="rewrite-item"><div class="bullet">'+(i+1)+'. '+bp+'</div></div>';
+          });
+          return h;
+        }
+        return '<span class="phase-badge">Phase 2</span> ✅ ' + e.message + '<br>';
+      case 'CRITIC_START': return '<span class="phase-badge">Phase 3</span> ' + e.message + '<br>';
+      case 'CRITIC_DONE':
+        return '<span class="phase-badge">Phase 3</span> ✅ ' + e.message + '<br>';
+      case 'COMPLETE':
+        if (e.data && e.data.rewrittenBulletPoints) {
+          let h = '<hr><span class="phase-badge">Phase 3</span> <strong>审查完成</strong><br>';
+          if (e.data.criticApproved) {
+            h += '<div class="critic-status pass">✅ Critic 审查通过</div>';
+          } else if (e.data.violations) {
+            h += '<div class="critic-status fail">⚠️ '+e.data.violations.length+' 条违规</div>';
+          }
+          if (e.data.totalElapsedMs) h += '<div class="meta">⏱ '+(e.data.totalElapsedMs/1000).toFixed(1)+'s</div>';
+          return h;
+        }
+        return '<hr>' + e.message + '<br>';
+      case 'ERROR': return '<div class="critic-status fail">❌ ' + e.message + '</div>';
+      default: return '';
+    }
+  }
+
+  function clearAll() {
+    jdEl.value = ''; cvEl.value = '';
+    resultSection.classList.remove('visible');
+    setStatus('', '已清空，等待操作…');
+    elapsedEl.textContent = '';
+  }
+</script>
+</body>
+</html>
