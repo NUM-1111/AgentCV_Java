@@ -16,8 +16,8 @@ Build output — compiled classes, fat jar, generated sources
 .env.*.local
 
 # Logs — large files, irrelevant to code context
-logs/
-*.log
+# logs/
+# *.log
 
 # Maven wrapper cache
 .mvn/wrapper/maven-wrapper.jar

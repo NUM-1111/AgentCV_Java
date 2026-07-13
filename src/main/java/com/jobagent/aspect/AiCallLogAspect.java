@@ -37,8 +37,8 @@ public class AiCallLogAspect {
             Object result = joinPoint.proceed();
             long cost = System.currentTimeMillis() - startMs;
             if (result instanceof OptimizationReport r && r.scoreResult() != null) {
-                log.info("[AI-CALL] score | jdLen={} resumeLen={} | cost={}ms | matchScore={}",
-                        jdLen, cvLen, cost, r.scoreResult().matchScore());
+                log.info("[AI-CALL] score | jdLen={} resumeLen={} | cost={}ms | overallScore={}",
+                        jdLen, cvLen, cost, r.scoreResult().overallScore());
             } else {
                 log.info("[AI-CALL] score | jdLen={} resumeLen={} | cost={}ms | status=OK", jdLen, cvLen, cost);
             }
@@ -65,7 +65,7 @@ public class AiCallLogAspect {
                 int bullets = r.rewrittenBulletPoints() != null ? r.rewrittenBulletPoints().size() : 0;
                 log.info("[AI-CALL] optimize | jdLen={} resumeLen={} | cost={}ms | score={} rounds={} bullets={} approved={}",
                         jdLen, cvLen, cost,
-                        r.scoreResult() != null ? r.scoreResult().matchScore() : -1,
+                        r.scoreResult() != null ? r.scoreResult().overallScore() : -1,
                         r.reviewRounds(), bullets, r.criticApproved());
             } else {
                 log.info("[AI-CALL] optimize | jdLen={} resumeLen={} | cost={}ms | status=OK", jdLen, cvLen, cost);

@@ -1,25 +1,77 @@
-2026-06-30 14:21:53.368  INFO [no-trace] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 8.0.1.Final
-2026-06-30 14:21:53.390  INFO [no-trace] com.jobagent.JobAgentApplication         : Starting JobAgentApplication using Java 17.0.15 with PID 149983 (/root/java/AgentCV_Java/target/classes started by root in /root/java/AgentCV_Java)
-2026-06-30 14:21:53.391 DEBUG [no-trace] com.jobagent.JobAgentApplication         : Running with Spring Boot v3.2.12, Spring v6.1.15
-2026-06-30 14:21:53.391  INFO [no-trace] com.jobagent.JobAgentApplication         : No active profile set, falling back to 1 default profile: "default"
-2026-06-30 14:21:53.787 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/FactCriticAgent.class]
-2026-06-30 14:21:53.788 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/JdAnalyzeService.class]
-2026-06-30 14:21:53.788 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/MatchEvaluatorService.class]
-2026-06-30 14:21:53.788 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeWriterAgent.class]
-2026-06-30 14:21:54.104  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2026-06-30 14:21:54.110  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Initializing ProtocolHandler ["http-nio-8081"]
-2026-06-30 14:21:54.112  INFO [no-trace] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-06-30 14:21:54.113  INFO [no-trace] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
-2026-06-30 14:21:54.147  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2026-06-30 14:21:54.148  INFO [no-trace] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 733 ms
-2026-06-30 14:21:54.514  INFO [no-trace] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
-2026-06-30 14:21:54.729  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Starting ProtocolHandler ["http-nio-8081"]
-2026-06-30 14:21:54.764  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
-2026-06-30 14:21:54.768  INFO [no-trace] com.jobagent.JobAgentApplication         : Started JobAgentApplication in 1.708 seconds (process running for 1.932)
-2026-06-30 14:21:58.017  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-06-30 14:21:58.018  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-06-30 14:21:58.019  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2026-06-30 14:21:58.621 ERROR [f5285912] c.j.exception.GlobalExceptionHandler     : Unhandled exception
+2026-07-01 10:19:39.518  INFO [no-trace] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 8.0.1.Final
+2026-07-01 10:19:39.539  INFO [no-trace] com.jobagent.JobAgentApplication         : Starting JobAgentApplication using Java 17.0.15 with PID 12649 (/root/java/AgentCV_Java/target/classes started by root in /root/java/AgentCV_Java)
+2026-07-01 10:19:39.539 DEBUG [no-trace] com.jobagent.JobAgentApplication         : Running with Spring Boot v3.2.12, Spring v6.1.15
+2026-07-01 10:19:39.539  INFO [no-trace] com.jobagent.JobAgentApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-07-01 10:19:39.897 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/FactCriticAgent.class]
+2026-07-01 10:19:39.897 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeScoringAgent.class]
+2026-07-01 10:19:39.897 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeWriterAgent.class]
+2026-07-01 10:19:40.192  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-07-01 10:19:40.199  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Initializing ProtocolHandler ["http-nio-8081"]
+2026-07-01 10:19:40.201  INFO [no-trace] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-07-01 10:19:40.201  INFO [no-trace] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-07-01 10:19:40.233  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-07-01 10:19:40.234  INFO [no-trace] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 669 ms
+2026-07-01 10:19:40.600  INFO [no-trace] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-07-01 10:19:40.822  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Starting ProtocolHandler ["http-nio-8081"]
+2026-07-01 10:19:40.837  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2026-07-01 10:19:40.842  INFO [no-trace] com.jobagent.JobAgentApplication         : Started JobAgentApplication in 1.623 seconds (process running for 1.826)
+2026-07-01 10:20:43.359  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-07-01 10:20:43.359  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-07-01 10:20:43.361  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-07-01 10:28:13.050  INFO [no-trace] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 8.0.1.Final
+2026-07-01 10:28:13.073  INFO [no-trace] com.jobagent.JobAgentApplication         : Starting JobAgentApplication using Java 17.0.15 with PID 18108 (/root/java/AgentCV_Java/target/classes started by root in /root/java/AgentCV_Java)
+2026-07-01 10:28:13.073 DEBUG [no-trace] com.jobagent.JobAgentApplication         : Running with Spring Boot v3.2.12, Spring v6.1.15
+2026-07-01 10:28:13.074  INFO [no-trace] com.jobagent.JobAgentApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-07-01 10:28:13.418 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/FactCriticAgent.class]
+2026-07-01 10:28:13.419 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeScoringAgent.class]
+2026-07-01 10:28:13.419 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeWriterAgent.class]
+2026-07-01 10:28:13.719  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-07-01 10:28:13.725  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Initializing ProtocolHandler ["http-nio-8081"]
+2026-07-01 10:28:13.728  INFO [no-trace] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-07-01 10:28:13.728  INFO [no-trace] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-07-01 10:28:13.760  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-07-01 10:28:13.762  INFO [no-trace] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 663 ms
+2026-07-01 10:28:14.111  INFO [no-trace] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-07-01 10:28:14.335  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Starting ProtocolHandler ["http-nio-8081"]
+2026-07-01 10:28:14.354  WARN [no-trace] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-07-01 10:28:14.365  INFO [no-trace] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-07-01 10:28:14.373 ERROR [no-trace] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+2026-07-01 10:29:46.663  INFO [no-trace] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 8.0.1.Final
+2026-07-01 10:29:46.683  INFO [no-trace] com.jobagent.JobAgentApplication         : Starting JobAgentApplication using Java 17.0.15 with PID 19448 (/root/java/AgentCV_Java/target/classes started by root in /root/java/AgentCV_Java)
+2026-07-01 10:29:46.683 DEBUG [no-trace] com.jobagent.JobAgentApplication         : Running with Spring Boot v3.2.12, Spring v6.1.15
+2026-07-01 10:29:46.684  INFO [no-trace] com.jobagent.JobAgentApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-07-01 10:29:47.012 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/FactCriticAgent.class]
+2026-07-01 10:29:47.013 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeScoringAgent.class]
+2026-07-01 10:29:47.013 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeWriterAgent.class]
+2026-07-01 10:29:47.268  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-07-01 10:29:47.274  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Initializing ProtocolHandler ["http-nio-8081"]
+2026-07-01 10:29:47.275  INFO [no-trace] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-07-01 10:29:47.275  INFO [no-trace] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-07-01 10:29:47.298  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-07-01 10:29:47.299  INFO [no-trace] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 589 ms
+2026-07-01 10:29:47.594  INFO [no-trace] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-07-01 10:29:47.823  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Starting ProtocolHandler ["http-nio-8081"]
+2026-07-01 10:29:47.840  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2026-07-01 10:29:47.846  INFO [no-trace] com.jobagent.JobAgentApplication         : Started JobAgentApplication in 1.435 seconds (process running for 1.595)
+2026-07-01 10:29:47.900  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-07-01 10:29:47.900  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-07-01 10:29:47.901  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-07-01 10:29:50.950 ERROR [454edaba] c.j.exception.GlobalExceptionHandler     : Unhandled exception
 org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.
 	at org.springframework.web.servlet.resource.ResourceHttpRequestHandler.handleRequest(ResourceHttpRequestHandler.java:586)
 	at org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter.handle(HttpRequestHandlerAdapter.java:52)
@@ -67,45 +119,86 @@ org.springframework.web.servlet.resource.NoResourceFoundException: No static res
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:840)
-2026-06-30 14:22:08.130 DEBUG [662f7e7f] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=132字 简历=71字，裁剪后 JD=132字 简历=71字
-2026-06-30 14:22:19.161  INFO [662f7e7f] com.jobagent.aspect.AiCallLogAspect      : [AI-CALL] match | jdLen=132 resumeLen=71 | cost=11032ms | score=58 matchedSkills=3 missingSkills=4
-2026-06-30 14:22:19.161  INFO [662f7e7f] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/match/evaluate | args=[{"jdText":"我们正在寻找一位 Java 后端开发工程师，要求：\n- 精通 Java，熟悉 Spring Boot / MyBatis 等主流框架\n- 有分布式系统经验，熟悉 Redis、RocketMQ\n- 有系统性能优化经验，了解高并发场景设计\n- 良好的团队协作和沟通能力","resumeText":"负责订单系统性能优化，通过缓存和异步处理，QPS从500提升至2000。... | cost=11034ms | status=OK
-2026-06-30 14:22:24.747  INFO [8647435e] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
-2026-06-30 14:22:30.724 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_DvCj0DhspnI1Ixd6Vp7Q6541", name = "checkClaim", arguments = "{"originalSegment": "负责订单系统性能优化，通过缓存和异步处理，QPS从500提升至2000。", "rewrittenClaim": "将系统QPS从500提升至2000"}" } for memoryId default
-2026-06-30 14:22:30.729 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkClaim called: original='负责订单系统性能优化，通过缓存和异步处理，QPS从500提升至2000。' rewritten='将系统QPS从500提升至2000'
-2026-06-30 14:22:30.729 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：数值完全匹配
-2026-06-30 14:22:30.730 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_01_nzl84besmKbdV7k9s3t26618", name = "checkClaim", arguments = "{"originalSegment": "参与了数据库查询优化的相关工作", "rewrittenClaim": "参与数据库查询优化工作"}" } for memoryId default
-2026-06-30 14:22:30.730 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkClaim called: original='参与了数据库查询优化的相关工作' rewritten='参与数据库查询优化工作'
-2026-06-30 14:22:30.730 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：双方均无具体数值，为纯定性描述
-2026-06-30 14:22:30.730 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_02_puqrSR6LGpSJs6XG5hhZ0812", name = "checkTechStack", arguments = "{"originalTechList": "Redis, RocketMQ", "rewrittenTechList": "Redis, RocketMQ"}" } for memoryId default
-2026-06-30 14:22:30.730 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkTechStack called: original='Redis, RocketMQ' rewritten='Redis, RocketMQ'
-2026-06-30 14:22:30.731 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 技术栈一致
-2026-06-30 14:22:30.731 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_03_z20OVcOffNX9MaVk3vbd8675", name = "checkRoleWording", arguments = "{"originalRoleDescription": "负责订单系统性能优化", "rewrittenRoleClaim": "负责订单系统性能优化"}" } for memoryId default
-2026-06-30 14:22:30.731 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkRoleWording called: original='负责订单系统性能优化' rewritten='负责订单系统性能优化'
-2026-06-30 14:22:30.731 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 措辞一致：未检测到角色夸大
-2026-06-30 14:22:30.731 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_04_p7oOC27iCYoX4NFhP9LC3385", name = "checkRoleWording", arguments = "{"originalRoleDescription": "参与了数据库查询优化的相关工作", "rewrittenRoleClaim": "参与数据库查询优化工作"}" } for memoryId default
-2026-06-30 14:22:30.732 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkRoleWording called: original='参与了数据库查询优化的相关工作' rewritten='参与数据库查询优化工作'
-2026-06-30 14:22:30.732 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 注意：原文使用弱措辞[参与]，改写未出现对应的强措辞，可能已经做了合理弱化。
-2026-06-30 14:22:38.997 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_adi7nf8hEE3EPD5wFpZl6161", name = "checkClaim", arguments = "{"originalSegment": "负责订单系统性能优化，通过缓存和异步处理，QPS从500提升至2000。", "rewrittenClaim": "将系统QPS从500提升至2000"}" } for memoryId default
-2026-06-30 14:22:38.998 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkClaim called: original='负责订单系统性能优化，通过缓存和异步处理，QPS从500提升至2000。' rewritten='将系统QPS从500提升至2000'
-2026-06-30 14:22:38.998 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：数值完全匹配
-2026-06-30 14:22:38.998 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_01_Tm1ohDI4vNZL11JWgVxB1221", name = "checkTechStack", arguments = "{"originalTechList": "Redis, RocketMQ", "rewrittenTechList": "Redis, RocketMQ"}" } for memoryId default
-2026-06-30 14:22:38.998 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkTechStack called: original='Redis, RocketMQ' rewritten='Redis, RocketMQ'
-2026-06-30 14:22:38.998 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 技术栈一致
-2026-06-30 14:22:38.999 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_02_kVbtmOnYbe1o0f4XHJ9N2492", name = "checkRoleWording", arguments = "{"originalRoleDescription": "负责订单系统性能优化", "rewrittenRoleClaim": "负责订单系统性能优化"}" } for memoryId default
-2026-06-30 14:22:38.999 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkRoleWording called: original='负责订单系统性能优化' rewritten='负责订单系统性能优化'
-2026-06-30 14:22:38.999 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 措辞一致：未检测到角色夸大
-2026-06-30 14:22:41.636 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_tb5gTIHXPz9qJveWfoXF9768", name = "checkRoleWording", arguments = "{"originalRoleDescription": "参与了数据库查询优化的相关工作", "rewrittenRoleClaim": "参与数据库查询优化工作"}" } for memoryId default
-2026-06-30 14:22:41.636 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkRoleWording called: original='参与了数据库查询优化的相关工作' rewritten='参与数据库查询优化工作'
-2026-06-30 14:22:41.636 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 注意：原文使用弱措辞[参与]，改写未出现对应的强措辞，可能已经做了合理弱化。
-2026-06-30 14:22:44.455  INFO [8647435e] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
-2026-06-30 14:22:44.455  INFO [8647435e] com.jobagent.aspect.AiCallLogAspect      : [AI-CALL] rewrite | jdLen=132 projectLen=71 | cost=19708ms | rounds=1 bulletPoints=2 optimizationReasons=3
-2026-06-30 14:22:44.455  INFO [8647435e] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/resume/rewrite | args=[{"jdText":"我们正在寻找一位 Java 后端开发工程师，要求：\n- 精通 Java，熟悉 Spring Boot / MyBatis 等主流框架\n- 有分布式系统经验，熟悉 Redis、RocketMQ\n- 有系统性能优化经验，了解高并发场景设计\n- 良好的团队协作和沟通能力","originalProjectText":"负责订单系统性能优化，通过缓存和异步处理，QPS从50... | cost=19709ms | status=OK
-2026-06-30 14:23:10.297  INFO [ab4dd065] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/jd/analyze | args=[{"jdText":"我们正在寻找一位 Java 后端开发工程师，要求：\n- 精通 Java，熟悉 Spring Boot / MyBatis 等主流框架\n- 有分布式系统经验，熟悉 Redis、RocketMQ\n- 有系统性能优化经验，了解高并发场景设计\n- 良好的团队协作和沟通能力"}] | cost=4796ms | status=OK
-2026-06-30 14:23:10.303 DEBUG [6dc82b53] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=132字 简历=71字，裁剪后 JD=132字 简历=71字
-2026-06-30 14:23:28.641  INFO [6dc82b53] com.jobagent.aspect.AiCallLogAspect      : [AI-CALL] match | jdLen=132 resumeLen=71 | cost=18338ms | score=65 matchedSkills=3 missingSkills=4
-2026-06-30 14:23:28.641  INFO [6dc82b53] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/match/evaluate | args=[{"jdText":"我们正在寻找一位 Java 后端开发工程师，要求：\n- 精通 Java，熟悉 Spring Boot / MyBatis 等主流框架\n- 有分布式系统经验，熟悉 Redis、RocketMQ\n- 有系统性能优化经验，了解高并发场景设计\n- 良好的团队协作和沟通能力","resumeText":"负责订单系统性能优化，通过缓存和异步处理，QPS从500提升至2000。... | cost=18338ms | status=OK
-2026-06-30 14:23:28.649  INFO [a1996699] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
-2026-06-30 14:23:44.732  INFO [a1996699] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
-2026-06-30 14:23:44.733  INFO [a1996699] com.jobagent.aspect.AiCallLogAspect      : [AI-CALL] rewrite | jdLen=132 projectLen=71 | cost=16084ms | rounds=1 bulletPoints=2 optimizationReasons=4
-2026-06-30 14:23:44.733  INFO [a1996699] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/resume/rewrite | args=[{"jdText":"我们正在寻找一位 Java 后端开发工程师，要求：\n- 精通 Java，熟悉 Spring Boot / MyBatis 等主流框架\n- 有分布式系统经验，熟悉 Redis、RocketMQ\n- 有系统性能优化经验，了解高并发场景设计\n- 良好的团队协作和沟通能力","originalProjectText":"负责订单系统性能优化，通过缓存和异步处理，QPS从50... | cost=16084ms | status=OK
+2026-07-01 10:33:05.970  INFO [3c0a2232] c.j.service.ResumeOptimizationService    : Quick score: matchScore=75, 19977ms
+2026-07-01 10:33:05.970  INFO [3c0a2232] com.jobagent.aspect.AiCallLogAspect      : [AI-CALL] score | jdLen=1653 resumeLen=2113 | cost=19977ms | matchScore=75
+2026-07-01 10:33:05.970  INFO [3c0a2232] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/resume/score | args=[{"jdText":"基础信息\n毕业起止时间要求\n2026-11-01 - 2027-10-31\n职位类别\n技术类\n招聘项目\n阿里巴巴2027届实习生\n笔试方向\n阿里巴巴集团27届 - AI 研发方向\n职位描述\n聚焦核心业务场景，利用Agent等前沿技术推动AI落地。你将参与从需求洞察到系统构建的全流程，通过研发智能应用与工具，提升业务效率与效果，实现技术驱动业务增长的完整闭... | cost=19981ms | status=OK
+2026-07-01 10:33:53.418  INFO [dfc7641a] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/resume/optimize/stream | args=[{"jdText":"基础信息\n毕业起止时间要求\n2026-11-01 - 2027-10-31\n职位类别\n技术类\n招聘项目\n阿里巴巴2027届实习生\n笔试方向\n阿里巴巴集团27届 - AI 研发方向\n职位描述\n聚焦核心业务场景，利用Agent等前沿技术推动AI落地。你将参与从需求洞察到系统构建的全流程，通过研发智能应用与工具，提升业务效率与效果，实现技术驱动业务增长的完整闭... | cost=3ms | status=OK
+2026-07-01 10:37:30.375  INFO [0307e29e] c.j.service.ResumeOptimizationService    : Phase 1: scoring...
+2026-07-01 10:37:39.533  INFO [0307e29e] c.j.service.ResumeOptimizationService    : Phase 1 done: matchScore=78
+2026-07-01 10:37:39.533  INFO [0307e29e] c.j.service.ResumeOptimizationService    : Phase 2+3: rewrite + review
+2026-07-01 10:37:39.533  INFO [0307e29e] c.j.service.ResumeOptimizationService    : Actor-Critic round=1/2
+2026-07-01 10:38:09.967 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_jSVgKYkD9RiNUjcyZp452104", name = "checkClaim", arguments = "{"originalSegment": "项目一：AgentCV...双 Agent 架构...4 类违规（假数据捏造 / 技术栈虚构 / 角色夸大 / 过度润色，severity 1-5 分级，max-severity 一票否决）...3 轮迭代硬上限...基于 20 组人工标注 Golden Set 评测，Critic 精确率 91%、假数据捏造（FAKE_DATA）检出率 100%", "rewrittenClaim": "achieving 91% precision and 100% FAKE_DATA detection rate on 20-sample Golden Set with 3-round iteration limit"}" } for memoryId default
+2026-07-01 10:38:09.972 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='项目一：AgentCV...双 Agent 架构...4 类违规（假数据捏造 / 技术栈虚构 / 角色夸大 / 过度润色，severity 1-5 分级，max...' rewritten='achieving 91% precision and 100% FAKE_DATA detection rate on 20-sample Golden Se...'
+2026-07-01 10:38:09.972 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 不一致：原文有但改写遗漏 [1, 4, 5]；
+2026-07-01 10:38:09.973 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_01_HE7K8up3OKC4mzZT6r2h1301", name = "checkClaim", arguments = "{"originalSegment": "四层解析 Pipeline...格式异常最终拦截率 100%", "rewrittenClaim": "achieving 100% format anomaly interception rate"}" } for memoryId default
+2026-07-01 10:38:09.973 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='四层解析 Pipeline...格式异常最终拦截率 100%' rewritten='achieving 100% format anomaly interception rate'
+2026-07-01 10:38:09.973 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：数值完全匹配
+2026-07-01 10:38:09.973 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_02_e98eEJF4FPRRQl9Y8FCZ2659", name = "checkClaim", arguments = "{"originalSegment": "TextTrimmer 将输入压缩至原始 35%，单次调用 Token 消耗降低约 40%", "rewrittenClaim": "TextTrimmer reduced input to 35% original size, cutting token consumption by ~40%"}" } for memoryId default
+2026-07-01 10:38:09.973 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='TextTrimmer 将输入压缩至原始 35%，单次调用 Token 消耗降低约 40%' rewritten='TextTrimmer reduced input to 35% original size, cutting token consumption by ~40...'
+2026-07-01 10:38:09.973 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：数值完全匹配
+2026-07-01 10:38:09.973 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_03_X2ZebcU11HiKLEYMXUYz1083", name = "checkClaim", arguments = "{"originalSegment": "ATS 关键词覆盖率从 45% 提升至 82%，技术名词占比提升 40%", "rewrittenClaim": "ATS keyword coverage (45%→82%) and tech term ratio (+40%)"}" } for memoryId default
+2026-07-01 10:38:09.974 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='ATS 关键词覆盖率从 45% 提升至 82%，技术名词占比提升 40%' rewritten='ATS keyword coverage (45%→82%) and tech term ratio (+40%)'
+2026-07-01 10:38:09.974 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：数值完全匹配
+2026-07-01 10:38:09.974 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_04_Uuz0JvOdoB36EIoNA2YT2058", name = "checkClaim", arguments = "{"originalSegment": "双阈值降级检索（0.45 → 0.2）", "rewrittenClaim": "dual-threshold downgrade retrieval (0.45→0.2)"}" } for memoryId default
+2026-07-01 10:38:09.974 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='双阈值降级检索（0.45 → 0.2）' rewritten='dual-threshold downgrade retrieval (0.45→0.2)'
+2026-07-01 10:38:09.974 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：数值完全匹配
+2026-07-01 10:38:09.974 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_05_Gvojx7kulQF8HtJPOomM8513", name = "checkTechStack", arguments = "{"originalTechList": "Java 17, Spring Boot 3.2, LangChain4j 0.36, Spring AOP, Jackson, Jakarta Validation, Spring Boot 3, Spring AI, PostgreSQL, MongoDB, Milvus, Docker, Qwen2.5 7B", "rewrittenTechList": "Writer-Critic dual-Agent, @Tool, Function Calling, JSON, Jackson, @JsonAlias, Spring AOP, OncePerRequestFilter, MDC, Spring AI, Qwen2.5 7B, Milvus IVF_FLAT, COSINE, regex, Bean Validation"}" } for memoryId default
+2026-07-01 10:38:09.974 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkTechStack called: original='Java 17, Spring Boot 3.2, LangChain4j 0.36, Spring AOP, Jackson, Jakarta Validation, Spring Boot 3, Spring AI, PostgreSQL, MongoDB, Milvus, Docker, Qwen2.5 7B' rewritten='Writer-Critic dual-Agent, @Tool, Function Calling, JSON, Jackson, @JsonAlias, Spring AOP, OncePerRequestFilter, MDC, Spring AI, Qwen2.5 7B, Milvus IVF_FLAT, COSINE, regex, Bean Validation'
+2026-07-01 10:38:09.975 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 新增技术：@jsonalias, @tool, onceperrequestfilter, ivf_flat, mdc, dual-agent, writer-critic, regex, function, calling, cosine, json, bean（原文未出现→疑似捏造）；遗漏技术：17, docker, langchain4j, java, 3, postgresql, 3.2, 0.36, boot, mongodb, jakarta（原文有但改写未提）；
+2026-07-01 10:38:09.975 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_06_nQb5ic1g0awPo8Cwtu5d1488", name = "checkRoleWording", arguments = "{"originalRoleDescription": "核心开发者", "rewrittenRoleClaim": "Designed and implemented, Built, Implemented, Introduced, Designed full RAG pipeline, Controlled hallucination through, Achieved multi-tenant isolation via"}" } for memoryId default
+2026-07-01 10:38:09.975 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkRoleWording called: original='核心开发者' rewritten='Designed and implemented, Built, Implemented, Introduced, Designed full RAG pipe...'
+2026-07-01 10:38:09.975 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 措辞一致：未检测到角色夸大
+2026-07-01 10:38:20.451 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_LKblvWqHNWiZJxbVQLMp7910", name = "checkClaim", arguments = "{"originalSegment": "4 类违规（假数据捏造 / 技术栈虚构 / 角色夸大 / 过度润色，severity 1-5 分级，max-severity 一票否决）", "rewrittenClaim": "Critic classifies violations into 4 types (FAKE_DATA/tech stack fabrication/role exaggeration/over-polishing) with severity grading (1-5) and max-severity veto"}" } for memoryId default
+2026-07-01 10:38:20.451 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='4 类违规（假数据捏造 / 技术栈虚构 / 角色夸大 / 过度润色，severity 1-5 分级，max-severity 一票否决）' rewritten='Critic classifies violations into 4 types (FAKE_DATA/tech stack fabrication/role...'
+2026-07-01 10:38:20.451 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：数值完全匹配
+2026-07-01 10:38:20.451 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_01_uLjXHg52Ddi3NYX200Wt6059", name = "checkTechStack", arguments = "{"originalTechList": "@Tool, Function Calling, JSON, Jackson, @JsonAlias, Spring AOP, OncePerRequestFilter, MDC, Spring AI, Qwen2.5 7B, Milvus, IVF_FLAT, COSINE, Bean Validation, regex", "rewrittenTechList": "@Tool, Function Calling, JSON, Jackson, @JsonAlias, Spring AOP, OncePerRequestFilter, MDC, Spring AI, Qwen2.5 7B, Milvus, IVF_FLAT, COSINE, Bean Validation, regex"}" } for memoryId default
+2026-07-01 10:38:20.452 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkTechStack called: original='@Tool, Function Calling, JSON, Jackson, @JsonAlias, Spring AOP, OncePerRequestFilter, MDC, Spring AI, Qwen2.5 7B, Milvus, IVF_FLAT, COSINE, Bean Validation, regex' rewritten='@Tool, Function Calling, JSON, Jackson, @JsonAlias, Spring AOP, OncePerRequestFilter, MDC, Spring AI, Qwen2.5 7B, Milvus, IVF_FLAT, COSINE, Bean Validation, regex'
+2026-07-01 10:38:20.452 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 技术栈一致
+2026-07-01 10:38:59.112 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_ZhYPPVAHzz5HjDbXxekS4275", name = "checkClaim", arguments = "{"originalSegment": "基于 20 组人工标注 Golden Set 评测，Critic 精确率 91%、假数据捏造（FAKE_DATA）检出率 100%。", "rewrittenClaim": "achieving 91% precision and 100% FAKE_DATA detection rate on 20-sample Golden Set"}" } for memoryId default
+2026-07-01 10:38:59.116 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='基于 20 组人工标注 Golden Set 评测，Critic 精确率 91%、假数据捏造（FAKE_DATA）检出率 100%。' rewritten='achieving 91% precision and 100% FAKE_DATA detection rate on 20-sample Golden Se...'
+2026-07-01 10:38:59.116 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：数值完全匹配
+2026-07-01 10:38:59.116 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_01_esjU9UDxDI908QLkVWdm6858", name = "checkClaim", arguments = "{"originalSegment": "JSON 提取→字段名归一化→Jackson 宽容反序列化→Bean Validation 校验，四层逐层兜底，格式异常最终拦截率 100%", "rewrittenClaim": "achieving 100% format anomaly interception rate"}" } for memoryId default
+2026-07-01 10:38:59.116 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='JSON 提取→字段名归一化→Jackson 宽容反序列化→Bean Validation 校验，四层逐层兜底，格式异常最终拦截率 100%' rewritten='achieving 100% format anomaly interception rate'
+2026-07-01 10:38:59.116 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：数值完全匹配
+2026-07-01 10:38:59.116 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_02_IQ2e4OSTU7s6zj7YHwSr0782", name = "checkClaim", arguments = "{"originalSegment": "基于 14 种标题关键词正则裁剪（单段≤1500 字、全局≤8000 字），配合本地保守 Token 预估算与 10,000 token 超限拦截。TextTrimmer 将输入压缩至原始 35%，单次调用 Token 消耗降低约 40%。", "rewrittenClaim": "14-pattern regex trimming (≤1500 chars/segment, ≤8000 chars total) and 10,000 token limit interception; TextTrimmer compressed input to 35% original size, reducing token consumption by ~40%"}" } for memoryId default
+2026-07-01 10:38:59.116 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='基于 14 种标题关键词正则裁剪（单段≤1500 字、全局≤8000 字），配合本地保守 Token 预估算与 10,000 token 超限拦截。TextTr...' rewritten='14-pattern regex trimming (≤1500 chars/segment, ≤8000 chars total) and 10,000 to...'
+2026-07-01 10:38:59.116 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：数值完全匹配
+2026-07-01 10:38:59.116 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_03_zs22G7QzG475D6KSaOwR3319", name = "checkClaim", arguments = "{"originalSegment": "基于 @Tool 为 Critic 注册 3 个事实核查工具（数值精确比对 / 技术栈差集 / 角色措辞检测）", "rewrittenClaim": "Registered 3 fact-checking tools via @Tool (numerical comparison, tech stack diff, role wording detection)"}" } for memoryId default
+2026-07-01 10:38:59.117 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='基于 @Tool 为 Critic 注册 3 个事实核查工具（数值精确比对 / 技术栈差集 / 角色措辞检测）' rewritten='Registered 3 fact-checking tools via @Tool (numerical comparison, tech stack dif...'
+2026-07-01 10:38:59.117 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 不一致：原文有但改写遗漏 [3 个]；改写出现原文没有的数值 [3]
+2026-07-01 10:38:59.117 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_04_rOFljdUJHSpItVPfxr1B1883", name = "checkClaim", arguments = "{"originalSegment": "引入 ATS 关键词覆盖率 + 信息密度的轻量级自动评分机制。改写后简历 JD 关键词覆盖率从 45% 提升至 82%，技术名词占比提升 40%", "rewrittenClaim": "ATS keyword coverage (45%→82%) and tech term ratio (+40%) as lightweight automatic scoring for Writer output quality evaluation"}" } for memoryId default
+2026-07-01 10:38:59.117 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='引入 ATS 关键词覆盖率 + 信息密度的轻量级自动评分机制。改写后简历 JD 关键词覆盖率从 45% 提升至 82%，技术名词占比提升 40%' rewritten='ATS keyword coverage (45%→82%) and tech term ratio (+40%) as lightweight automat...'
+2026-07-01 10:38:59.117 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：数值完全匹配
+2026-07-01 10:38:59.117 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_05_x1KTnGvL2KxmINvOC3nA6677", name = "checkClaim", arguments = "{"originalSegment": "5 条历史消息动态上下文窗口 + 双阈值降级检索（0.45 → 0.2）+ 严格 Prompt 约束", "rewrittenClaim": "5-turn dynamic context window with dual-threshold downgrade retrieval (0.45→0.2) and strict Prompt constraints"}" } for memoryId default
+2026-07-01 10:38:59.117 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='5 条历史消息动态上下文窗口 + 双阈值降级检索（0.45 → 0.2）+ 严格 Prompt 约束' rewritten='5-turn dynamic context window with dual-threshold downgrade retrieval (0.45→0.2)...'
+2026-07-01 10:38:59.117 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 不一致：原文有但改写遗漏 [5 条]；改写出现原文没有的数值 [5]
+2026-07-01 10:38:59.117 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_06_k0l4wTnwKr174G141oV04328", name = "checkClaim", arguments = "{"originalSegment": "基于 Milvus 标量过滤（JSON_EXTRACT）实现知识库级数据逻辑隔离；级联清理组件确保文档删除时向量同步清除", "rewrittenClaim": "multi-tenant isolation via Milvus scalar filtering (JSON_EXTRACT) for knowledge-level logical data separation, with cascade cleanup ensuring vector synchronization on document deletion"}" } for memoryId default
+2026-07-01 10:38:59.117 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='基于 Milvus 标量过滤（JSON_EXTRACT）实现知识库级数据逻辑隔离；级联清理组件确保文档删除时向量同步清除' rewritten='multi-tenant isolation via Milvus scalar filtering (JSON_EXTRACT) for knowledge-...'
+2026-07-01 10:38:59.118 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：双方均无具体数值，为纯定性描述
+2026-07-01 10:39:08.996 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_VkAONeqRXHpfTQ5C4jVr5489", name = "checkTechStack", arguments = "{"originalTechList": "Java 17, Spring Boot 3, Spring AI, PostgreSQL, MongoDB, Milvus, Docker, Qwen2.5 7B, IVF_FLAT, COSINE, JSON_EXTRACT", "rewrittenTechList": "Spring AI, Qwen2.5 7B, 3584-dim, Milvus, IVF_FLAT, COSINE, Spring AOP, OncePerRequestFilter, MDC traceId"}" } for memoryId default
+2026-07-01 10:39:08.996 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkTechStack called: original='Java 17, Spring Boot 3, Spring AI, PostgreSQL, MongoDB, Milvus, Docker, Qwen2.5 7B, IVF_FLAT, COSINE, JSON_EXTRACT' rewritten='Spring AI, Qwen2.5 7B, 3584-dim, Milvus, IVF_FLAT, COSINE, Spring AOP, OncePerRequestFilter, MDC traceId'
+2026-07-01 10:39:08.997 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 新增技术：traceid, aop, onceperrequestfilter, mdc, 3584-dim（原文未出现→疑似捏造）；遗漏技术：17, json_extract, docker, java, 3, postgresql, boot, mongodb（原文有但改写未提）；
+2026-07-01 10:39:08.997 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_01_sKThGZvx7HpNG4nOpsNM0102", name = "checkRoleWording", arguments = "{"originalRoleDescription": "核心开发者", "rewrittenRoleClaim": "Designed a Writer-Critic dual-Agent architecture"}" } for memoryId default
+2026-07-01 10:39:08.997 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkRoleWording called: original='核心开发者' rewritten='Designed a Writer-Critic dual-Agent architecture'
+2026-07-01 10:39:08.997 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 措辞一致：未检测到角色夸大
+2026-07-01 10:39:08.997 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_02_sFyraFecvhUFbsvCwyop7017", name = "checkRoleWording", arguments = "{"originalRoleDescription": "核心开发者", "rewrittenRoleClaim": "Designed a full RAG pipeline"}" } for memoryId default
+2026-07-01 10:39:08.998 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkRoleWording called: original='核心开发者' rewritten='Designed a full RAG pipeline'
+2026-07-01 10:39:08.998 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 措辞一致：未检测到角色夸大
+2026-07-01 10:39:15.754 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_KBnXHtYpZ9FFL7283cu65466", name = "checkTechStack", arguments = "{"originalTechList": "Java 17, Spring Boot 3.2, Spring Boot 3, LangChain4j 0.36, Spring AOP, Jackson, Jakarta Validation, Spring AI, PostgreSQL, MongoDB, Milvus, Docker, Qwen2.5 7B, IVF_FLAT, COSINE, JSON_EXTRACT, OncePerRequestFilter, MDC, traceId, @JsonAlias, @Tool", "rewrittenTechList": "Spring AI, Qwen2.5 7B, 3584-dim, Milvus, IVF_FLAT, COSINE, Spring AOP, OncePerRequestFilter, MDC, traceId, @JsonAlias, @Tool"}" } for memoryId default
+2026-07-01 10:39:15.754 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkTechStack called: original='Java 17, Spring Boot 3.2, Spring Boot 3, LangChain4j 0.36, Spring AOP, Jackson, Jakarta Validation, Spring AI, PostgreSQL, MongoDB, Milvus, Docker, Qwen2.5 7B, IVF_FLAT, COSINE, JSON_EXTRACT, OncePerRequestFilter, MDC, traceId, @JsonAlias, @Tool' rewritten='Spring AI, Qwen2.5 7B, 3584-dim, Milvus, IVF_FLAT, COSINE, Spring AOP, OncePerRequestFilter, MDC, traceId, @JsonAlias, @Tool'
+2026-07-01 10:39:15.754 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 新增技术：3584-dim（原文未出现→疑似捏造）；遗漏技术：docker, langchain4j, java, jackson, postgresql, boot, mongodb, jakarta, validation, 17, json_extract, 3, 3.2, 0.36（原文有但改写未提）；
+2026-07-01 10:39:23.167 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_W7lHKPhttHjJfCGSHGJe3025", name = "checkClaim", arguments = "{"originalSegment": "3 个事实核查工具（数值精确比对 / 技术栈差集 / 角色措辞检测）", "rewrittenClaim": "3 fact-checking tools (numerical comparison, tech stack diff, role wording detection)"}" } for memoryId default
+2026-07-01 10:39:23.167 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='3 个事实核查工具（数值精确比对 / 技术栈差集 / 角色措辞检测）' rewritten='3 fact-checking tools (numerical comparison, tech stack diff, role wording detec...'
+2026-07-01 10:39:23.168 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 不一致：原文有但改写遗漏 [3 个]；改写出现原文没有的数值 [3]
+2026-07-01 10:39:23.168 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_01_QrZo4jJwFHFQTFQ3T8Q25139", name = "checkClaim", arguments = "{"originalSegment": "5 条历史消息动态上下文窗口", "rewrittenClaim": "5-turn dynamic context window"}" } for memoryId default
+2026-07-01 10:39:23.168 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='5 条历史消息动态上下文窗口' rewritten='5-turn dynamic context window'
+2026-07-01 10:39:23.168 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 不一致：原文有但改写遗漏 [5 条]；改写出现原文没有的数值 [5]
+2026-07-01 10:39:26.886 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_KGzfvDbAPIy5W5ucGHW97245", name = "checkClaim", arguments = "{"originalSegment": "Qwen2.5 7B（3584 维）向量化", "rewrittenClaim": "Qwen2.5 7B (3584-dim) vectorization"}" } for memoryId default
+2026-07-01 10:39:26.886 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='Qwen2.5 7B（3584 维）向量化' rewritten='Qwen2.5 7B (3584-dim) vectorization'
+2026-07-01 10:39:26.886 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：数值完全匹配
+2026-07-01 10:39:31.902 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_8HQfE6TnlLXWClXnW38f8080", name = "checkClaim", arguments = "{"originalSegment": "改写后简历 JD 关键词覆盖率从 45% 提升至 82%，技术名词占比提升 40%", "rewrittenClaim": "ATS keyword coverage (45%→82%) and tech term ratio (+40%)"}" } for memoryId default
+2026-07-01 10:39:31.903 DEBUG [0307e29e] com.jobagent.service.FactCheckTool       : checkClaim called: original='改写后简历 JD 关键词覆盖率从 45% 提升至 82%，技术名词占比提升 40%' rewritten='ATS keyword coverage (45%→82%) and tech term ratio (+40%)'
+2026-07-01 10:39:31.903 DEBUG [0307e29e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：数值完全匹配
+2026-07-01 10:39:36.610  INFO [0307e29e] c.j.service.ResumeOptimizationService    : Pipeline complete: score=78, approved=true, rounds=1, 126235ms
+2026-07-01 10:39:36.610  INFO [0307e29e] com.jobagent.aspect.AiCallLogAspect      : [AI-CALL] optimize | jdLen=1653 resumeLen=2113 | cost=126235ms | score=78 rounds=1 bullets=9 approved=true
+2026-07-01 10:39:36.611  INFO [0307e29e] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/resume/optimize | args=[{"jdText":"基础信息\n毕业起止时间要求\n2026-11-01 - 2027-10-31\n职位类别\n技术类\n招聘项目\n阿里巴巴2027届实习生\n笔试方向\n阿里巴巴集团27届 - AI 研发方向\n职位描述\n聚焦核心业务场景，利用Agent等前沿技术推动AI落地。你将参与从需求洞察到系统构建的全流程，通过研发智能应用与工具，提升业务效率与效果，实现技术驱动业务增长的完整闭... | cost=126237ms | status=OK

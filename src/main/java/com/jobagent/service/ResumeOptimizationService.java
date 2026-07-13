@@ -5,11 +5,13 @@ import com.jobagent.model.OptimizationReport;
 import com.jobagent.model.OptimizationReport.ScoreResult;
 import com.jobagent.model.Violation;
 import com.jobagent.model.WriterDraft;
+import com.jobagent.util.ResumeParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -50,14 +52,15 @@ public class ResumeOptimizationService {
         long start = System.currentTimeMillis();
         log.info("Phase 1: scoring...");
         ScoreResult score = scoringAgent.score(jdText, originalProjectText);
-        log.info("Phase 1 done: matchScore={}", score.matchScore());
+        log.info("Phase 1 done: overallScore={}", score.overallScore());
 
-        log.info("Phase 2+3: rewrite + review");
-        RewriteResult rr = runActorCritic(jdText, originalProjectText);
+        log.info("Phase 2+3: rewrite + review (with score guidance)");
+        String scoreGuidance = buildScoreGuidance(score);
+        RewriteResult rr = runActorCritic(jdText, originalProjectText, scoreGuidance);
 
         long elapsed = System.currentTimeMillis() - start;
         log.info("Pipeline complete: score={}, approved={}, rounds={}, {}ms",
-                score.matchScore(), rr.approved, rr.rounds, elapsed);
+                score.overallScore(), rr.approved, rr.rounds, elapsed);
         return OptimizationReport.fullResult(score, rr.bullets, rr.reasons,
                 rr.approved, rr.rounds, rr.violations, elapsed);
     }
@@ -74,6 +77,7 @@ public class ResumeOptimizationService {
             onEvent.accept(StreamEvent.of(StreamEvent.Type.SCORING_DONE, "匹配评分完成", score));
 
             // Phase 2+3
+            String scoreGuidance = buildScoreGuidance(score);
             String feedback = "";
             WriterDraft lastDraft = null;
             boolean passed = false;
@@ -82,7 +86,7 @@ public class ResumeOptimizationService {
             for (int r = 0; r < maxRounds; r++) {
                 onEvent.accept(StreamEvent.of(StreamEvent.Type.WRITER_START, "第 " + (r + 1) + " 轮改写…"));
                 WriterDraft draft = writerAgent.rewrite(jdText, originalProjectText,
-                        buildFeedbackPrompt(r, feedback));
+                        buildFeedbackPrompt(r, feedback, scoreGuidance));
                 lastDraft = draft;
                 onEvent.accept(StreamEvent.of(StreamEvent.Type.WRITER_DONE, "草稿生成完成", draft));
 
@@ -91,10 +95,7 @@ public class ResumeOptimizationService {
                 onEvent.accept(StreamEvent.of(StreamEvent.Type.CRITIC_DONE,
                         c.approved() ? "审查通过" : "发现 " + c.violations().size() + " 条违规", c));
 
-                int maxSev = c.violations() != null && !c.violations().isEmpty()
-                        ? c.violations().stream().mapToInt(Violation::severity).max().orElse(0) : 0;
-
-                if (c.approved() || maxSev <= 2) {
+                if (c.approved()) {
                     passed = true;
                     rounds = r + 1;
                     break;
@@ -119,30 +120,111 @@ public class ResumeOptimizationService {
         long start = System.currentTimeMillis();
         ScoreResult score = scoringAgent.score(jdText, originalProjectText);
         long elapsed = System.currentTimeMillis() - start;
-        log.info("Quick score: matchScore={}, {}ms", score.matchScore(), elapsed);
+        log.info("Quick score: overallScore={}, {}ms", score.overallScore(), elapsed);
         return OptimizationReport.scoreOnly(score, elapsed);
     }
 
+    /**
+     * 完整简历优化：解析 → 逐项目优化 → 回填拼接。
+     */
+    public OptimizationReport optimizeFullResume(String jdText, String fullResumeText) {
+        long start = System.currentTimeMillis();
+        log.info("optimizeFullResume: parsing resume...");
+
+        ResumeParser.ResumeSections sections = ResumeParser.parse(fullResumeText);
+        List<ResumeParser.ResumeSections.ProjectSection> projects = sections.projects();
+        log.info("optimizeFullResume: found {} project(s)", projects.size());
+
+        ScoreResult score = scoringAgent.score(jdText, fullResumeText);
+        String scoreGuidance = buildScoreGuidance(score);
+
+        List<String> rewrittenProjectTexts = new ArrayList<>();
+        String rewrittenExperience = null;
+        String rewrittenSkills = null;
+        int totalRounds = 0;
+        boolean allApproved = true;
+        List<Violation> allViolations = new ArrayList<>();
+
+        // 3a: 项目经历
+        for (int i = 0; i < projects.size(); i++) {
+            ResumeParser.ResumeSections.ProjectSection proj = projects.get(i);
+            log.info("optimizeFullResume: project {}/{} — {}", i + 1, projects.size(), proj.title());
+            RewriteResult rr = runActorCritic(jdText, proj.body(), scoreGuidance);
+            if (rr.bullets() != null && !rr.bullets().isEmpty()) {
+                rewrittenProjectTexts.add(String.join("\n", rr.bullets()));
+            } else {
+                rewrittenProjectTexts.add(proj.body());
+            }
+            totalRounds += rr.rounds();
+            if (!rr.approved()) allApproved = false;
+            if (rr.violations() != null) allViolations.addAll(rr.violations());
+        }
+
+        // 3b: 实习经历
+        if (!sections.experience().isBlank()) {
+            log.info("optimizeFullResume: rewriting experience...");
+            WriterDraft expDraft = writerAgent.rewrite(jdText, sections.experience(),
+                    "【仅调整句式与JD关键词对齐，保留所有原有技术栈和量化数据。不得改变角色定位。】"
+                    + (scoreGuidance.isBlank() ? "" : "\n" + scoreGuidance));
+            if (expDraft.rewrittenBulletPoints() != null && !expDraft.rewrittenBulletPoints().isEmpty()) {
+                rewrittenExperience = String.join("\n", expDraft.rewrittenBulletPoints());
+            }
+        }
+
+        // 3c: 技能列表
+        if (!sections.skills().isBlank()) {
+            log.info("optimizeFullResume: rewriting skills (conservative)...");
+            WriterDraft skillDraft = writerAgent.rewrite(jdText, sections.skills(),
+                    "【严格保守：仅可调整技能排序和措辞，使JD关键词前置。严禁将'了解'升级为'熟悉'，将'熟悉'升级为'精通'。所有技能等级必须与原简历保持一致。】"
+                    + (scoreGuidance.isBlank() ? "" : "\n" + scoreGuidance));
+            if (skillDraft.rewrittenBulletPoints() != null && !skillDraft.rewrittenBulletPoints().isEmpty()) {
+                rewrittenSkills = String.join("\n", skillDraft.rewrittenBulletPoints());
+            }
+        }
+
+        String finalResume = ResumeParser.reassembleFull(
+                sections, rewrittenProjectTexts, rewrittenExperience, rewrittenSkills);
+
+        long elapsed = System.currentTimeMillis() - start;
+        log.info("optimizeFullResume complete: {} projects, exp={}, skills={}, score={}, rounds={}, {}ms",
+                projects.size(),
+                rewrittenExperience != null ? "rewritten" : "skipped",
+                rewrittenSkills != null ? "rewritten" : "skipped",
+                score.overallScore(), totalRounds, elapsed);
+
+        return new OptimizationReport(
+                score, null, null,
+                allApproved, totalRounds,
+                allViolations.isEmpty() ? null : allViolations,
+                finalResume, elapsed);
+    }
+
     private RewriteResult runActorCritic(String jdText, String originalProjectText) {
+        return runActorCritic(jdText, originalProjectText, "");
+    }
+
+    /** Actor-Critic 循环：任一违规即触发重写 */
+    private RewriteResult runActorCritic(String jdText, String originalProjectText,
+                                          String scoreGuidance) {
         String feedback = "";
         WriterDraft lastDraft = null;
+        String currentInput = originalProjectText;
 
         for (int round = 0; round < maxRounds; round++) {
-            String prompt = buildFeedbackPrompt(round, feedback);
+            String prompt = buildFeedbackPrompt(round, feedback, scoreGuidance);
             log.info("Actor-Critic round={}/{}", round + 1, maxRounds);
 
-            WriterDraft draft = writerAgent.rewrite(jdText, originalProjectText, prompt);
+            WriterDraft draft = writerAgent.rewrite(jdText, currentInput, prompt);
             lastDraft = draft;
 
             CriticReport c = criticAgent.check(originalProjectText, formatBulletPoints(draft));
-            int maxSev = c.violations() != null && !c.violations().isEmpty()
-                    ? c.violations().stream().mapToInt(Violation::severity).max().orElse(0) : 0;
 
-            if (c.approved() || maxSev <= 2) {
+            if (c.approved()) {
                 return new RewriteResult(draft.rewrittenBulletPoints(),
                         draft.optimizationReasons(), round + 1, true, null);
             }
             feedback = c.feedback();
+            currentInput = formatBulletPoints(draft);
         }
 
         CriticReport fc = criticAgent.check(originalProjectText, formatBulletPoints(lastDraft));
@@ -150,9 +232,41 @@ public class ResumeOptimizationService {
                 lastDraft.optimizationReasons(), maxRounds, fc.approved(), fc.violations());
     }
 
+    static String buildScoreGuidance(ScoreResult score) {
+        if (score == null) return "";
+        StringBuilder sb = new StringBuilder();
+        sb.append("【评分引导】");
+        if (score.jdMatch() != null) {
+            sb.append("JD匹配度").append(score.jdMatch().score()).append("/100。");
+            if (score.jdMatch().missingSkills() != null && !score.jdMatch().missingSkills().isEmpty()) {
+                sb.append("缺失技能：").append(String.join("、", score.jdMatch().missingSkills()))
+                        .append("。请在改写中自然融入相关经验描述。");
+            }
+        }
+        if (score.contentQuality() != null
+                && score.contentQuality().improvements() != null
+                && !score.contentQuality().improvements().isEmpty()) {
+            sb.append("改进方向：").append(String.join("；", score.contentQuality().improvements())).append("。");
+        }
+        if (score.improvementAdvice() != null && !score.improvementAdvice().isBlank()
+                && sb.length() < 30) {
+            sb.append(score.improvementAdvice());
+        }
+        return sb.length() > 15 ? sb.toString() : "";
+    }
+
     private static String buildFeedbackPrompt(int round, String fb) {
-        if (round == 0 || fb == null || fb.isBlank())
-            return "【首次生成，请严格遵守约束，不得捏造任何数据或技术。】";
+        return buildFeedbackPrompt(round, fb, "");
+    }
+
+    private static String buildFeedbackPrompt(int round, String fb, String scoreGuidance) {
+        if (round == 0 || fb == null || fb.isBlank()) {
+            StringBuilder sb = new StringBuilder("【首次生成，请严格遵守约束，不得捏造任何数据或技术。】");
+            if (scoreGuidance != null && !scoreGuidance.isBlank()) {
+                sb.append('\n').append(scoreGuidance);
+            }
+            return sb.toString();
+        }
         return "【上一版审查未通过，请根据以下反馈修正】\n" + fb;
     }
 

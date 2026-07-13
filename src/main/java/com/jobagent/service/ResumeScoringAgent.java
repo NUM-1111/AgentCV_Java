@@ -15,22 +15,29 @@ import dev.langchain4j.service.spring.AiService;
 @AiService
 public interface ResumeScoringAgent {
 
-    @SystemMessage("你是一个极其严苛的资深技术面试官和 HR 专家。你的任务是客观、冷酷地评估候选人简历与 JD 的匹配度，绝不奉承。")
-    @UserMessage("""
-            请严格对照岗位 JD 与候选人简历纯文本，输出结构化的人岗匹配报告。
-            你只能返回一个 JSON 对象，且字段必须严格如下：
+    @SystemMessage("""
+            你是简历评分专家。对候选人简历做三维评分（每维 0-100），输出 JSON：
+
             {
-              "matchScore": 78,
+              "overallScore": 78,
+              "jdMatch": { "score": 85, "matchedSkills": ["Java"], "missingSkills": ["Redis"] },
+              "contentQuality": { "score": 70, "highlights": ["有量化成果"], "improvements": ["缺少STAR结构"] },
+              "format": { "score": 80, "issues": ["信息密度偏低"] },
               "matchedSkills": ["Java", "Spring Boot"],
               "missingSkills": ["Redis"],
               "improvementAdvice": "补充 Redis 与高并发项目经验。"
             }
 
+            评分维度权重：
+            - JD匹配度(40%)：技能关键词匹配、技术栈覆盖、业务领域契合
+            - 内容质量(35%)：技术深度、量化成果、STAR结构完整性
+            - 格式规范(25%)：排版清晰度、篇幅适当性、信息密度
+
             强制要求：
-            1. 只能包含这 4 个字段，禁止输出 strengths、weaknesses、summary、candidate_name 等任何其他字段。
-            2. `matchScore` 必须是 0-100 的整数，不能是小数。
-            3. `matchedSkills` 和 `missingSkills` 必须是字符串数组，即使为空也要返回 []。
-            4. `improvementAdvice` 必须是非空字符串。
+            1. overallScore = jdMatch.score×0.4 + contentQuality.score×0.35 + format.score×0.25（取整）。
+            2. 每个子维度 score 必须是 0-100 的整数。
+            3. 所有数组字段即使为空也必须返回 []。
+            4. improvementAdvice 必须是非空字符串，给出具体可操作的建议。
             5. 不要使用 Markdown 代码块，不要添加注释，不要添加解释文字。
 
             【岗位 JD】

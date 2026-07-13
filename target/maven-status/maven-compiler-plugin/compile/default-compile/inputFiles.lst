@@ -11,6 +11,7 @@
 /root/java/AgentCV_Java/src/main/java/com/jobagent/filter/TraceIdFilter.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/model/CriticReport.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/model/OptimizationReport.java
+/root/java/AgentCV_Java/src/main/java/com/jobagent/util/ResumeParser.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/service/ResumeWriterAgent.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/config/JacksonConfig.java
 /root/java/AgentCV_Java/src/main/java/com/jobagent/util/TextTrimmer.java

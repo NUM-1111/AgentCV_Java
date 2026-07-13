@@ -114,8 +114,8 @@
 - 有系统性能优化经验，了解高并发场景设计</textarea>
   </div>
   <div class="card">
-    <h2>📄 原始简历 / 项目经历</h2>
-    <textarea id="resumeInput" placeholder="粘贴候选人的原始简历或项目经历...">负责订单系统性能优化，通过缓存和异步处理，QPS从500提升至2000。
+    <h2>📄 完整简历</h2>
+    <textarea id="resumeInput" placeholder="粘贴候选人的完整简历文本...">负责订单系统性能优化，通过缓存和异步处理，QPS从500提升至2000。
 使用了Redis和RocketMQ。参与了数据库查询优化的相关工作。</textarea>
   </div>
 </div>
@@ -125,6 +125,10 @@
   <button onclick="runOptimize()">🚀 完整优化</button>
   <button onclick="runStream()">⚡ 流式优化</button>
   <button class="secondary" onclick="clearAll()">清空</button>
+</div>
+<div id="actionBar" class="btn-row" style="display:none">
+  <button onclick="copyResult()">📋 复制完整简历</button>
+  <button class="secondary" onclick="exportMD()">📥 导出 MD</button>
 </div>
 
 <div id="status" class="status-bar">
@@ -151,6 +155,10 @@
   const resultContent = document.getElementById('resultContent');
 
   let timer;
+  let lastFullResume = '';
+
+  function showActions() { document.getElementById('actionBar').style.display = 'flex'; }
+  function hideActions() { document.getElementById('actionBar').style.display = 'none'; }
 
   function setStatus(state, msg) { statusBar.className = 'status-bar ' + state; statusText.textContent = msg; }
   function startTimer() {
@@ -165,8 +173,8 @@
   function validate() {
     if (!getJd()) { setStatus('error', 'JD 不能为空'); return false; }
     if (!getCv()) { setStatus('error', '简历不能为空'); return false; }
-    if (getJd().length > 3000) { setStatus('error', 'JD 超过 3000 字符限制'); return false; }
-    if (getCv().length > 3000) { setStatus('error', '简历超过 3000 字符限制'); return false; }
+    if (getJd().length > 10000) { setStatus('error', 'JD 超过 10000 字符限制'); return false; }
+    if (getCv().length > 10000) { setStatus('error', '简历超过 10000 字符限制'); return false; }
     return true;
   }
 
@@ -186,6 +194,7 @@
       stopTimer();
       setStatus('done', '评分完成');
       renderReport(d);
+      afterResult(d);
     } catch (e) { stopTimer(); setStatus('error', '失败：'+e.message); }
   }
 
@@ -206,6 +215,7 @@
       stopTimer();
       setStatus('done', '完整优化完成，经 '+rounds+' 轮审查');
       renderReport(d);
+      afterResult(d);
     } catch (e) { stopTimer(); setStatus('error', '失败：'+e.message); }
   }
 
@@ -215,12 +225,12 @@
     // Phase 1: 评分
     if (d.scoreResult) {
       const s = d.scoreResult;
-      const cls = s.matchScore >= 70 ? 'high' : s.matchScore >= 50 ? 'mid' : 'low';
+      const cls = s.overallScore >= 70 ? 'high' : s.overallScore >= 50 ? 'mid' : 'low';
       html += '<span class="phase-badge">Phase 1</span> <strong>匹配评分</strong><br>';
       html += '<div style="display:flex;align-items:center;gap:12px;margin:8px 0">';
-      html += '<div class="score-badge '+cls+'">'+s.matchScore+'</div>';
-      html += '<div><strong>'+s.matchScore+'/100</strong> — ';
-      html += (s.matchScore>=70?'较匹配':s.matchScore>=50?'一般':'不匹配')+'</div></div>';
+      html += '<div class="score-badge '+cls+'">'+s.overallScore+'</div>';
+      html += '<div><strong>'+s.overallScore+'/100</strong> — ';
+      html += (s.overallScore>=70?'较匹配':s.overallScore>=50?'一般':'不匹配')+'</div></div>';
 
       html += '<strong>✅ 匹配：</strong>'+(s.matchedSkills||[]).map(t=>'<span class="skill-tag match">'+t+'</span>').join('')+'<br>';
       html += '<strong>❌ 缺失：</strong>'+(s.missingSkills||[]).map(t=>'<span class="skill-tag miss">'+t+'</span>').join('')+'<br>';
@@ -298,7 +308,7 @@
             if (name === 'SCORING_START') statusText.textContent = 'Phase 1: 评分中…';
             else if (name === 'WRITER_START') statusText.textContent = 'Phase 2: 改写中…';
             else if (name === 'CRITIC_START') statusText.textContent = 'Phase 3: 审查中…';
-            else if (name === 'COMPLETE') { stopTimer(); setStatus('done', '流式优化完成'); }
+            else if (name === 'COMPLETE') { stopTimer(); setStatus('done', '流式优化完成'); afterResult(evt.data); }
             else if (name === 'ERROR') { stopTimer(); setStatus('error', '失败'); }
           }
         }
@@ -312,8 +322,8 @@
       case 'SCORING_DONE':
         if (e.data && e.data.scoreResult) {
           const s = e.data.scoreResult;
-          const cls = s.matchScore >= 70 ? 'high' : s.matchScore >= 50 ? 'mid' : 'low';
-          return '<span class="phase-badge">Phase 1</span> ✅ 评分完成：<span class="score-badge '+cls+'" style="width:36px;height:36px;font-size:0.9rem">'+s.matchScore+'</span>/100<br>'
+          const cls = s.overallScore >= 70 ? 'high' : s.overallScore >= 50 ? 'mid' : 'low';
+          return '<span class="phase-badge">Phase 1</span> ✅ 评分完成：<span class="score-badge '+cls+'" style="width:36px;height:36px;font-size:0.9rem">'+s.overallScore+'</span>/100<br>'
             + '<strong>✅ 匹配：</strong>'+(s.matchedSkills||[]).map(t=>'<span class="skill-tag match">'+t+'</span>').join('')+'<br>'
             + '<strong>❌ 缺失：</strong>'+(s.missingSkills||[]).map(t=>'<span class="skill-tag miss">'+t+'</span>').join('')+'<br>'
             + (s.improvementAdvice ? '<div class="advice-box">💡 '+s.improvementAdvice+'</div>' : '') + '<hr>';
@@ -352,8 +362,57 @@
   function clearAll() {
     jdEl.value = ''; cvEl.value = '';
     resultSection.classList.remove('visible');
+    lastFullResume = '';
+    hideActions();
     setStatus('', '已清空，等待操作…');
     elapsedEl.textContent = '';
+  }
+
+  // ========== 复制 + 导出 ==========
+
+  function getOutputText(d) {
+    if (d.finalResumeText) return d.finalResumeText;
+    if (d.rewrittenBulletPoints && d.rewrittenBulletPoints.length) {
+      return d.rewrittenBulletPoints.map((bp,i) => (i+1)+'. '+bp).join('\n');
+    }
+    return '';
+  }
+
+  async function copyResult() {
+    const text = lastFullResume || getOutputText({});
+    if (!text) { setStatus('error', '没有可复制的内容'); return; }
+    try {
+      await navigator.clipboard.writeText(text);
+      setStatus('done', '已复制到剪贴板');
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      setStatus('done', '已复制到剪贴板');
+    }
+  }
+
+  function exportMD() {
+    const text = lastFullResume || getOutputText({});
+    if (!text) { setStatus('error', '没有可导出的内容'); return; }
+    const blob = new Blob([text], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = '优化后简历_' + new Date().toISOString().slice(0,10) + '.md';
+    a.click(); URL.revokeObjectURL(url);
+    setStatus('done', '已导出 MD 文件');
+  }
+
+  // ========== 胶水：从 report 中提取 finalResumeText 并显示操作栏 ==========
+  function afterResult(d) {
+    if (d && d.finalResumeText) {
+      lastFullResume = d.finalResumeText;
+      showActions();
+    } else if (d && d.rewrittenBulletPoints && d.rewrittenBulletPoints.length) {
+      lastFullResume = d.rewrittenBulletPoints.map((bp,i) => (i+1)+'. '+bp).join('\n');
+      showActions();
+    }
   }
 </script>
 </body>

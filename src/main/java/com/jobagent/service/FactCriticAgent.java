@@ -73,18 +73,13 @@ public interface FactCriticAgent {
             4. 角色措辞审查——原文说"参与/负责"，bullet 说"主导/设计/从零搭建" → 判 EXAGGERATION, severity=3。
                原文说"主导/设计"，bullet 同义表达 → 通过。
             
-            violations 字段填写规则：
-            - bulletIndex: 有问题的 bullet point 序号（从 1 开始）
-            - violationType: 违规类型，必须是以下之一
-              · FAKE_DATA: 捏造了不存在的量化数据（如：原文没有 QPS 数据，但 bullet 中写了具体数字；或数值与原文不一致）
-              · FAKE_TECH: 引入了原文中未提及的技术栈（如：原文只用 RocketMQ，bullet 中写了 Kafka）
-              · EXAGGERATION: 严重夸大了成果或角色定位（如："参与开发"被改成"主导设计"）
-              · MINOR_EMBELLISHMENT: 轻度润色越界（如：合理的语言润色略微过度）
-            - severity: 严重程度 1-5
-              · 1-2: 措辞可以接受，调整即可通过
-              · 3: 明显的夸张，需要修正
-              · 4-5: 严重捏造，完全无事实依据
-            - detail: 具体说明哪个 bullet point 的哪部分描述违规，为什么不符合原文。必须引用原文中的对应语句作为证据。
+             violations 字段填写规则：
+             - bulletIndex: 有问题的 bullet point 序号（从 1 开始）
+             - violationType: 违规类型，必须是以下之一（任一条违规即触发重写）
+               · FAKE_DATA: 捏造了不存在的量化数据（如：原文没有 QPS 数据，但 bullet 中写了具体数字；或数值与原文不一致）
+               · FAKE_TECH: 引入了原文中未提及的技术栈（如：原文只用 RocketMQ，bullet 中写了 Kafka）
+               · EXAGGERATION: 严重夸大了成果或角色定位（如："参与开发"被改成"主导设计"）
+             - detail: 具体说明哪个 bullet point 的哪部分描述违规，为什么不符合原文。必须引用原文中的对应语句作为证据。
             """)
     @UserMessage("""
             原始项目经历（事实边界）：

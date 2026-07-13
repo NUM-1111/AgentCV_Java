@@ -39,10 +39,10 @@ public final class FieldNameNormalizer {
      */
     private static final List<NormalizeRule> RULES = List.of(
 
-        // matchScore：覆盖 match_score / matchscore / match score / MatchScore / MATCH_SCORE 等
+        // overallScore：覆盖 overall_score / overallscore / overall score / OverallScore / matchScore / match_score 等
         new NormalizeRule(
-            Pattern.compile("(?i)\"(match[_\\s]?score|matchscore)\"\\s*:"),
-            "\"matchScore\":"
+            Pattern.compile("(?i)\"(overall[_\\s]?score|overallscore|match[_\\s]?score|matchscore)\"\\s*:"),
+            "\"overallScore\":"
         ),
 
         // matchedSkills：覆盖 matched_skills / matchedskills / skills_matched / matched 等

@@ -1,0 +1,111 @@
+2026-06-30 14:21:53.368  INFO [no-trace] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 8.0.1.Final
+2026-06-30 14:21:53.390  INFO [no-trace] com.jobagent.JobAgentApplication         : Starting JobAgentApplication using Java 17.0.15 with PID 149983 (/root/java/AgentCV_Java/target/classes started by root in /root/java/AgentCV_Java)
+2026-06-30 14:21:53.391 DEBUG [no-trace] com.jobagent.JobAgentApplication         : Running with Spring Boot v3.2.12, Spring v6.1.15
+2026-06-30 14:21:53.391  INFO [no-trace] com.jobagent.JobAgentApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-06-30 14:21:53.787 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/FactCriticAgent.class]
+2026-06-30 14:21:53.788 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/JdAnalyzeService.class]
+2026-06-30 14:21:53.788 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/MatchEvaluatorService.class]
+2026-06-30 14:21:53.788 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeWriterAgent.class]
+2026-06-30 14:21:54.104  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-06-30 14:21:54.110  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Initializing ProtocolHandler ["http-nio-8081"]
+2026-06-30 14:21:54.112  INFO [no-trace] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-30 14:21:54.113  INFO [no-trace] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-06-30 14:21:54.147  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-30 14:21:54.148  INFO [no-trace] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 733 ms
+2026-06-30 14:21:54.514  INFO [no-trace] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-06-30 14:21:54.729  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Starting ProtocolHandler ["http-nio-8081"]
+2026-06-30 14:21:54.764  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2026-06-30 14:21:54.768  INFO [no-trace] com.jobagent.JobAgentApplication         : Started JobAgentApplication in 1.708 seconds (process running for 1.932)
+2026-06-30 14:21:58.017  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-30 14:21:58.018  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-30 14:21:58.019  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2026-06-30 14:21:58.621 ERROR [f5285912] c.j.exception.GlobalExceptionHandler     : Unhandled exception
+org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.
+	at org.springframework.web.servlet.resource.ResourceHttpRequestHandler.handleRequest(ResourceHttpRequestHandler.java:586)
+	at org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter.handle(HttpRequestHandlerAdapter.java:52)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at com.jobagent.filter.TraceIdFilter.doFilterInternal(TraceIdFilter.java:53)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2026-06-30 14:22:08.130 DEBUG [662f7e7f] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=132字 简历=71字，裁剪后 JD=132字 简历=71字
+2026-06-30 14:22:19.161  INFO [662f7e7f] com.jobagent.aspect.AiCallLogAspect      : [AI-CALL] match | jdLen=132 resumeLen=71 | cost=11032ms | score=58 matchedSkills=3 missingSkills=4
+2026-06-30 14:22:19.161  INFO [662f7e7f] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/match/evaluate | args=[{"jdText":"我们正在寻找一位 Java 后端开发工程师，要求：\n- 精通 Java，熟悉 Spring Boot / MyBatis 等主流框架\n- 有分布式系统经验，熟悉 Redis、RocketMQ\n- 有系统性能优化经验，了解高并发场景设计\n- 良好的团队协作和沟通能力","resumeText":"负责订单系统性能优化，通过缓存和异步处理，QPS从500提升至2000。... | cost=11034ms | status=OK
+2026-06-30 14:22:24.747  INFO [8647435e] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-30 14:22:30.724 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_DvCj0DhspnI1Ixd6Vp7Q6541", name = "checkClaim", arguments = "{"originalSegment": "负责订单系统性能优化，通过缓存和异步处理，QPS从500提升至2000。", "rewrittenClaim": "将系统QPS从500提升至2000"}" } for memoryId default
+2026-06-30 14:22:30.729 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkClaim called: original='负责订单系统性能优化，通过缓存和异步处理，QPS从500提升至2000。' rewritten='将系统QPS从500提升至2000'
+2026-06-30 14:22:30.729 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：数值完全匹配
+2026-06-30 14:22:30.730 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_01_nzl84besmKbdV7k9s3t26618", name = "checkClaim", arguments = "{"originalSegment": "参与了数据库查询优化的相关工作", "rewrittenClaim": "参与数据库查询优化工作"}" } for memoryId default
+2026-06-30 14:22:30.730 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkClaim called: original='参与了数据库查询优化的相关工作' rewritten='参与数据库查询优化工作'
+2026-06-30 14:22:30.730 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：双方均无具体数值，为纯定性描述
+2026-06-30 14:22:30.730 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_02_puqrSR6LGpSJs6XG5hhZ0812", name = "checkTechStack", arguments = "{"originalTechList": "Redis, RocketMQ", "rewrittenTechList": "Redis, RocketMQ"}" } for memoryId default
+2026-06-30 14:22:30.730 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkTechStack called: original='Redis, RocketMQ' rewritten='Redis, RocketMQ'
+2026-06-30 14:22:30.731 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 技术栈一致
+2026-06-30 14:22:30.731 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_03_z20OVcOffNX9MaVk3vbd8675", name = "checkRoleWording", arguments = "{"originalRoleDescription": "负责订单系统性能优化", "rewrittenRoleClaim": "负责订单系统性能优化"}" } for memoryId default
+2026-06-30 14:22:30.731 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkRoleWording called: original='负责订单系统性能优化' rewritten='负责订单系统性能优化'
+2026-06-30 14:22:30.731 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 措辞一致：未检测到角色夸大
+2026-06-30 14:22:30.731 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_04_p7oOC27iCYoX4NFhP9LC3385", name = "checkRoleWording", arguments = "{"originalRoleDescription": "参与了数据库查询优化的相关工作", "rewrittenRoleClaim": "参与数据库查询优化工作"}" } for memoryId default
+2026-06-30 14:22:30.732 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkRoleWording called: original='参与了数据库查询优化的相关工作' rewritten='参与数据库查询优化工作'
+2026-06-30 14:22:30.732 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 注意：原文使用弱措辞[参与]，改写未出现对应的强措辞，可能已经做了合理弱化。
+2026-06-30 14:22:38.997 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_adi7nf8hEE3EPD5wFpZl6161", name = "checkClaim", arguments = "{"originalSegment": "负责订单系统性能优化，通过缓存和异步处理，QPS从500提升至2000。", "rewrittenClaim": "将系统QPS从500提升至2000"}" } for memoryId default
+2026-06-30 14:22:38.998 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkClaim called: original='负责订单系统性能优化，通过缓存和异步处理，QPS从500提升至2000。' rewritten='将系统QPS从500提升至2000'
+2026-06-30 14:22:38.998 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 一致：数值完全匹配
+2026-06-30 14:22:38.998 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_01_Tm1ohDI4vNZL11JWgVxB1221", name = "checkTechStack", arguments = "{"originalTechList": "Redis, RocketMQ", "rewrittenTechList": "Redis, RocketMQ"}" } for memoryId default
+2026-06-30 14:22:38.998 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkTechStack called: original='Redis, RocketMQ' rewritten='Redis, RocketMQ'
+2026-06-30 14:22:38.998 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 技术栈一致
+2026-06-30 14:22:38.999 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_02_kVbtmOnYbe1o0f4XHJ9N2492", name = "checkRoleWording", arguments = "{"originalRoleDescription": "负责订单系统性能优化", "rewrittenRoleClaim": "负责订单系统性能优化"}" } for memoryId default
+2026-06-30 14:22:38.999 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkRoleWording called: original='负责订单系统性能优化' rewritten='负责订单系统性能优化'
+2026-06-30 14:22:38.999 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 措辞一致：未检测到角色夸大
+2026-06-30 14:22:41.636 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_tb5gTIHXPz9qJveWfoXF9768", name = "checkRoleWording", arguments = "{"originalRoleDescription": "参与了数据库查询优化的相关工作", "rewrittenRoleClaim": "参与数据库查询优化工作"}" } for memoryId default
+2026-06-30 14:22:41.636 DEBUG [8647435e] com.jobagent.service.FactCheckTool       : checkRoleWording called: original='参与了数据库查询优化的相关工作' rewritten='参与数据库查询优化工作'
+2026-06-30 14:22:41.636 DEBUG [8647435e] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 注意：原文使用弱措辞[参与]，改写未出现对应的强措辞，可能已经做了合理弱化。
+2026-06-30 14:22:44.455  INFO [8647435e] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-30 14:22:44.455  INFO [8647435e] com.jobagent.aspect.AiCallLogAspect      : [AI-CALL] rewrite | jdLen=132 projectLen=71 | cost=19708ms | rounds=1 bulletPoints=2 optimizationReasons=3
+2026-06-30 14:22:44.455  INFO [8647435e] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/resume/rewrite | args=[{"jdText":"我们正在寻找一位 Java 后端开发工程师，要求：\n- 精通 Java，熟悉 Spring Boot / MyBatis 等主流框架\n- 有分布式系统经验，熟悉 Redis、RocketMQ\n- 有系统性能优化经验，了解高并发场景设计\n- 良好的团队协作和沟通能力","originalProjectText":"负责订单系统性能优化，通过缓存和异步处理，QPS从50... | cost=19709ms | status=OK
+2026-06-30 14:23:10.297  INFO [ab4dd065] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/jd/analyze | args=[{"jdText":"我们正在寻找一位 Java 后端开发工程师，要求：\n- 精通 Java，熟悉 Spring Boot / MyBatis 等主流框架\n- 有分布式系统经验，熟悉 Redis、RocketMQ\n- 有系统性能优化经验，了解高并发场景设计\n- 良好的团队协作和沟通能力"}] | cost=4796ms | status=OK
+2026-06-30 14:23:10.303 DEBUG [6dc82b53] c.j.s.MatchEvaluationFacadeService       : 裁剪前 JD=132字 简历=71字，裁剪后 JD=132字 简历=71字
+2026-06-30 14:23:28.641  INFO [6dc82b53] com.jobagent.aspect.AiCallLogAspect      : [AI-CALL] match | jdLen=132 resumeLen=71 | cost=18338ms | score=65 matchedSkills=3 missingSkills=4
+2026-06-30 14:23:28.641  INFO [6dc82b53] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/match/evaluate | args=[{"jdText":"我们正在寻找一位 Java 后端开发工程师，要求：\n- 精通 Java，熟悉 Spring Boot / MyBatis 等主流框架\n- 有分布式系统经验，熟悉 Redis、RocketMQ\n- 有系统性能优化经验，了解高并发场景设计\n- 良好的团队协作和沟通能力","resumeText":"负责订单系统性能优化，通过缓存和异步处理，QPS从500提升至2000。... | cost=18338ms | status=OK
+2026-06-30 14:23:28.649  INFO [a1996699] c.j.service.RewriteCoordinatorService    : Actor-Critic round=1/2, hasFeedback=false
+2026-06-30 14:23:44.732  INFO [a1996699] c.j.service.RewriteCoordinatorService    : Critic result: approved=true, maxSeverity=0, violations=0, round=1/2
+2026-06-30 14:23:44.733  INFO [a1996699] com.jobagent.aspect.AiCallLogAspect      : [AI-CALL] rewrite | jdLen=132 projectLen=71 | cost=16084ms | rounds=1 bulletPoints=2 optimizationReasons=4
+2026-06-30 14:23:44.733  INFO [a1996699] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/resume/rewrite | args=[{"jdText":"我们正在寻找一位 Java 后端开发工程师，要求：\n- 精通 Java，熟悉 Spring Boot / MyBatis 等主流框架\n- 有分布式系统经验，熟悉 Redis、RocketMQ\n- 有系统性能优化经验，了解高并发场景设计\n- 良好的团队协作和沟通能力","originalProjectText":"负责订单系统性能优化，通过缓存和异步处理，QPS从50... | cost=16084ms | status=OK

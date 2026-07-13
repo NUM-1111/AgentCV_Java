@@ -14,6 +14,8 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/api/v1/resume")
@@ -53,12 +55,33 @@ public class ResumeController {
     }
 
     /**
+     * 完整简历优化：解析分段 → 逐项目优化 → 回填拼接。
+     */
+    @PostMapping("/optimize/full")
+    public ResponseEntity<OptimizationReport> optimizeFull(@RequestBody OptimizeRequest request) {
+        validate(request);
+        OptimizationReport report = optimizationService.optimizeFullResume(
+                request.jdText(), request.originalProjectText());
+        return ResponseEntity.ok().body(report);
+    }
+
+    /**
      * SSE 流式优化——逐步推送评分、改写、审查进度。
      */
     @PostMapping(value = "/optimize/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter optimizeStream(@RequestBody OptimizeRequest request) {
         validate(request);
         SseEmitter emitter = new SseEmitter(120_000L); // 2 分钟超时
+
+        // 每 10 秒发一次 SSE 心跳，防止浏览器/代理因长时间静默断开连接
+        ScheduledExecutorService heartbeat = Executors.newSingleThreadScheduledExecutor();
+        heartbeat.scheduleAtFixedRate(() -> {
+            try {
+                emitter.send(SseEmitter.event().comment("heartbeat"));
+            } catch (IOException e) {
+                heartbeat.shutdown();
+            }
+        }, 10, 10, TimeUnit.SECONDS);
 
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
@@ -73,8 +96,10 @@ public class ResumeController {
                                 emitter.completeWithError(e);
                             }
                         });
+                heartbeat.shutdown();
                 emitter.complete();
             } catch (Exception e) {
+                heartbeat.shutdown();
                 emitter.completeWithError(e);
             }
         });
@@ -89,11 +114,11 @@ public class ResumeController {
         if (request.originalProjectText() == null || request.originalProjectText().isBlank()) {
             throw new IllegalArgumentException("originalProjectText 不能为空");
         }
-        if (request.jdText().length() > 3000) {
-            throw new IllegalArgumentException("jdText 超过 3000 字符限制");
+        if (request.jdText().length() > 10000) {
+            throw new IllegalArgumentException("jdText 超过 10000 字符限制");
         }
-        if (request.originalProjectText().length() > 3000) {
-            throw new IllegalArgumentException("originalProjectText 超过 3000 字符限制");
+        if (request.originalProjectText().length() > 10000) {
+            throw new IllegalArgumentException("originalProjectText 超过 10000 字符限制");
         }
     }
 }
