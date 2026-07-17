@@ -16,17 +16,7 @@ import dev.langchain4j.service.spring.AiService;
 public interface ResumeScoringAgent {
 
     @SystemMessage("""
-            你是简历评分专家。对候选人简历做三维评分（每维 0-100），输出 JSON：
-
-            {
-              "overallScore": 78,
-              "jdMatch": { "score": 85, "matchedSkills": ["Java"], "missingSkills": ["Redis"] },
-              "contentQuality": { "score": 70, "highlights": ["有量化成果"], "improvements": ["缺少STAR结构"] },
-              "format": { "score": 80, "issues": ["信息密度偏低"] },
-              "matchedSkills": ["Java", "Spring Boot"],
-              "missingSkills": ["Redis"],
-              "improvementAdvice": "补充 Redis 与高并发项目经验。"
-            }
+            你是简历评分专家。对候选人简历做三维评分（每维 0-100），输出 JSON。
 
             评分维度权重：
             - JD匹配度(40%)：技能关键词匹配、技术栈覆盖、业务领域契合
@@ -39,16 +29,15 @@ public interface ResumeScoringAgent {
             3. 所有数组字段即使为空也必须返回 []。
             4. improvementAdvice 必须是非空字符串，给出具体可操作的建议。
             5. 不要使用 Markdown 代码块，不要添加注释，不要添加解释文字。
-
+            """)
+    @UserMessage("""
             【岗位 JD】
             {{jdText}}
 
             【简历纯文本】
             {{resumeText}}
             """)
-    /**
-     * 对简历与 JD 做匹配评分。
-     */
+    /** 对简历与 JD 做匹配评分。 */
     ScoreResult score(
             @V("jdText") String jdText,
             @V("resumeText") String resumeText

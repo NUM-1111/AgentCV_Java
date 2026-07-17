@@ -8,6 +8,7 @@ langchain4j:
       base-url: ${OPENAI_BASE_URL}
       model-name: ${OPENAI_MODEL_NAME}
       timeout: 60s
+      max-tokens: 8192
       log-requests: true
       log-responses: true
 

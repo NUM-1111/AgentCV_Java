@@ -21,7 +21,7 @@
 
 - **WriterAgent**：按 JD 偏好扩写简历要点，System Prompt 明确禁止捏造数据和技术
 - **FactCriticAgent**：以原始项目经历为唯一事实边界，逐条核查 Writer 输出的 bullet points
-- **RewriteCoordinatorService**：Java 普通 Bean，串联两者，实现最多 3 轮的审查-重写循环
+- **ResumeOptimizationService**：Java 普通 Bean，串联两者，实现最多 2 轮的审查-重写循环
 
 ## 学习建议
 
@@ -30,5 +30,5 @@
 | 1 | `model/CriticReport.java` | 理解审查结果的数据结构设计（approved + feedback） |
 | 2 | `service/ResumeWriterAgent.java` | 对比旧 `ResumeRewriteService`，理解 System Prompt 约束对模型行为的影响 |
 | 3 | `service/FactCriticAgent.java` | 理解以"原始文本"作为事实边界的 Critic 设计 |
-| 4 | `service/RewriteCoordinatorService.java` | 理解 context 策略选择（只传 feedback 不传历史草稿）和最大轮次兜底 |
+| 4 | `service/ResumeOptimizationService.java` | 理解 context 策略选择（只传 feedback 不传历史草稿）和最大轮次兜底 |
 | 5 | `controller/ResumeController.java` | 观察 `X-Review-Rounds` 响应头如何暴露内部轮次信息 |

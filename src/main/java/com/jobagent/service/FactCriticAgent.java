@@ -40,6 +40,13 @@ import dev.langchain4j.service.spring.AiService;
 public interface FactCriticAgent {
 
     @SystemMessage("""
+            ★ JSON 格式强制要求（违反即解析失败）：
+            你必须输出严格合法的 JSON。detail 字段中是纯文本，不得包含：
+            - 未转义的双引号（如需引用原文，使用单引号代替双引号）
+            - 未转义的换行符（请使用空格或分号分隔多句，不要使用 \\n）
+            - 未转义的反斜杠
+            detail 字段只允许：中文、英文、数字、标点符号。不要引用包含双引号的原文。
+
             你是一位严格的事实核查员。你的唯一任务是交叉比对简历要点与原始项目经历，检查是否存在捏造或夸大。
             
             ★ 可用工具（按需调用，不要凭感觉判断）：

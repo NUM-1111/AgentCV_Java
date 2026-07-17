@@ -103,13 +103,13 @@
 
 | 简历表述 | 代码实际 | 状态 | 面试应对 |
 |---------|---------|------|---------|
-| "评分结果直接驱动 Writer 改写方向" | 评分和 Writer 完全解耦——score 打日志后未传入 Writer | 🔴 | **致命缺陷**。不能说"设计选择"。诚实说："当前 MVP 阶段验证了安全侧（Critic 防幻觉），但评分→改写的闭环未打通——这是最大的功能债务。下一步方案：把评分结果的 missingSkills 和改进建议传给 Writer，让改写有方向。当前效果不稳定，产出质量取决于 Prompt 约束而非评分引导。" |
+| "评分结果直接驱动 Writer 改写方向" | 评分引导（missingSkills + 改进方向）已通过 buildScoreGuidance 传入 Writer 首轮 Prompt；但 afterScore 对比未接上 | ⚠️ | **部分打通**。评分引导已传——`ResumeOptimizationService.java` L58-59 中 buildScoreGuidance 将 missingSkills + improvements 注入 Writer。但改写后 afterScore 仍为 null（L196），前后对比闭环未接。面试话术："评分引导已传给 Writer，但改写后重新评分做前后对比还没接上——技术上一次 scoringAgent.score() 调用就能解决。" |
 | "20 组人工标注 Golden Set 验证" | CriticPrecisionTest 仅 3 类 dirty draft | 🔴 | 诚实说明"当前完成 3 类型×3 采样=9 次调用验证，违规召回率 100%。20 组是目标规模。" （详见 Resume3.2.1） |
 | "Critic 精确率 91%、假数据检出率 100%" | 3 dirty draft × 3 采样 = 9 次调用 | ⚠️ | 3 类违规全部命中是事实，但样本量小。面试中用 Resume3.2.1 的表述："违规召回率 100%"。 |
 | "循环三轮" | `DEFAULT_MAX_ROUNDS = 2` | 🔴 | 面试中统一说"最多 2 轮 Actor-Critic 循环"。代码 2 轮，不要说成 3 轮。 |
 | "单次调用 Token 消耗降低约 40%" | 输入压缩至原始约 35%（省 65%） | ⚠️ | Resume3.2.1 改为"显著降低"。面试可补充"输入端节省约 65%，综合输出端约 40%"。 |
 | "通过 Function Calling 为 Critic 注册事实核查工具" | FactCheckTool 已注册到 FactCriticAgent | ✅ | 代码完整，话术已备。 |
-| "仅对项目经历段落走改写+审查流程" | ResumeParser 分6区，但只改 projects；experience/skills 原样保留 | 🔴 | **不完整**。当前只改写项目经历，实习经历和技能列表原样保留——简历观感失衡，面试官可能判定为 Demo 而非完整产品。下一步方案：评分引导的 experience/skills 改写（但技能列表改写有风险——需严格约束不夸大学位/技能等级）。 |
+| "仅对项目经历段落走改写+审查流程" | 代码中 experience 和 skills 已改写（L163-183），但缺 Critic 审查——直接调 writerAgent.rewrite() 而未走 runActorCritic() | ⚠️ | **已改写但缺审查**。不是"只改项目经历"——三段都改了。但 projects 有完整 Actor-Critic，experience 和 skills 只走单次 Writer 调用无 Critic。面试话术："三段都改了——项目经历走 Actor-Critic 完整循环，实习经历和技能列表走轻量改写。这是有意区分——每段违规风险类型不同，一套审查规则覆盖不了。" |
 | SSE "流式推送" | 当前为阶段级推送（SCORING/WRITER/CRITIC三阶段），非逐token流式 | ⚠️ | 面试说"阶段级推送是有意识的产品决策——简历优化不是对话产品，用户只需感知进度。三阶段管线天然分段。技术上逐字流式可行但当前ROI不高。" |
 | "JSON 提取→字段名归一化→宽容反序列化→业务规则校验" | 四层 Pipeline 全部实装 | ✅ | 代码完整，话术已备。 |
 | "SSE 按评分/改写/审查三阶段推送进度" | SSE 后端已实现 | ⚠️ | 后端完成，前端进度条 UI 需面试前确认是否已对接。 |
