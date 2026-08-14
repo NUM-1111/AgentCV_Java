@@ -1,0 +1,592 @@
+2026-07-17 17:29:01.886  INFO [no-trace] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 8.0.1.Final
+2026-07-17 17:29:01.916  INFO [no-trace] com.jobagent.JobAgentApplication         : Starting JobAgentApplication using Java 17.0.15 with PID 37366 (/root/java/AgentCV_Java/target/classes started by root in /root/java/AgentCV_Java)
+2026-07-17 17:29:01.916 DEBUG [no-trace] com.jobagent.JobAgentApplication         : Running with Spring Boot v3.2.12, Spring v6.1.15
+2026-07-17 17:29:01.916  INFO [no-trace] com.jobagent.JobAgentApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-07-17 17:29:02.444 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/FactCriticAgent.class]
+2026-07-17 17:29:02.444 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeScoringAgent.class]
+2026-07-17 17:29:02.445 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeWriterAgent.class]
+2026-07-17 17:29:02.913  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-07-17 17:29:02.922  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Initializing ProtocolHandler ["http-nio-8081"]
+2026-07-17 17:29:02.925  INFO [no-trace] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-07-17 17:29:02.925  INFO [no-trace] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-07-17 17:29:02.972  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-07-17 17:29:02.973  INFO [no-trace] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1019 ms
+2026-07-17 17:29:03.491  INFO [no-trace] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-07-17 17:29:03.835  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Starting ProtocolHandler ["http-nio-8081"]
+2026-07-17 17:29:03.865  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2026-07-17 17:29:03.872  INFO [no-trace] com.jobagent.JobAgentApplication         : Started JobAgentApplication in 2.422 seconds (process running for 2.709)
+2026-07-17 17:29:29.496  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-07-17 17:29:29.496  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-07-17 17:29:29.497  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-07-17 17:29:29.580  INFO [f5229a7a] c.j.service.ResumeOptimizationService    : optimizeFullResume: parsing resume...
+2026-07-17 17:29:29.584  INFO [f5229a7a] c.j.service.ResumeOptimizationService    : optimizeFullResume: found 9 project(s)
+2026-07-17 17:29:29.589  WARN [f5229a7a] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/resume/optimize/full | args=[{"jdText":"# AI应用开发（Agent方向）岗位JD完整提取\n## 岗位核心总述\n聚焦核心业务场景，利用Agent等前沿技术推动AI落地。你将参与从需求洞察到系统构建的全流程，通过研发智能应用与工具，提升业务效率与效果，实现技术驱动业务增长的完整闭环，推动智能规模化演进，实现技术价值转化。\n\n## 工作职责\n1. **需求理解与归因**：深入业务场景，利用数据挖掘与特征分析... | cost=19ms | ERROR=IllegalConfigurationException:Error: The method 'score' does not have a user message defined.
+2026-07-17 17:29:29.590 ERROR [f5229a7a] c.j.exception.GlobalExceptionHandler     : Unhandled exception
+dev.langchain4j.exception.IllegalConfigurationException: Error: The method 'score' does not have a user message defined.
+	at dev.langchain4j.exception.IllegalConfigurationException.illegalConfiguration(IllegalConfigurationException.java:16)
+	at dev.langchain4j.service.DefaultAiServices.getUserMessageTemplate(DefaultAiServices.java:452)
+	at dev.langchain4j.service.DefaultAiServices.prepareUserMessage(DefaultAiServices.java:418)
+	at dev.langchain4j.service.DefaultAiServices$1.invoke(DefaultAiServices.java:128)
+	at jdk.proxy2/jdk.proxy2.$Proxy77.score(Unknown Source)
+	at com.jobagent.service.ResumeOptimizationService.optimizeFullResume(ResumeOptimizationService.java:138)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.jobagent.service.ResumeOptimizationService$$SpringCGLIB$$0.optimizeFullResume(<generated>)
+	at com.jobagent.controller.ResumeController.optimizeFull(ResumeController.java:63)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
+	at com.jobagent.aspect.WebLogAspect.logAround(WebLogAspect.java:87)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:637)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:627)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:71)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:173)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.jobagent.controller.ResumeController$$SpringCGLIB$$0.optimizeFull(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at com.jobagent.filter.TraceIdFilter.doFilterInternal(TraceIdFilter.java:53)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2026-07-17 17:30:23.747  INFO [no-trace] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 8.0.1.Final
+2026-07-17 17:30:23.772  INFO [no-trace] com.jobagent.JobAgentApplication         : Starting JobAgentApplication using Java 17.0.15 with PID 39232 (/root/java/AgentCV_Java/target/classes started by root in /root/java/AgentCV_Java)
+2026-07-17 17:30:23.773 DEBUG [no-trace] com.jobagent.JobAgentApplication         : Running with Spring Boot v3.2.12, Spring v6.1.15
+2026-07-17 17:30:23.773  INFO [no-trace] com.jobagent.JobAgentApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-07-17 17:30:24.243 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/FactCriticAgent.class]
+2026-07-17 17:30:24.244 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeScoringAgent.class]
+2026-07-17 17:30:24.245 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeWriterAgent.class]
+2026-07-17 17:30:24.620  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-07-17 17:30:24.627  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Initializing ProtocolHandler ["http-nio-8081"]
+2026-07-17 17:30:24.629  INFO [no-trace] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-07-17 17:30:24.629  INFO [no-trace] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-07-17 17:30:24.664  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-07-17 17:30:24.665  INFO [no-trace] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 857 ms
+2026-07-17 17:30:25.093  INFO [no-trace] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-07-17 17:30:25.399  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Starting ProtocolHandler ["http-nio-8081"]
+2026-07-17 17:30:25.422  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2026-07-17 17:30:25.429  INFO [no-trace] com.jobagent.JobAgentApplication         : Started JobAgentApplication in 2.062 seconds (process running for 2.303)
+2026-07-17 17:31:01.632  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-07-17 17:31:01.632  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-07-17 17:31:01.634  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-07-17 17:31:01.725  INFO [279656b3] c.j.service.ResumeOptimizationService    : optimizeFullResume: parsing resume...
+2026-07-17 17:31:01.728  INFO [279656b3] c.j.service.ResumeOptimizationService    : optimizeFullResume: found 9 project(s)
+2026-07-17 17:31:25.232  INFO [279656b3] c.j.service.ResumeOptimizationService    : optimizeFullResume: project 1/9 — ### 项目一：AgentCV（基于大模型的求职场景智能助手）
+2026-07-17 17:31:25.233  INFO [279656b3] c.j.service.ResumeOptimizationService    : Actor-Critic round=1/2
+2026-07-17 17:31:48.283 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_UjO8E6lw6GHeSWjOOBCT5553", name = "checkTechStack", arguments = "{"originalTechList": "Java 17, Spring Boot 3.2, LangChain4j 0.36, Spring AOP, Jackson, Jakarta Validation", "rewrittenTechList": "Java 17, Spring Boot 3.2, LangChain4j, Spring AOP, Jackson, Jakarta Validation"}" } for memoryId default
+2026-07-17 17:31:48.289 DEBUG [279656b3] com.jobagent.service.FactCheckTool       : checkTechStack called: original='Java 17, Spring Boot 3.2, LangChain4j 0.36, Spring AOP, Jackson, Jakarta Validation' rewritten='Java 17, Spring Boot 3.2, LangChain4j, Spring AOP, Jackson, Jakarta Validation'
+2026-07-17 17:31:48.292 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 遗漏技术：0.36（原文有但改写未提）；
+2026-07-17 17:31:50.596 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_b2NtLDeancp6uEBKcp7E7730", name = "checkRoleWording", arguments = "{"originalRoleDescription": "核心开发者", "rewrittenRoleClaim": "主导设计并实现"}" } for memoryId default
+2026-07-17 17:31:50.596 DEBUG [279656b3] com.jobagent.service.FactCheckTool       : checkRoleWording called: original='核心开发者' rewritten='主导设计并实现'
+2026-07-17 17:31:50.597 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 注意：改写使用强措辞[设计, 主导]，原文未出现对应的弱措辞。如果原文本身已使用类似措辞（如'主导'），则无问题；否则需要人工判断。
+2026-07-17 17:32:13.811 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_iASHdmKYZR0tpWSE3Xzm3038", name = "checkRoleWording", arguments = "{"originalRoleDescription": "核心开发者", "rewrittenRoleClaim": "主导设计并实现"}" } for memoryId default
+2026-07-17 17:32:13.812 DEBUG [279656b3] com.jobagent.service.FactCheckTool       : checkRoleWording called: original='核心开发者' rewritten='主导设计并实现'
+2026-07-17 17:32:13.813 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 注意：改写使用强措辞[设计, 主导]，原文未出现对应的弱措辞。如果原文本身已使用类似措辞（如'主导'），则无问题；否则需要人工判断。
+2026-07-17 17:32:13.813 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_01_N9sdRCi339crhRdkogqX9249", name = "checkClaim", arguments = "{"originalSegment": "通用大模型改写简历时会凭空虚构技术栈与量化数据。针对这一核心痛点，设计并实现了多维评分驱动的双Agent事实对齐架构，覆盖JD解析、人岗匹配评估、简历改写、事实核查的完整链路。技术栈：Java 17, Spring Boot 3.2, LangChain4j 0.36, Spring AOP, Jackson, Jakarta Validation", "rewrittenClaim": "基于Java 17新特性优化系统性能，通过合理的数据结构与内存管理策略保障服务在高负载场景下的稳定性。"}" } for memoryId default
+2026-07-17 17:32:13.813 DEBUG [279656b3] com.jobagent.service.FactCheckTool       : checkClaim called: original='通用大模型改写简历时会凭空虚构技术栈与量化数据。针对这一核心痛点，设计并实现了多维评分驱动的双Agent事实对齐架构，覆盖JD解析、人岗匹配评估、简历改写、事实...' rewritten='基于Java 17新特性优化系统性能，通过合理的数据结构与内存管理策略保障服务在高负载场景下的稳定性。'
+2026-07-17 17:32:13.814 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 不一致：原文有但改写遗漏 [4, 3.2, 0.36]；
+2026-07-17 17:32:29.400 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_00_SNMCgKlDeTLlBoAQQNXQ4122", name = "checkTechStack", arguments = "{"originalTechList": "Java 17, Spring Boot 3.2, LangChain4j 0.36, Spring AOP, Jackson, Jakarta Validation", "rewrittenTechList": "LangChain4j, 双Agent, 评分Agent, 改写Agent"}" } for memoryId default
+2026-07-17 17:32:29.400 DEBUG [279656b3] com.jobagent.service.FactCheckTool       : checkTechStack called: original='Java 17, Spring Boot 3.2, LangChain4j 0.36, Spring AOP, Jackson, Jakarta Validation' rewritten='LangChain4j, 双Agent, 评分Agent, 改写Agent'
+2026-07-17 17:32:29.401 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 新增技术：双agent, 评分agent, 改写agent（原文未出现→疑似捏造）；遗漏技术：spring, java, aop, jackson, 17, 3.2, 0.36, boot, jakarta, validation（原文有但改写未提）；
+2026-07-17 17:32:29.401 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_01_tLCz9zMRDJGyVgpx9O619358", name = "checkTechStack", arguments = "{"originalTechList": "Java 17, Spring Boot 3.2, LangChain4j 0.36, Spring AOP, Jackson, Jakarta Validation", "rewrittenTechList": "Spring Boot 3.2, Spring AOP"}" } for memoryId default
+2026-07-17 17:32:29.401 DEBUG [279656b3] com.jobagent.service.FactCheckTool       : checkTechStack called: original='Java 17, Spring Boot 3.2, LangChain4j 0.36, Spring AOP, Jackson, Jakarta Validation' rewritten='Spring Boot 3.2, Spring AOP'
+2026-07-17 17:32:29.402 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 遗漏技术：langchain4j, java, jackson, 17, 0.36, jakarta, validation（原文有但改写未提）；
+2026-07-17 17:32:29.402 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_02_aQsYCDkMbIEzrt9mqVb93535", name = "checkTechStack", arguments = "{"originalTechList": "Java 17, Spring Boot 3.2, LangChain4j 0.36, Spring AOP, Jackson, Jakarta Validation", "rewrittenTechList": "Jakarta Validation, Jackson"}" } for memoryId default
+2026-07-17 17:32:29.402 DEBUG [279656b3] com.jobagent.service.FactCheckTool       : checkTechStack called: original='Java 17, Spring Boot 3.2, LangChain4j 0.36, Spring AOP, Jackson, Jakarta Validation' rewritten='Jakarta Validation, Jackson'
+2026-07-17 17:32:29.402 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 遗漏技术：spring, langchain4j, java, aop, 17, 3.2, 0.36, boot（原文有但改写未提）；
+2026-07-17 17:32:29.402 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : About to execute ToolExecutionRequest { id = "call_03_d1mHJDOoUcuLw7syoAcc3617", name = "checkTechStack", arguments = "{"originalTechList": "Java 17, Spring Boot 3.2, LangChain4j 0.36, Spring AOP, Jackson, Jakarta Validation", "rewrittenTechList": "Java 17"}" } for memoryId default
+2026-07-17 17:32:29.402 DEBUG [279656b3] com.jobagent.service.FactCheckTool       : checkTechStack called: original='Java 17, Spring Boot 3.2, LangChain4j 0.36, Spring AOP, Jackson, Jakarta Validation' rewritten='Java 17'
+2026-07-17 17:32:29.402 DEBUG [279656b3] d.l.service.tool.DefaultToolExecutor     : Tool execution result: 遗漏技术：spring, langchain4j, aop, jackson, 3.2, 0.36, boot, jakarta, validation（原文有但改写未提）；
+2026-07-17 17:32:44.108  WARN [279656b3] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/resume/optimize/full | args=[{"jdText":"# AI应用开发（Agent方向）岗位JD完整提取\n## 岗位核心总述\n聚焦核心业务场景，利用Agent等前沿技术推动AI落地。你将参与从需求洞察到系统构建的全流程，通过研发智能应用与工具，提升业务效率与效果，实现技术驱动业务增长的完整闭环，推动智能规模化演进，实现技术价值转化。\n\n## 工作职责\n1. **需求理解与归因**：深入业务场景，利用数据挖掘与特征分析... | cost=102393ms | ERROR=JsonSyntaxException:com.google.gson.stream.MalformedJsonException: Unterminated object at line 7 column 31 path $.violations[0].detail
+2026-07-17 17:32:44.112 ERROR [279656b3] c.j.exception.GlobalExceptionHandler     : Unhandled exception
+com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: Unterminated object at line 7 column 31 path $.violations[0].detail
+	at com.google.gson.Gson.fromJson(Gson.java:1241)
+	at com.google.gson.Gson.fromJson(Gson.java:1137)
+	at com.google.gson.Gson.fromJson(Gson.java:1047)
+	at com.google.gson.Gson.fromJson(Gson.java:1014)
+	at dev.langchain4j.internal.GsonJsonCodec.fromJson(GsonJsonCodec.java:108)
+	at dev.langchain4j.internal.Json.fromJson(Json.java:113)
+	at dev.langchain4j.service.output.ServiceOutputParser.parse(ServiceOutputParser.java:80)
+	at dev.langchain4j.service.DefaultAiServices$1.invoke(DefaultAiServices.java:286)
+	at jdk.proxy2/jdk.proxy2.$Proxy79.check(Unknown Source)
+	at com.jobagent.service.ResumeOptimizationService.runActorCritic(ResumeOptimizationService.java:220)
+	at com.jobagent.service.ResumeOptimizationService.optimizeFullResume(ResumeOptimizationService.java:152)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.jobagent.service.ResumeOptimizationService$$SpringCGLIB$$0.optimizeFullResume(<generated>)
+	at com.jobagent.controller.ResumeController.optimizeFull(ResumeController.java:63)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
+	at com.jobagent.aspect.WebLogAspect.logAround(WebLogAspect.java:87)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:637)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:627)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:71)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:173)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.jobagent.controller.ResumeController$$SpringCGLIB$$0.optimizeFull(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at com.jobagent.filter.TraceIdFilter.doFilterInternal(TraceIdFilter.java:53)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: com.google.gson.stream.MalformedJsonException: Unterminated object at line 7 column 31 path $.violations[0].detail
+	at com.google.gson.stream.JsonReader.syntaxError(JsonReader.java:1659)
+	at com.google.gson.stream.JsonReader.doPeek(JsonReader.java:500)
+	at com.google.gson.stream.JsonReader.hasNext(JsonReader.java:422)
+	at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter.read(ReflectiveTypeAdapterFactory.java:387)
+	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
+	at com.google.gson.internal.bind.CollectionTypeAdapterFactory$Adapter.read(CollectionTypeAdapterFactory.java:82)
+	at com.google.gson.internal.bind.CollectionTypeAdapterFactory$Adapter.read(CollectionTypeAdapterFactory.java:61)
+	at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$1.readIntoArray(ReflectiveTypeAdapterFactory.java:201)
+	at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$RecordAdapter.readField(ReflectiveTypeAdapterFactory.java:509)
+	at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$RecordAdapter.readField(ReflectiveTypeAdapterFactory.java:442)
+	at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter.read(ReflectiveTypeAdapterFactory.java:393)
+	at com.google.gson.Gson.fromJson(Gson.java:1227)
+	... 102 common frames omitted
+2026-07-17 17:34:05.899  INFO [no-trace] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 8.0.1.Final
+2026-07-17 17:34:05.926  INFO [no-trace] com.jobagent.JobAgentApplication         : Starting JobAgentApplication using Java 17.0.15 with PID 41557 (/root/java/AgentCV_Java/target/classes started by root in /root/java/AgentCV_Java)
+2026-07-17 17:34:05.926 DEBUG [no-trace] com.jobagent.JobAgentApplication         : Running with Spring Boot v3.2.12, Spring v6.1.15
+2026-07-17 17:34:05.926  INFO [no-trace] com.jobagent.JobAgentApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-07-17 17:34:06.389 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/FactCriticAgent.class]
+2026-07-17 17:34:06.389 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeScoringAgent.class]
+2026-07-17 17:34:06.390 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeWriterAgent.class]
+2026-07-17 17:34:06.787  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-07-17 17:34:06.796  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Initializing ProtocolHandler ["http-nio-8081"]
+2026-07-17 17:34:06.798  INFO [no-trace] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-07-17 17:34:06.799  INFO [no-trace] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-07-17 17:34:06.837  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-07-17 17:34:06.839  INFO [no-trace] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 872 ms
+2026-07-17 17:34:07.285  INFO [no-trace] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-07-17 17:34:07.595  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Starting ProtocolHandler ["http-nio-8081"]
+2026-07-17 17:34:07.613  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2026-07-17 17:34:07.620  INFO [no-trace] com.jobagent.JobAgentApplication         : Started JobAgentApplication in 2.096 seconds (process running for 2.337)
+2026-07-17 22:46:46.014  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-07-17 22:46:46.024  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-07-17 22:46:46.038  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
+2026-07-17 22:47:19.070  WARN [a362fcdc] com.jobagent.aspect.AiCallLogAspect      : [AI-CALL] score | jdLen=651 resumeLen=2164 | cost=32732ms | ERROR=JsonSyntaxException
+2026-07-17 22:47:19.071  WARN [a362fcdc] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/resume/score | args=[{"jdText":"# AI应用开发（Agent方向）岗位JD完整提取\n## 岗位核心总述\n聚焦核心业务场景，利用Agent等前沿技术推动AI落地。你将参与从需求洞察到系统构建的全流程，通过研发智能应用与工具，提升业务效率与效果，实现技术驱动业务增长的完整闭环，推动智能规模化演进，实现技术价值转化。\n\n## 工作职责\n1. **需求理解与归因**：深入业务场景，利用数据挖掘与特征分析... | cost=32762ms | ERROR=JsonSyntaxException:java.io.EOFException: End of input at line 16 column 2 path $.format
+2026-07-17 22:47:19.077 ERROR [a362fcdc] c.j.exception.GlobalExceptionHandler     : Unhandled exception
+com.google.gson.JsonSyntaxException: java.io.EOFException: End of input at line 16 column 2 path $.format
+	at com.google.gson.Gson.fromJson(Gson.java:1236)
+	at com.google.gson.Gson.fromJson(Gson.java:1137)
+	at com.google.gson.Gson.fromJson(Gson.java:1047)
+	at com.google.gson.Gson.fromJson(Gson.java:1014)
+	at dev.langchain4j.internal.GsonJsonCodec.fromJson(GsonJsonCodec.java:108)
+	at dev.langchain4j.internal.Json.fromJson(Json.java:113)
+	at dev.langchain4j.service.output.ServiceOutputParser.parse(ServiceOutputParser.java:80)
+	at dev.langchain4j.service.DefaultAiServices$1.invoke(DefaultAiServices.java:286)
+	at jdk.proxy2/jdk.proxy2.$Proxy77.score(Unknown Source)
+	at com.jobagent.service.ResumeOptimizationService.scoreOnly(ResumeOptimizationService.java:121)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
+	at com.jobagent.aspect.AiCallLogAspect.logScoreCall(AiCallLogAspect.java:37)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:637)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:627)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:71)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.jobagent.service.ResumeOptimizationService$$SpringCGLIB$$0.scoreOnly(<generated>)
+	at com.jobagent.controller.ResumeController.score(ResumeController.java:54)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
+	at com.jobagent.aspect.WebLogAspect.logAround(WebLogAspect.java:87)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:637)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:627)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:71)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:173)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.jobagent.controller.ResumeController$$SpringCGLIB$$0.score(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at com.jobagent.filter.TraceIdFilter.doFilterInternal(TraceIdFilter.java:53)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.io.EOFException: End of input at line 16 column 2 path $.format
+	at com.google.gson.stream.JsonReader.nextNonWhitespace(JsonReader.java:1457)
+	at com.google.gson.stream.JsonReader.doPeek(JsonReader.java:491)
+	at com.google.gson.stream.JsonReader.hasNext(JsonReader.java:422)
+	at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter.read(ReflectiveTypeAdapterFactory.java:387)
+	at com.google.gson.Gson.fromJson(Gson.java:1227)
+	... 112 common frames omitted
+2026-07-17 22:47:56.258  INFO [no-trace] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 8.0.1.Final
+2026-07-17 22:47:56.293  INFO [no-trace] com.jobagent.JobAgentApplication         : Starting JobAgentApplication using Java 17.0.15 with PID 178506 (/root/java/AgentCV_Java/target/classes started by root in /root/java/AgentCV_Java)
+2026-07-17 22:47:56.294 DEBUG [no-trace] com.jobagent.JobAgentApplication         : Running with Spring Boot v3.2.12, Spring v6.1.15
+2026-07-17 22:47:56.294  INFO [no-trace] com.jobagent.JobAgentApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-07-17 22:47:56.906 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/FactCriticAgent.class]
+2026-07-17 22:47:56.907 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeScoringAgent.class]
+2026-07-17 22:47:56.907 DEBUG [no-trace] d.l.s.spring.ClassPathAiServiceScanner   : Identified candidate component class: file [/root/java/AgentCV_Java/target/classes/com/jobagent/service/ResumeWriterAgent.class]
+2026-07-17 22:47:57.413  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-07-17 22:47:57.423  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Initializing ProtocolHandler ["http-nio-8081"]
+2026-07-17 22:47:57.426  INFO [no-trace] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-07-17 22:47:57.426  INFO [no-trace] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-07-17 22:47:57.476  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-07-17 22:47:57.478  INFO [no-trace] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1144 ms
+2026-07-17 22:47:58.059  INFO [no-trace] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-07-17 22:47:58.434  INFO [no-trace] o.a.coyote.http11.Http11NioProtocol      : Starting ProtocolHandler ["http-nio-8081"]
+2026-07-17 22:47:58.460  INFO [no-trace] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2026-07-17 22:47:58.468  INFO [no-trace] com.jobagent.JobAgentApplication         : Started JobAgentApplication in 2.704 seconds (process running for 3.026)
+2026-07-17 22:48:15.501  INFO [no-trace] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-07-17 22:48:15.501  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-07-17 22:48:15.503  INFO [no-trace] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-07-17 22:48:41.560  INFO [cd56d769] c.j.service.ResumeOptimizationService    : Quick score: overallScore=71, 25977ms
+2026-07-17 22:48:41.561  INFO [cd56d769] com.jobagent.aspect.AiCallLogAspect      : [AI-CALL] score | jdLen=651 resumeLen=2164 | cost=25978ms | overallScore=71
+2026-07-17 22:48:41.561  INFO [cd56d769] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/resume/score | args=[{"jdText":"# AI应用开发（Agent方向）岗位JD完整提取\n## 岗位核心总述\n聚焦核心业务场景，利用Agent等前沿技术推动AI落地。你将参与从需求洞察到系统构建的全流程，通过研发智能应用与工具，提升业务效率与效果，实现技术驱动业务增长的完整闭环，推动智能规模化演进，实现技术价值转化。\n\n## 工作职责\n1. **需求理解与归因**：深入业务场景，利用数据挖掘与特征分析... | cost=25988ms | status=OK
+2026-07-17 22:49:05.339  INFO [c5aaf2c3] c.j.service.ResumeOptimizationService    : Phase 1: scoring...
+2026-07-17 22:49:26.706  INFO [c5aaf2c3] c.j.service.ResumeOptimizationService    : Phase 1 done: overallScore=78
+2026-07-17 22:49:26.706  INFO [c5aaf2c3] c.j.service.ResumeOptimizationService    : Phase 2+3: rewrite + review (with score guidance)
+2026-07-17 22:49:26.706  INFO [c5aaf2c3] c.j.service.ResumeOptimizationService    : Actor-Critic round=1/2
+2026-07-17 22:50:00.859  WARN [c5aaf2c3] com.jobagent.aspect.AiCallLogAspect      : [AI-CALL] optimize | jdLen=651 resumeLen=2164 | cost=55520ms | ERROR=JsonSyntaxException
+2026-07-17 22:50:00.859  WARN [c5aaf2c3] com.jobagent.aspect.WebLogAspect         : [WEB] POST /api/v1/resume/optimize | args=[{"jdText":"# AI应用开发（Agent方向）岗位JD完整提取\n## 岗位核心总述\n聚焦核心业务场景，利用Agent等前沿技术推动AI落地。你将参与从需求洞察到系统构建的全流程，通过研发智能应用与工具，提升业务效率与效果，实现技术驱动业务增长的完整闭环，推动智能规模化演进，实现技术价值转化。\n\n## 工作职责\n1. **需求理解与归因**：深入业务场景，利用数据挖掘与特征分析... | cost=55521ms | ERROR=JsonSyntaxException:com.google.gson.stream.MalformedJsonException: Unterminated array at line 4 column 43 path $.rewrittenBulletPoints[2]
+2026-07-17 22:50:00.862 ERROR [c5aaf2c3] c.j.exception.GlobalExceptionHandler     : Unhandled exception
+com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: Unterminated array at line 4 column 43 path $.rewrittenBulletPoints[2]
+	at com.google.gson.Gson.fromJson(Gson.java:1241)
+	at com.google.gson.Gson.fromJson(Gson.java:1137)
+	at com.google.gson.Gson.fromJson(Gson.java:1047)
+	at com.google.gson.Gson.fromJson(Gson.java:1014)
+	at dev.langchain4j.internal.GsonJsonCodec.fromJson(GsonJsonCodec.java:108)
+	at dev.langchain4j.internal.Json.fromJson(Json.java:113)
+	at dev.langchain4j.service.output.ServiceOutputParser.parse(ServiceOutputParser.java:80)
+	at dev.langchain4j.service.DefaultAiServices$1.invoke(DefaultAiServices.java:286)
+	at jdk.proxy2/jdk.proxy2.$Proxy78.rewrite(Unknown Source)
+	at com.jobagent.service.ResumeOptimizationService.runActorCritic(ResumeOptimizationService.java:217)
+	at com.jobagent.service.ResumeOptimizationService.optimize(ResumeOptimizationService.java:59)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
+	at com.jobagent.aspect.AiCallLogAspect.logOptimizeCall(AiCallLogAspect.java:62)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:637)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:627)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:71)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.jobagent.service.ResumeOptimizationService$$SpringCGLIB$$0.optimize(<generated>)
+	at com.jobagent.controller.ResumeController.optimize(ResumeController.java:40)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
+	at com.jobagent.aspect.WebLogAspect.logAround(WebLogAspect.java:87)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:637)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:627)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:71)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:173)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.jobagent.controller.ResumeController$$SpringCGLIB$$0.optimize(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at com.jobagent.filter.TraceIdFilter.doFilterInternal(TraceIdFilter.java:53)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: com.google.gson.stream.MalformedJsonException: Unterminated array at line 4 column 43 path $.rewrittenBulletPoints[2]
+	at com.google.gson.stream.JsonReader.syntaxError(JsonReader.java:1659)
+	at com.google.gson.stream.JsonReader.doPeek(JsonReader.java:485)
+	at com.google.gson.stream.JsonReader.hasNext(JsonReader.java:422)
+	at com.google.gson.internal.bind.CollectionTypeAdapterFactory$Adapter.read(CollectionTypeAdapterFactory.java:81)
+	at com.google.gson.internal.bind.CollectionTypeAdapterFactory$Adapter.read(CollectionTypeAdapterFactory.java:61)
+	at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$1.readIntoArray(ReflectiveTypeAdapterFactory.java:201)
+	at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$RecordAdapter.readField(ReflectiveTypeAdapterFactory.java:509)
+	at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$RecordAdapter.readField(ReflectiveTypeAdapterFactory.java:442)
+	at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter.read(ReflectiveTypeAdapterFactory.java:393)
+	at com.google.gson.Gson.fromJson(Gson.java:1227)
+	... 113 common frames omitted

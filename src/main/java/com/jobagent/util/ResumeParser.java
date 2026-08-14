@@ -148,10 +148,69 @@ public final class ResumeParser {
                 projects, experience.trim(), other.toString().trim());
     }
 
+    /** 匹配 Markdown 标题行：### / ## / # 开头（项目标题通常用 ###） */
+    private static final Pattern MARKDOWN_HEADING = Pattern.compile(
+            "^#{1,3}\\s+"
+    );
+
+    /** 匹配 bullet point 编号行：数字 + 标点 + 可选空格 + ** 开头的内容（如 "1. **xxx**"、"2、**xxx**"） */
+    private static final Pattern BULLET_POINT_LINE = Pattern.compile(
+            "^[\\d一二三四五六七八九十]+[.、．)]\\s*\\*\\*"
+    );
+
     /**
      * 将项目段内容进一步拆分：按子标题或分隔符识别多个项目。
+     *
+     * <p>优先按 Markdown 标题层级（### / ##）预切分——能正确处理 Markdown 格式的简历。
+     * 没有 Markdown 标题时，退回到按数字/符号分隔符切分的原有逻辑。
      */
     private static List<ResumeSections.ProjectSection> splitProjects(String content) {
+        if (content.isBlank()) return List.of();
+
+        // 优先按 Markdown 标题预切分（能被 ### 标记的项目标题一定不是 bullet point）
+        String[] mdBlocks = content.split("(?m)^(?=#{1,3}\\s)", -1);
+        if (mdBlocks.length > 1) {
+            // 有 Markdown 标题：预切分后每块内部再用子切分逻辑处理
+            List<ResumeSections.ProjectSection> result = new ArrayList<>();
+            for (String mdBlock : mdBlocks) {
+                String trimmed = mdBlock.trim();
+                if (trimmed.isEmpty()) continue;
+
+                String[] lines = trimmed.split("\n", 2);
+                String title = lines[0].trim();
+                String body = lines.length > 1 ? lines[1].trim() : "";
+
+                if (body.isEmpty()) {
+                    // 只有标题没有 body——可能是 bullet point 被误识别，不做子切分
+                    result.add(new ResumeSections.ProjectSection(title, ""));
+                } else {
+                    // body 内可能有子项目分隔（如空行），用子切分逻辑处理
+                    List<ResumeSections.ProjectSection> sub = splitByDelimiter(body);
+                    if (sub.isEmpty()) {
+                        result.add(new ResumeSections.ProjectSection(title, body));
+                    } else {
+                        // 把子切分的结果作为 body 的一部分拼接
+                        StringBuilder mergedBody = new StringBuilder();
+                        for (ResumeSections.ProjectSection s : sub) {
+                            if (mergedBody.length() > 0) mergedBody.append('\n');
+                            mergedBody.append(s.title());
+                            if (!s.body().isEmpty()) mergedBody.append('\n').append(s.body());
+                        }
+                        result.add(new ResumeSections.ProjectSection(title, mergedBody.toString()));
+                    }
+                }
+            }
+            return result;
+        }
+
+        // 无 Markdown 标题：退回到原有逻辑
+        return splitByDelimiter(content);
+    }
+
+    /**
+     * 按数字/符号分隔符切分项目段（原有的切分逻辑，抽取为独立方法）。
+     */
+    private static List<ResumeSections.ProjectSection> splitByDelimiter(String content) {
         if (content.isBlank()) return List.of();
 
         List<ResumeSections.ProjectSection> result = new ArrayList<>();
@@ -173,6 +232,16 @@ public final class ResumeParser {
                 // 单行：整个作为 title，body 为空
                 body = "";
                 title = trimmed;
+            }
+
+            // 如果 title 是 bullet point 格式（如 "1. **xxx**"），合并到上一个项目
+            if (BULLET_POINT_LINE.matcher(title).find() && !result.isEmpty()) {
+                ResumeSections.ProjectSection last = result.remove(result.size() - 1);
+                String mergedBody = last.body().isEmpty()
+                        ? trimmed
+                        : last.body() + "\n" + trimmed;
+                result.add(new ResumeSections.ProjectSection(last.title(), mergedBody));
+                continue;
             }
 
             // 如果 title 太短（< 4 字），可能是误分割，合并到上一个

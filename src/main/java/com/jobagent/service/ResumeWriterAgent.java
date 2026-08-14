@@ -1,6 +1,5 @@
 package com.jobagent.service;
 
-import com.jobagent.model.WriterDraft;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.V;
@@ -13,9 +12,13 @@ import dev.langchain4j.service.spring.AiService;
  * "笼子"是原始项目经历的事实边界（只能使用原文已有的技术、数据和成果），
  * "跳舞"是用 STAR 法则优化语言表达使其更贴合 JD 的技术偏好。
  *
+ * <p>返回类型为 String 而非 WriterDraft：
+ * LangChain4j 的结构化输出底层使用 Gson 解析，遇到 LLM 输出的非标准 JSON
+ * 时会直接崩溃——四层防御 Pipeline 根本没机会执行。改为返回 String 后，
+ * 解析步骤收回 Java 侧，可复用四层防御并记录原始输出。
+ *
  * @see FactCriticAgent
  * @see ResumeOptimizationService
- * @see WriterDraft
  */
 @AiService
 public interface ResumeWriterAgent {
@@ -29,6 +32,11 @@ public interface ResumeWriterAgent {
             3. 若原文没有某项技术，绝对不允许在要点中出现该技术。
             4. 可以调整语言表达风格，使其更符合 JD 的技术偏好和 STAR 法则句式。
             5. 所有输出必须使用中文。技术名词（如 Redis、QPS、RocketMQ）可保留英文原名，但所有描述、动词、句式必须使用中文。严禁整段或整句输出英文。
+            
+            ★ 输出格式强制要求：
+            你必须输出一个严格的 JSON 对象，不要用 Markdown 代码块包裹，不要添加任何解释文字。
+            格式如下：
+            {"rewrittenBulletPoints": ["要点1", "要点2"], "optimizationReasons": ["原因1", "原因2"]}
             """)
     @UserMessage("""
             目标岗位 JD：
@@ -46,10 +54,10 @@ public interface ResumeWriterAgent {
      *
      * @param jdText              目标岗位 JD
      * @param originalProjectText 原始项目经历（唯一事实边界）
-     * @param criticFeedback      反馈文本：首轮为初始指令，后续轮为上一轮 Critic 的修正建议
-     * @return 结构化重写草稿，包含优化后的 bullet points 和各条改写原因
+     * @param criticFeedback      反馈文本：首轮为初始指令，后续为上一轮 Critic 的修正建议
+     * @return LLM 原始 JSON 字符串，由调用方做 extractJsonObject → FieldNameNormalizer → Jackson 解析
      */
-    WriterDraft rewrite(
+    String rewrite(
             @V("jdText") String jdText,
             @V("originalProjectText") String originalProjectText,
             @V("criticFeedback") String criticFeedback

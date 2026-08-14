@@ -1,10 +1,12 @@
 package com.jobagent.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jobagent.model.CriticReport;
 import com.jobagent.model.OptimizationReport;
 import com.jobagent.model.OptimizationReport.ScoreResult;
 import com.jobagent.model.Violation;
 import com.jobagent.model.WriterDraft;
+import com.jobagent.util.FieldNameNormalizer;
 import com.jobagent.util.ResumeParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -29,22 +32,26 @@ public class ResumeOptimizationService {
     private final ResumeScoringAgent scoringAgent;
     private final ResumeWriterAgent writerAgent;
     private final FactCriticAgent criticAgent;
+    private final ObjectMapper objectMapper;
     private final int maxRounds;
 
     @Autowired
     public ResumeOptimizationService(ResumeScoringAgent scoringAgent,
                                      ResumeWriterAgent writerAgent,
-                                     FactCriticAgent criticAgent) {
-        this(scoringAgent, writerAgent, criticAgent, DEFAULT_MAX_ROUNDS);
+                                     FactCriticAgent criticAgent,
+                                     ObjectMapper objectMapper) {
+        this(scoringAgent, writerAgent, criticAgent, objectMapper, DEFAULT_MAX_ROUNDS);
     }
 
     public ResumeOptimizationService(ResumeScoringAgent scoringAgent,
                                      ResumeWriterAgent writerAgent,
                                      FactCriticAgent criticAgent,
+                                     ObjectMapper objectMapper,
                                      int maxRounds) {
         this.scoringAgent = scoringAgent;
         this.writerAgent = writerAgent;
         this.criticAgent = criticAgent;
+        this.objectMapper = objectMapper;
         this.maxRounds = maxRounds;
     }
 
@@ -85,8 +92,9 @@ public class ResumeOptimizationService {
 
             for (int r = 0; r < maxRounds; r++) {
                 onEvent.accept(StreamEvent.of(StreamEvent.Type.WRITER_START, "第 " + (r + 1) + " 轮改写…"));
-                WriterDraft draft = writerAgent.rewrite(jdText, originalProjectText,
+                String rawJson = writerAgent.rewrite(jdText, originalProjectText,
                         buildFeedbackPrompt(r, feedback, scoreGuidance));
+                WriterDraft draft = parseWriterDraft(rawJson);
                 lastDraft = draft;
                 onEvent.accept(StreamEvent.of(StreamEvent.Type.WRITER_DONE, "草稿生成完成", draft));
 
@@ -163,9 +171,10 @@ public class ResumeOptimizationService {
         // 3b: 实习经历
         if (!sections.experience().isBlank()) {
             log.info("optimizeFullResume: rewriting experience...");
-            WriterDraft expDraft = writerAgent.rewrite(jdText, sections.experience(),
+            String expRaw = writerAgent.rewrite(jdText, sections.experience(),
                     "【仅调整句式与JD关键词对齐，保留所有原有技术栈和量化数据。不得改变角色定位。】"
                     + (scoreGuidance.isBlank() ? "" : "\n" + scoreGuidance));
+            WriterDraft expDraft = parseWriterDraft(expRaw);
             if (expDraft.rewrittenBulletPoints() != null && !expDraft.rewrittenBulletPoints().isEmpty()) {
                 rewrittenExperience = String.join("\n", expDraft.rewrittenBulletPoints());
             }
@@ -174,9 +183,10 @@ public class ResumeOptimizationService {
         // 3c: 技能列表
         if (!sections.skills().isBlank()) {
             log.info("optimizeFullResume: rewriting skills (conservative)...");
-            WriterDraft skillDraft = writerAgent.rewrite(jdText, sections.skills(),
+            String skillRaw = writerAgent.rewrite(jdText, sections.skills(),
                     "【严格保守：仅可调整技能排序和措辞，使JD关键词前置。严禁将'了解'升级为'熟悉'，将'熟悉'升级为'精通'。所有技能等级必须与原简历保持一致。】"
                     + (scoreGuidance.isBlank() ? "" : "\n" + scoreGuidance));
+            WriterDraft skillDraft = parseWriterDraft(skillRaw);
             if (skillDraft.rewrittenBulletPoints() != null && !skillDraft.rewrittenBulletPoints().isEmpty()) {
                 rewrittenSkills = String.join("\n", skillDraft.rewrittenBulletPoints());
             }
@@ -214,7 +224,8 @@ public class ResumeOptimizationService {
             String prompt = buildFeedbackPrompt(round, feedback, scoreGuidance);
             log.info("Actor-Critic round={}/{}", round + 1, maxRounds);
 
-            WriterDraft draft = writerAgent.rewrite(jdText, currentInput, prompt);
+            String rawJson = writerAgent.rewrite(jdText, currentInput, prompt);
+            WriterDraft draft = parseWriterDraft(rawJson);
             lastDraft = draft;
 
             CriticReport c = criticAgent.check(originalProjectText, formatBulletPoints(draft));
@@ -253,6 +264,40 @@ public class ResumeOptimizationService {
             sb.append(score.improvementAdvice());
         }
         return sb.length() > 15 ? sb.toString() : "";
+    }
+
+    /**
+     * 解析 Writer Agent 返回的 JSON 字符串为 WriterDraft。
+     *
+     * <p>方案 B 核心——绕过 LangChain4j 结构化输出的 Gson 解析，在 Java 侧用 Jackson 做宽松解析。
+     * 解析失败时记录原始输出日志，返回空 WriterDraft（不阻断请求）。
+     */
+    private WriterDraft parseWriterDraft(String rawJson) {
+        try {
+            // 第一层：剥 Markdown 包裹 / 噪声文本（复用 extractJsonObject 逻辑）
+            String json = extractJsonObject(rawJson);
+
+            // 第二层：字段名归一化（复用 FieldNameNormalizer）
+            json = FieldNameNormalizer.normalize(json);
+
+            // 第三层：Jackson 宽松解析（复用 JacksonConfig 的四宽松开关）
+            return objectMapper.readValue(json, WriterDraft.class);
+        } catch (Exception e) {
+            log.error("Writer JSON 解析失败，原始响应: {}", rawJson.substring(0, Math.min(rawJson.length(), 300)), e);
+            // 返回空对象，不阻断请求——后续 Critic 会发现 bullet 为空并标记不通过
+            return new WriterDraft(Collections.emptyList(), Collections.emptyList());
+        }
+    }
+
+    /** 从 LLM 输出中提取最外层 JSON 对象 */
+    private static String extractJsonObject(String raw) {
+        if (raw == null) return "{}";
+        int start = raw.indexOf('{');
+        int end = raw.lastIndexOf('}');
+        if (start >= 0 && end > start) {
+            return raw.substring(start, end + 1);
+        }
+        return raw; // 没有花括号，原样返回让 Jackson 尝试解析
     }
 
     private static String buildFeedbackPrompt(int round, String fb) {
